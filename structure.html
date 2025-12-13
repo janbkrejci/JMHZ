@@ -49,6 +49,7 @@
 
         <div class="p-4 bg-gray-50 border-b border-gray-200 text-xs text-gray-500">
             <strong>Tip pro slučování:</strong> Funkce "Sloučit data" načte vybraný JSON a aktualizuje nastavení (Skip,
+            New Only,
             Popis, Widget, Order, Width) u shodných atributů v aktuálním stromu. Žádné nové atributy nebudou přidány.
         </div>
         <div class="bg-white shadow rounded-lg border border-gray-200 overflow-hidden">
@@ -56,12 +57,15 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th <th
+                            <th
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-96">
                                 Atribut (Strom)</th>
                             <th
                                 class="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
                                 Skip</th>
+                            <th
+                                class="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
+                                New Only</th>
                             <th
                                 class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-64">
                                 Popis (Label)</th>
@@ -152,6 +156,7 @@
                                 if (source.order !== undefined) { node.order = source.order; changed = true; }
                                 if (source.width !== undefined) { node.width = source.width; changed = true; }
                                 if (source.skip !== undefined) { node.skip = source.skip; changed = true; }
+                                if (source.new_only !== undefined) { node.new_only = source.new_only; changed = true; }
                                 if (source.ciselnik !== undefined) { node.ciselnik = source.ciselnik; changed = true; }
 
                                 if (source.manual_parent !== undefined && source.manual_parent !== node.manual_parent) {
@@ -296,6 +301,21 @@
                     };
                     tdSkip.appendChild(chkSkip);
                     tr.appendChild(tdSkip);
+
+                    // 2b. New Only Checkbox
+                    const tdNewOnly = document.createElement('td');
+                    tdNewOnly.className = 'py-2 px-2 text-center align-middle';
+                    const chkNewOnly = document.createElement('input');
+                    chkNewOnly.type = 'checkbox';
+                    chkNewOnly.checked = node.new_only || false;
+                    chkNewOnly.className = 'rounded text-green-600 focus:ring-green-500 h-4 w-4 border-gray-300';
+                    chkNewOnly.disabled = node.skip;
+                    chkNewOnly.onchange = (e) => {
+                        node.new_only = e.target.checked;
+                        // Visual helper? maybe change row tint?
+                    };
+                    tdNewOnly.appendChild(chkNewOnly);
+                    tr.appendChild(tdNewOnly);
 
                     // 3. Description Input
                     const tdDesc = document.createElement('td');

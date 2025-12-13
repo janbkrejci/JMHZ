@@ -117,6 +117,7 @@ try:
         new_node = {
             "key": key,
             "skip": False,
+            "new_only": False,
             "description": "",
             "order": 100,      
             "children": []

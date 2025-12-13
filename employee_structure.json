@@ -2,12 +2,14 @@
   {
     "key": "employee",
     "skip": false,
+    "new_only": false,
     "description": "",
     "order": 100,
     "children": [
       {
         "key": "act",
         "skip": false,
+        "new_only": false,
         "description": "Číslo akce – určuje charakter požadované operace",
         "order": 100,
         "original_path": "employee.act",
@@ -29,18 +31,21 @@
       {
         "key": "attachs",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "attach",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "data",
                 "skip": false,
+                "new_only": false,
                 "description": "příloha – data",
                 "order": 100,
                 "original_path": "employee.attachs.attach.data",
@@ -62,6 +67,7 @@
               {
                 "key": "desc",
                 "skip": false,
+                "new_only": false,
                 "description": "příloha – popis",
                 "order": 100,
                 "original_path": "employee.attachs.attach.desc",
@@ -83,6 +89,7 @@
               {
                 "key": "name",
                 "skip": false,
+                "new_only": false,
                 "description": "příloha – název",
                 "order": 100,
                 "original_path": "employee.attachs.attach.name",
@@ -110,18 +117,21 @@
       {
         "key": "client",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "adr",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "cit",
                 "skip": false,
+                "new_only": false,
                 "description": "trvalý pobyt – obec",
                 "order": 100,
                 "original_path": "employee.client.adr.cit",
@@ -143,6 +153,7 @@
               {
                 "key": "cnt",
                 "skip": false,
+                "new_only": false,
                 "description": "trvalý pobyt – stát",
                 "order": 100,
                 "original_path": "employee.client.adr.cnt",
@@ -164,6 +175,7 @@
               {
                 "key": "num",
                 "skip": false,
+                "new_only": false,
                 "description": "trvalý pobyt – číslo popisné",
                 "order": 100,
                 "original_path": "employee.client.adr.num",
@@ -185,6 +197,7 @@
               {
                 "key": "onum",
                 "skip": false,
+                "new_only": false,
                 "description": "trvalý pobyt – číslo orientační",
                 "order": 100,
                 "original_path": "employee.client.adr.onum",
@@ -206,6 +219,7 @@
               {
                 "key": "pnu",
                 "skip": false,
+                "new_only": false,
                 "description": "trvalý pobyt – psč(postcode)",
                 "order": 100,
                 "original_path": "employee.client.adr.pnu",
@@ -227,6 +241,7 @@
               {
                 "key": "ruianpoint",
                 "skip": false,
+                "new_only": false,
                 "description": "trvalý pobyt – kód adresního místa",
                 "order": 100,
                 "original_path": "employee.client.adr.ruianpoint",
@@ -248,6 +263,7 @@
               {
                 "key": "str",
                 "skip": false,
+                "new_only": false,
                 "description": "trvalý pobyt – ulice",
                 "order": 100,
                 "original_path": "employee.client.adr.str",
@@ -272,12 +288,14 @@
           {
             "key": "birth",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "cit",
                 "skip": false,
+                "new_only": false,
                 "description": "místo narození",
                 "order": 100,
                 "original_path": "employee.client.birth.cit",
@@ -299,6 +317,7 @@
               {
                 "key": "dat",
                 "skip": false,
+                "new_only": false,
                 "description": "datum narození",
                 "order": 100,
                 "original_path": "employee.client.birth.dat",
@@ -320,6 +339,7 @@
               {
                 "key": "nam",
                 "skip": false,
+                "new_only": false,
                 "description": "rodné příjmení",
                 "order": 100,
                 "original_path": "employee.client.birth.nam",
@@ -341,6 +361,7 @@
               {
                 "key": "stat",
                 "skip": false,
+                "new_only": false,
                 "description": "stát narození",
                 "order": 100,
                 "original_path": "employee.client.birth.stat",
@@ -365,6 +386,7 @@
           {
             "key": "bno",
             "skip": false,
+            "new_only": false,
             "description": "Rodné číslo",
             "order": 100,
             "original_path": "employee.client.bno",
@@ -386,12 +408,14 @@
           {
             "key": "cdr",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "cit",
                 "skip": false,
+                "new_only": false,
                 "description": "kontaktní adresa – obec",
                 "order": 100,
                 "original_path": "employee.client.cdr.cit",
@@ -413,6 +437,7 @@
               {
                 "key": "cnt",
                 "skip": false,
+                "new_only": false,
                 "description": "kontaktní adresa – stát",
                 "order": 100,
                 "original_path": "employee.client.cdr.cnt",
@@ -434,6 +459,7 @@
               {
                 "key": "num",
                 "skip": false,
+                "new_only": false,
                 "description": "kontaktní adresa – číslo popisné.",
                 "order": 100,
                 "original_path": "employee.client.cdr.num",
@@ -455,6 +481,7 @@
               {
                 "key": "onum",
                 "skip": false,
+                "new_only": false,
                 "description": "kontaktní adresa– číslo orientační",
                 "order": 100,
                 "original_path": "employee.client.cdr.onum",
@@ -476,6 +503,7 @@
               {
                 "key": "pnu",
                 "skip": false,
+                "new_only": false,
                 "description": "kontaktní adresa – psč(postcode)",
                 "order": 100,
                 "original_path": "employee.client.cdr.pnu",
@@ -497,6 +525,7 @@
               {
                 "key": "ruianpoint",
                 "skip": false,
+                "new_only": false,
                 "description": "kontaktní adresa – kód adresního místa",
                 "order": 100,
                 "original_path": "employee.client.cdr.ruianpoint",
@@ -518,6 +547,7 @@
               {
                 "key": "str",
                 "skip": false,
+                "new_only": false,
                 "description": "kontaktní adresa – ulice",
                 "order": 100,
                 "original_path": "employee.client.cdr.str",
@@ -542,6 +572,7 @@
           {
             "key": "ecp",
             "skip": false,
+            "new_only": false,
             "description": "EČP (Evidenční číslo pojištěnce)",
             "order": 100,
             "original_path": "employee.client.ecp",
@@ -563,12 +594,14 @@
           {
             "key": "fdr",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "cit",
                 "skip": false,
+                "new_only": false,
                 "description": "pobyt v ČR - obec, je-li tr.pobyt mimo ČR",
                 "order": 100,
                 "original_path": "employee.client.fdr.cit",
@@ -590,6 +623,7 @@
               {
                 "key": "num",
                 "skip": false,
+                "new_only": false,
                 "description": "pobyt v ČR – číslo popisné, je-li tr.pobyt mimo ČR",
                 "order": 100,
                 "original_path": "employee.client.fdr.num",
@@ -611,6 +645,7 @@
               {
                 "key": "onum",
                 "skip": false,
+                "new_only": false,
                 "description": "pobyt v ČR – číslo orientační",
                 "order": 100,
                 "original_path": "employee.client.fdr.onum",
@@ -632,6 +667,7 @@
               {
                 "key": "pnu",
                 "skip": false,
+                "new_only": false,
                 "description": "pobyt v ČR – psč, je-li tr.pobyt mimo ČR",
                 "order": 100,
                 "original_path": "employee.client.fdr.pnu",
@@ -653,6 +689,7 @@
               {
                 "key": "ruianpoint",
                 "skip": false,
+                "new_only": false,
                 "description": "pobyt v ČR – kód adresního místa",
                 "order": 100,
                 "original_path": "employee.client.fdr.ruianpoint",
@@ -674,6 +711,7 @@
               {
                 "key": "str",
                 "skip": false,
+                "new_only": false,
                 "description": "pobyt v ČR – ulice, je-li tr.pobyt mimo ČR",
                 "order": 100,
                 "original_path": "employee.client.fdr.str",
@@ -698,6 +736,7 @@
           {
             "key": "ikmpsv",
             "skip": false,
+            "new_only": false,
             "description": "IK MPSV (Osobní identifikační číslo - OIČ)",
             "order": 100,
             "original_path": "employee.client.ikmpsv",
@@ -719,12 +758,14 @@
           {
             "key": "name",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "fir",
                 "skip": false,
+                "new_only": false,
                 "description": "jméno",
                 "order": 100,
                 "original_path": "employee.client.name.fir",
@@ -746,6 +787,7 @@
               {
                 "key": "ona",
                 "skip": false,
+                "new_only": false,
                 "description": "dřívější příjmení",
                 "order": 100,
                 "original_path": "employee.client.name.ona",
@@ -767,6 +809,7 @@
               {
                 "key": "sur",
                 "skip": false,
+                "new_only": false,
                 "description": "příjmení",
                 "order": 100,
                 "original_path": "employee.client.name.sur",
@@ -788,6 +831,7 @@
               {
                 "key": "tit",
                 "skip": false,
+                "new_only": false,
                 "description": "titul",
                 "order": 100,
                 "original_path": "employee.client.name.tit",
@@ -812,12 +856,14 @@
           {
             "key": "proofid",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "foreigninst",
                 "skip": false,
+                "new_only": false,
                 "description": "orgán, který vydal doklad v zahraničí",
                 "order": 100,
                 "original_path": "employee.client.proofid.foreigninst",
@@ -839,6 +885,7 @@
               {
                 "key": "num",
                 "skip": false,
+                "new_only": false,
                 "description": "číslo dokladu",
                 "order": 100,
                 "original_path": "employee.client.proofid.num",
@@ -860,6 +907,7 @@
               {
                 "key": "stat",
                 "skip": false,
+                "new_only": false,
                 "description": "kód státu, který doklady vydal",
                 "order": 100,
                 "original_path": "employee.client.proofid.stat",
@@ -881,6 +929,7 @@
               {
                 "key": "type",
                 "skip": false,
+                "new_only": false,
                 "description": "typ dokladu",
                 "order": 100,
                 "original_path": "employee.client.proofid.type",
@@ -905,12 +954,14 @@
           {
             "key": "rdr",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "cit",
                 "skip": false,
+                "new_only": false,
                 "description": "adresa bydliště ve státě, jehož je zaměstnanec rezidentem - obec",
                 "order": 100,
                 "original_path": "employee.client.rdr.cit",
@@ -932,6 +983,7 @@
               {
                 "key": "cnt",
                 "skip": false,
+                "new_only": false,
                 "description": "adresa bydliště ve státě, jehož je zaměstnanec rezidentem - stát",
                 "order": 100,
                 "original_path": "employee.client.rdr.cnt",
@@ -953,6 +1005,7 @@
               {
                 "key": "num",
                 "skip": false,
+                "new_only": false,
                 "description": "adresa bydliště ve státě, jehož je zaměstnanec rezidentem - číslo popisné",
                 "order": 100,
                 "original_path": "employee.client.rdr.num",
@@ -974,6 +1027,7 @@
               {
                 "key": "onum",
                 "skip": false,
+                "new_only": false,
                 "description": "adresa bydliště ve státě, jehož je zaměstnanec rezidentem - číslo orientační",
                 "order": 100,
                 "original_path": "employee.client.rdr.onum",
@@ -995,6 +1049,7 @@
               {
                 "key": "pnu",
                 "skip": false,
+                "new_only": false,
                 "description": "adresa bydliště ve státě, jehož je zaměstnanec rezidentem - psč (postcode)",
                 "order": 100,
                 "original_path": "employee.client.rdr.pnu",
@@ -1016,6 +1071,7 @@
               {
                 "key": "str",
                 "skip": false,
+                "new_only": false,
                 "description": "adresa bydliště ve státě, jehož je zaměstnanec rezidentem - ulice",
                 "order": 100,
                 "original_path": "employee.client.rdr.str",
@@ -1040,12 +1096,14 @@
           {
             "key": "stat",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "cnt",
                 "skip": false,
+                "new_only": false,
                 "description": "státní občanství",
                 "order": 100,
                 "original_path": "employee.client.stat.cnt",
@@ -1067,6 +1125,7 @@
               {
                 "key": "mal",
                 "skip": false,
+                "new_only": false,
                 "description": "pohlaví",
                 "order": 100,
                 "original_path": "employee.client.stat.mal",
@@ -1091,12 +1150,14 @@
           {
             "key": "taxidrezid",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "num",
                 "skip": false,
+                "new_only": false,
                 "description": "daňový identifikátor ve státě rezidence",
                 "order": 100,
                 "original_path": "employee.client.taxidrezid.num",
@@ -1118,6 +1179,7 @@
               {
                 "key": "stat",
                 "skip": false,
+                "new_only": false,
                 "description": "kód státu rezidenství",
                 "order": 100,
                 "original_path": "employee.client.taxidrezid.stat",
@@ -1139,6 +1201,7 @@
               {
                 "key": "type",
                 "skip": false,
+                "new_only": false,
                 "description": "typ daňové identifikace",
                 "order": 100,
                 "original_path": "employee.client.taxidrezid.type",
@@ -1163,6 +1226,7 @@
           {
             "key": "vcp",
             "skip": false,
+            "new_only": false,
             "description": "VČP",
             "order": 100,
             "original_path": "employee.client.vcp",
@@ -1187,12 +1251,14 @@
       {
         "key": "comp",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "nam",
             "skip": false,
+            "new_only": false,
             "description": "název zaměstnavatele",
             "order": 100,
             "original_path": "employee.comp.nam",
@@ -1214,6 +1280,7 @@
           {
             "key": "vs",
             "skip": false,
+            "new_only": false,
             "description": "variabilní symbol zaměstnavatele",
             "order": 100,
             "original_path": "employee.comp.vs",
@@ -1238,6 +1305,7 @@
       {
         "key": "dat",
         "skip": false,
+        "new_only": false,
         "description": "datum vyplnění (vyhotovení) dat. věty",
         "order": 100,
         "original_path": "employee.dat",
@@ -1259,6 +1327,7 @@
       {
         "key": "dep",
         "skip": false,
+        "new_only": false,
         "description": "číslo okresu (org. jednotky ČSSZ)",
         "order": 100,
         "original_path": "employee.dep",
@@ -1280,18 +1349,21 @@
       {
         "key": "fact",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "healtrest",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "fro",
                 "skip": false,
+                "new_only": false,
                 "description": "zdravotní omezení přiznané od",
                 "order": 100,
                 "original_path": "employee.fact.healtrest.fro",
@@ -1313,6 +1385,7 @@
               {
                 "key": "to",
                 "skip": false,
+                "new_only": false,
                 "description": "zdravotní omezení přiznané do",
                 "order": 100,
                 "original_path": "employee.fact.healtrest.to",
@@ -1334,6 +1407,7 @@
               {
                 "key": "type",
                 "skip": false,
+                "new_only": false,
                 "description": "typ zdravotního omezení",
                 "order": 100,
                 "original_path": "employee.fact.healtrest.type",
@@ -1358,6 +1432,7 @@
           {
             "key": "highedu",
             "skip": false,
+            "new_only": false,
             "description": "nejvyšší dosažené vzdělání podle KKOV",
             "order": 100,
             "original_path": "employee.fact.highedu",
@@ -1379,6 +1454,7 @@
           {
             "key": "ztp",
             "skip": false,
+            "new_only": false,
             "description": "držitel karty ZTP/P",
             "order": 100,
             "original_path": "employee.fact.ztp",
@@ -1403,12 +1479,14 @@
       {
         "key": "forin",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "cit",
             "skip": false,
+            "new_only": false,
             "description": "informace o cizozemském nositeli pojištění – obec",
             "order": 100,
             "original_path": "employee.forin.cit",
@@ -1430,6 +1508,7 @@
           {
             "key": "cnt",
             "skip": false,
+            "new_only": false,
             "description": "informace o cizozemském nositeli pojištění – stát",
             "order": 100,
             "original_path": "employee.forin.cnt",
@@ -1451,6 +1530,7 @@
           {
             "key": "cur",
             "skip": false,
+            "new_only": false,
             "description": "informace o cizozemském nositeli pojištění – specifikace",
             "order": 100,
             "original_path": "employee.forin.cur",
@@ -1472,6 +1552,7 @@
           {
             "key": "id",
             "skip": false,
+            "new_only": false,
             "description": "informace o cizozemském nositeli pojištění – číslo cizozemského pojištění",
             "order": 100,
             "original_path": "employee.forin.id",
@@ -1493,6 +1574,7 @@
           {
             "key": "nam",
             "skip": false,
+            "new_only": false,
             "description": "informace o cizozemském nositeli pojištění – název",
             "order": 100,
             "original_path": "employee.forin.nam",
@@ -1514,6 +1596,7 @@
           {
             "key": "num",
             "skip": false,
+            "new_only": false,
             "description": "informace o cizozemském nositeli pojištění – číslo popisné.",
             "order": 100,
             "original_path": "employee.forin.num",
@@ -1535,6 +1618,7 @@
           {
             "key": "onum",
             "skip": false,
+            "new_only": false,
             "description": "informace o cizozemském nositeli pojištění – číslo orientační.",
             "order": 100,
             "original_path": "employee.forin.onum",
@@ -1556,6 +1640,7 @@
           {
             "key": "pnu",
             "skip": false,
+            "new_only": false,
             "description": "informace o cizozemském nositeli pojištění – postcode",
             "order": 100,
             "original_path": "employee.forin.pnu",
@@ -1577,6 +1662,7 @@
           {
             "key": "sec",
             "skip": false,
+            "new_only": false,
             "description": "sektor (účel pojištění)",
             "order": 100,
             "original_path": "employee.forin.sec",
@@ -1598,6 +1684,7 @@
           {
             "key": "str",
             "skip": false,
+            "new_only": false,
             "description": "informace o cizozemském nositeli pojištění – ulice",
             "order": 100,
             "original_path": "employee.forin.str",
@@ -1622,12 +1709,14 @@
       {
         "key": "forinreg",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "juris",
             "skip": false,
+            "new_only": false,
             "description": "příslušnost k cizím právním předpisům",
             "order": 100,
             "original_path": "employee.forinreg.juris",
@@ -1649,6 +1738,7 @@
           {
             "key": "state",
             "skip": false,
+            "new_only": false,
             "description": "kód státu",
             "order": 100,
             "original_path": "employee.forinreg.state",
@@ -1673,12 +1763,14 @@
       {
         "key": "insh",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "cnr",
             "skip": false,
+            "new_only": false,
             "description": "kód zdravotní pojišťovny",
             "order": 100,
             "original_path": "employee.insh.cnr",
@@ -1703,12 +1795,14 @@
       {
         "key": "inso",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "nam",
             "skip": false,
+            "new_only": false,
             "description": "název současného orgánu nem. pojištění (mimo ČSSZ)",
             "order": 100,
             "original_path": "employee.inso.nam",
@@ -1733,12 +1827,14 @@
       {
         "key": "insp",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "nam",
             "skip": false,
+            "new_only": false,
             "description": "název předchozího orgánu nem. pojištění (mimo ČSSZ)",
             "order": 100,
             "original_path": "employee.insp.nam",
@@ -1763,12 +1859,14 @@
       {
         "key": "job",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "cit",
             "skip": false,
+            "new_only": false,
             "description": "Název obce",
             "order": 100,
             "original_path": "employee.job.cit",
@@ -1790,6 +1888,7 @@
           {
             "key": "cont",
             "skip": false,
+            "new_only": false,
             "description": "nepřetržitý provoz",
             "order": 100,
             "original_path": "employee.job.cont",
@@ -1811,6 +1910,7 @@
           {
             "key": "contractfro",
             "skip": false,
+            "new_only": false,
             "description": "vznik zaměstnání",
             "order": 100,
             "original_path": "employee.job.contractfro",
@@ -1832,6 +1932,7 @@
           {
             "key": "contractplace",
             "skip": false,
+            "new_only": false,
             "description": "Místo výkonu práce uvedené v pracovní smlouvě zaměstnance",
             "order": 100,
             "original_path": "employee.job.contractplace",
@@ -1853,6 +1954,7 @@
           {
             "key": "endbydeath",
             "skip": false,
+            "new_only": false,
             "description": "zaměstnání ukončeno smrtí",
             "order": 100,
             "original_path": "employee.job.endbydeath",
@@ -1874,6 +1976,7 @@
           {
             "key": "fro",
             "skip": false,
+            "new_only": false,
             "description": "datum nástupu do zaměstnání",
             "order": 100,
             "original_path": "employee.job.fro",
@@ -1895,6 +1998,7 @@
           {
             "key": "municode",
             "skip": false,
+            "new_only": false,
             "description": "Kód obce",
             "order": 100,
             "original_path": "employee.job.municode",
@@ -1916,6 +2020,7 @@
           {
             "key": "place",
             "skip": false,
+            "new_only": false,
             "description": "práce probíhá převážně",
             "order": 100,
             "original_path": "employee.job.place",
@@ -1937,12 +2042,14 @@
           {
             "key": "position",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "lead",
                 "skip": false,
+                "new_only": false,
                 "description": "vedoucí zaměstnanec",
                 "order": 100,
                 "original_path": "employee.job.position.lead",
@@ -1964,6 +2071,7 @@
               {
                 "key": "name",
                 "skip": false,
+                "new_only": false,
                 "description": "název pozice",
                 "order": 100,
                 "original_path": "employee.job.position.name",
@@ -1988,6 +2096,7 @@
           {
             "key": "preplace",
             "skip": false,
+            "new_only": false,
             "description": "Předpokládané/á místo/a výkonu práce",
             "order": 100,
             "original_path": "employee.job.preplace",
@@ -2009,12 +2118,14 @@
           {
             "key": "prof",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "clas",
                 "skip": false,
+                "new_only": false,
                 "description": "Profese",
                 "order": 100,
                 "original_path": "employee.job.prof.clas",
@@ -2036,6 +2147,7 @@
               {
                 "key": "edu",
                 "skip": false,
+                "new_only": false,
                 "description": "Vzdělání požadované pro výkon profese",
                 "order": 100,
                 "original_path": "employee.job.prof.edu",
@@ -2060,6 +2172,7 @@
           {
             "key": "rel",
             "skip": false,
+            "new_only": false,
             "description": "druh výdělečné činnosti",
             "order": 100,
             "original_path": "employee.job.rel",
@@ -2081,6 +2194,7 @@
           {
             "key": "reldetail",
             "skip": false,
+            "new_only": false,
             "description": "Bližší určení pracovně právního vztahu",
             "order": 100,
             "original_path": "employee.job.reldetail",
@@ -2102,6 +2216,7 @@
           {
             "key": "sme",
             "skip": false,
+            "new_only": false,
             "description": "zaměstnání malého rozsahu",
             "order": 100,
             "original_path": "employee.job.sme",
@@ -2123,6 +2238,7 @@
           {
             "key": "to",
             "skip": false,
+            "new_only": false,
             "description": "datum skončení zaměstnání",
             "order": 100,
             "original_path": "employee.job.to",
@@ -2144,6 +2260,7 @@
           {
             "key": "workmode",
             "skip": false,
+            "new_only": false,
             "description": "pracovní režim",
             "order": 100,
             "original_path": "employee.job.workmode",
@@ -2168,6 +2285,7 @@
       {
         "key": "job@relat",
         "skip": false,
+        "new_only": false,
         "description": "postavení v zaměstnání",
         "order": 100,
         "original_path": "employee.job@relat",
@@ -2189,12 +2307,14 @@
       {
         "key": "nocitizen",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "freeacc",
             "skip": false,
+            "new_only": false,
             "description": "volný přístup na trh práce",
             "order": 100,
             "original_path": "employee.nocitizen.freeacc",
@@ -2216,6 +2336,7 @@
           {
             "key": "issue",
             "skip": false,
+            "new_only": false,
             "description": "vydala Krajská pobočka ÚP ČR",
             "order": 100,
             "original_path": "employee.nocitizen.issue",
@@ -2237,6 +2358,7 @@
           {
             "key": "perm",
             "skip": false,
+            "new_only": false,
             "description": "Důvod pro volný přístup na trh práce",
             "order": 100,
             "original_path": "employee.nocitizen.perm",
@@ -2258,6 +2380,7 @@
           {
             "key": "permfro",
             "skip": false,
+            "new_only": false,
             "description": "trvání oprávnění od",
             "order": 100,
             "original_path": "employee.nocitizen.permfro",
@@ -2279,6 +2402,7 @@
           {
             "key": "permid",
             "skip": false,
+            "new_only": false,
             "description": "identifikátor pracovního oprávnění",
             "order": 100,
             "original_path": "employee.nocitizen.permid",
@@ -2300,6 +2424,7 @@
           {
             "key": "permto",
             "skip": false,
+            "new_only": false,
             "description": "trvání oprávnění do",
             "order": 100,
             "original_path": "employee.nocitizen.permto",
@@ -2321,6 +2446,7 @@
           {
             "key": "permtype",
             "skip": false,
+            "new_only": false,
             "description": "druh pracovního oprávnění",
             "order": 100,
             "original_path": "employee.nocitizen.permtype",
@@ -2345,12 +2471,14 @@
       {
         "key": "pens",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "early",
             "skip": false,
+            "new_only": false,
             "description": "poživatel předčasného starobního důchodu",
             "order": 100,
             "original_path": "employee.pens.early",
@@ -2372,6 +2500,7 @@
           {
             "key": "reducedage",
             "skip": false,
+            "new_only": false,
             "description": "Poživatel starobního důchodu se sníženým důchodovým věkem",
             "order": 100,
             "original_path": "employee.pens.reducedage",
@@ -2393,6 +2522,7 @@
           {
             "key": "tak",
             "skip": false,
+            "new_only": false,
             "description": "důchod pobírán od",
             "order": 100,
             "original_path": "employee.pens.tak",
@@ -2414,6 +2544,7 @@
           {
             "key": "typ",
             "skip": false,
+            "new_only": false,
             "description": "druh pobíraného důchodu",
             "order": 100,
             "original_path": "employee.pens.typ",
@@ -2438,6 +2569,7 @@
       {
         "key": "sqnr",
         "skip": false,
+        "new_only": false,
         "description": "pořadové číslo věty v podání",
         "order": 100,
         "original_path": "employee.sqnr",
@@ -2459,12 +2591,14 @@
       {
         "key": "unemplcomp",
         "skip": false,
+        "new_only": false,
         "description": "",
         "order": 100,
         "children": [
           {
             "key": "avgmonear",
             "skip": false,
+            "new_only": false,
             "description": "podpora v nezaměstnanosti – průměrný čistý měsíční výdělek",
             "order": 100,
             "original_path": "employee.unemplcomp.avgmonear",
@@ -2486,6 +2620,7 @@
           {
             "key": "belong",
             "skip": false,
+            "new_only": false,
             "description": "podpora v nezaměstnanosti – odchodné/odbytné/odstupné náleží",
             "order": 100,
             "original_path": "employee.unemplcomp.belong",
@@ -2507,6 +2642,7 @@
           {
             "key": "disposal",
             "skip": false,
+            "new_only": false,
             "description": "Odbytné",
             "order": 100,
             "original_path": "employee.unemplcomp.disposal",
@@ -2528,6 +2664,7 @@
           {
             "key": "earlyterm",
             "skip": false,
+            "new_only": false,
             "description": "Důvod předčasného ukončení",
             "order": 100,
             "original_path": "employee.unemplcomp.earlyterm",
@@ -2549,6 +2686,7 @@
           {
             "key": "fullpay",
             "skip": false,
+            "new_only": false,
             "description": "podpora v nezaměstnanosti – odchodné/odbytné/odstupné vyplaceno v plné výši",
             "order": 100,
             "original_path": "employee.unemplcomp.fullpay",
@@ -2570,6 +2708,7 @@
           {
             "key": "goldenhandshake",
             "skip": false,
+            "new_only": false,
             "description": "Odstupné podle § 67 odst. 1 ZP",
             "order": 100,
             "original_path": "employee.unemplcomp.goldenhandshake",
@@ -2591,12 +2730,14 @@
           {
             "key": "pensionperiod",
             "skip": false,
+            "new_only": false,
             "description": "",
             "order": 100,
             "children": [
               {
                 "key": "fro",
                 "skip": false,
+                "new_only": false,
                 "description": "podpora v nezaměstnanosti – doba důchodového pojištění od",
                 "order": 100,
                 "original_path": "employee.unemplcomp.pensionperiod.fro",
@@ -2618,6 +2759,7 @@
               {
                 "key": "to",
                 "skip": false,
+                "new_only": false,
                 "description": "podpora v nezaměstnanosti – doba důchodového pojištění do",
                 "order": 100,
                 "original_path": "employee.unemplcomp.pensionperiod.to",
@@ -2642,6 +2784,7 @@
           {
             "key": "replacement",
             "skip": false,
+            "new_only": false,
             "description": "Jednorázová náhrada při skončení pracovního poměru (§271ca ZP)",
             "order": 100,
             "original_path": "employee.unemplcomp.replacement",
@@ -2663,6 +2806,7 @@
           {
             "key": "rsn",
             "skip": false,
+            "new_only": false,
             "description": "podpora v nezaměstnanosti – důvod neposkytnutí podkladů",
             "order": 100,
             "original_path": "employee.unemplcomp.rsn",
@@ -2684,6 +2828,7 @@
           {
             "key": "rsnterempl",
             "skip": false,
+            "new_only": false,
             "description": "podpora v nezaměstnanosti – důvod ukončení pracovněprávního vztahu",
             "order": 100,
             "original_path": "employee.unemplcomp.rsnterempl",
@@ -2705,6 +2850,7 @@
           {
             "key": "rsnterrel",
             "skip": false,
+            "new_only": false,
             "description": "podpora v nezaměstnanosti – důvod ukončení služebního poměru",
             "order": 100,
             "original_path": "employee.unemplcomp.rsnterrel",
@@ -2726,6 +2872,7 @@
           {
             "key": "severancepay",
             "skip": false,
+            "new_only": false,
             "description": "Odchodné",
             "order": 100,
             "original_path": "employee.unemplcomp.severancepay",
@@ -2747,6 +2894,7 @@
           {
             "key": "typeempl",
             "skip": false,
+            "new_only": false,
             "description": "podpora v nezaměstnanosti – druh zaměstnání",
             "order": 100,
             "original_path": "employee.unemplcomp.typeempl",
