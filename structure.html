@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structure Editor | Registrace zaměstnance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tree-line {
+            border-left: 1px solid #cbd5e1;
+        }
+
+        .node-row:hover {
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-slate-800 pb-20">
+
+    <div class="max-w-[1600px] mx-auto px-4 py-8">
+
+        <div class="flex justify-between items-center mb-6 sticky top-0 bg-gray-50 z-10 py-4 border-b border-gray-200">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900">Editor Struktury Formuláře</h1>
+                <p class="text-sm text-slate-500">Úprava employee_structure.json (Skip, Popis, Widget, Order, Width)</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="loadData()"
+                    class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded shadow-sm text-sm font-medium">
+                    Načíst JSON
+                </button>
+                <div class="relative">
+                    <button onclick="document.getElementById('file-merge').click()"
+                        class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded shadow-sm text-sm font-medium">
+                        Sloučit data...
+                    </button>
+                    <input type="file" id="file-merge" class="hidden" accept=".json" onchange="handleMergeUpload(this)">
+                </div>
+                <button onclick="exportData()"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded shadow-sm text-sm font-medium">
+                    Stáhnout employee_structure_edited.json
+                </button>
+            </div>
+        </div>
+
+        <div id="status" class="hidden mb-4 p-4 rounded text-sm"></div>
+
+        <div class="p-4 bg-gray-50 border-b border-gray-200 text-xs text-gray-500">
+            <strong>Tip pro slučování:</strong> Funkce "Sloučit data" načte vybraný JSON a aktualizuje nastavení (Skip,
+            Popis, Widget, Order, Width) u shodných atributů v aktuálním stromu. Žádné nové atributy nebudou přidány.
+        </div>
+        <div class="bg-white shadow rounded-lg border border-gray-200 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-96">
+                                Atribut (Strom)</th>
+                            <th
+                                class="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
+                                Skip</th>
+                            <th
+                                class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-64">
+                                Popis (Label)</th>
+                            <th
+                                class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                                Widget</th>
+                            <th
+                                class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                                Číselník</th>
+                            <th
+                                class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                                Manual Parent</th>
+                            <th
+                                class="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
+                                Order</th>
+                            <th
+                                class="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
+                                Width (1-12)</th>
+                            <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Excel Info</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody" class="bg-white divide-y divide-gray-200">
+                        <!-- Rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let rootData = [];
+
+        async function loadData() {
+            try {
+                const res = await fetch('employee_structure.json');
+                if (!res.ok) throw new Error('Failed to load file');
+                rootData = await res.json();
+                render();
+                showStatus('Načteno employee_structure.json', 'green');
+            } catch (e) {
+                showStatus('Chyba při načítání: ' + e.message, 'red');
+            }
+        }
+
+        function handleMergeUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const mergeData = JSON.parse(e.target.result);
+                    const stats = { updated: 0, moved: 0 };
+
+                    // Maps for lookup
+                    const pathMap = new Map();
+                    const idMap = new Map();
+
+                    function buildMap(nodes, prefix = '') {
+                        nodes.forEach(node => {
+                            const path = prefix ? `${prefix}.${node.key}` : node.key;
+                            pathMap.set(path, node);
+                            if (node.id) idMap.set(String(node.id), node);
+
+                            if (node.children) buildMap(node.children, path);
+                        });
+                    }
+                    buildMap(mergeData);
+
+                    // Recursive merge function
+                    function traverseAndMerge(nodes, prefix = '', parentArray = null) {
+                        [...nodes].forEach(node => {
+                            const path = prefix ? `${prefix}.${node.key}` : node.key;
+
+                            let source = null;
+                            if (node.id && idMap.has(String(node.id))) {
+                                source = idMap.get(String(node.id));
+                            } else if (pathMap.has(path)) {
+                                source = pathMap.get(path);
+                            }
+
+                            if (source) {
+                                let changed = false;
+                                if (source.description !== undefined) { node.description = source.description; changed = true; }
+                                if (source.widget !== undefined) { node.widget = source.widget; changed = true; }
+                                if (source.order !== undefined) { node.order = source.order; changed = true; }
+                                if (source.width !== undefined) { node.width = source.width; changed = true; }
+                                if (source.skip !== undefined) { node.skip = source.skip; changed = true; }
+                                if (source.ciselnik !== undefined) { node.ciselnik = source.ciselnik; changed = true; }
+
+                                if (source.manual_parent !== undefined && source.manual_parent !== node.manual_parent) {
+                                    node.manual_parent = source.manual_parent;
+                                    changed = true;
+                                    if (node.manual_parent && parentArray) {
+                                        moveNode(node, node.manual_parent, parentArray);
+                                        stats.moved++;
+                                    }
+                                }
+
+                                if (changed) stats.updated++;
+                            }
+
+                            if (node.children) traverseAndMerge(node.children, path, node.children);
+                        });
+                    }
+
+                    traverseAndMerge(rootData, '', rootData);
+                    render();
+                    showStatus(`Sloučeno úspěšně. Aktualizováno ${stats.updated}, přesunuto ${stats.moved} atributů.`, 'blue');
+
+                } catch (err) {
+                    showStatus('Chyba parsování JSON pro sloučení: ' + err.message, 'red');
+                    console.error(err);
+                }
+            };
+            reader.readAsText(file);
+            input.value = '';
+        }
+
+        // Toggle collapse state
+        function toggleCollapse(path) {
+            const node = findNodeByPath(rootData, path);
+            if (node) {
+                node._collapsed = !node._collapsed;
+                render();
+            }
+        }
+
+        function moveNode(node, targetPath, sourceArray) {
+            let actualTargetPath = targetPath;
+
+            // If targetPath is empty (revert), ensure we have original_path
+            if (!actualTargetPath) {
+                if (node.original_path) {
+                    // Parent path is original_path minus the last key
+                    const parts = node.original_path.split('.');
+                    if (parts.length > 1) {
+                        parts.pop(); // remove self
+                        actualTargetPath = parts.join('.');
+                    } else {
+                        // Root item? 
+                        return; // Can't revert to root array easily here without specific logic
+                    }
+                } else {
+                    return; // No original path, can't revert
+                }
+            }
+
+            let targetParent = findNodeByPath(rootData, actualTargetPath);
+
+            // Check if we are already there? (Optimization)
+
+            if (targetParent) {
+                if (!targetParent.children) targetParent.children = [];
+
+                // Remove from source
+                const idx = sourceArray.indexOf(node);
+                if (idx > -1) {
+                    sourceArray.splice(idx, 1);
+                    // Add to target
+                    targetParent.children.push(node);
+                }
+            } else {
+                console.warn(`Target parent ${actualTargetPath} not found.`);
+            }
+        }
+
+        function findNodeByPath(nodes, path) {
+            return findNodeByPathRecursive(nodes, '', path);
+        }
+
+        function findNodeByPathRecursive(nodes, prefix, targetPath) {
+            for (let node of nodes) {
+                const currentPath = prefix ? `${prefix}.${node.key}` : node.key;
+                if (currentPath === targetPath) return node;
+
+                if (node.children) {
+                    const found = findNodeByPathRecursive(node.children, currentPath, targetPath);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+
+        function render() {
+            const tbody = document.getElementById('tbody');
+            tbody.innerHTML = '';
+
+            function traverse(nodes, level = 0, parentKey = '', hidden = false, parentArray = null) {
+                nodes.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+                nodes.forEach(node => {
+                    const fullKey = parentKey ? `${parentKey}.${node.key}` : node.key;
+                    const isLeaf = !node.children || node.children.length === 0;
+                    const padding = level * 24 + 16;
+
+                    const tr = document.createElement('tr');
+                    tr.className = 'node-row transition-colors group';
+                    if (node.skip) tr.classList.add('bg-gray-50', 'text-gray-400');
+                    if (hidden) tr.style.display = 'none';
+
+                    // 1. Attribute Tree Column
+                    const tdTree = document.createElement('td');
+                    tdTree.className = 'py-2 pr-2 text-sm font-mono align-middle whitespace-nowrap';
+                    tdTree.style.color = node.skip ? 'inherit' : '#111827';
+
+                    const hasChildren = node.children && node.children.length > 0;
+                    const icon = hasChildren
+                        ? (node._collapsed
+                            ? '<svg class="w-4 h-4 mr-1 text-yellow-500 transform -rotate-90 transition-transform cursor-pointer" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>'
+                            : '<svg class="w-4 h-4 mr-1 text-yellow-500 transition-transform cursor-pointer" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>')
+                        : '<span class="w-4 mr-1 text-gray-300">└</span>';
+
+                    const indent = `<div style="padding-left: ${padding}px" class="flex items-center">`;
+                    const label = `<span class="${!isLeaf ? 'font-bold cursor-pointer' : ''}" onclick="${hasChildren ? `toggleCollapse('${fullKey}')` : ''}">${node.key}</span>`;
+
+                    tdTree.innerHTML = `${indent}<span onclick="${hasChildren ? `toggleCollapse('${fullKey}')` : ''}">${icon}</span>${label}</div>`;
+                    tr.appendChild(tdTree);
+
+                    // 2. Skip Checkbox
+                    const tdSkip = document.createElement('td');
+                    tdSkip.className = 'py-2 px-2 text-center align-middle';
+                    const chkSkip = document.createElement('input');
+                    chkSkip.type = 'checkbox';
+                    chkSkip.checked = node.skip || false;
+                    chkSkip.className = 'rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4 border-gray-300';
+                    chkSkip.onchange = (e) => {
+                        node.skip = e.target.checked;
+                        render();
+                    };
+                    tdSkip.appendChild(chkSkip);
+                    tr.appendChild(tdSkip);
+
+                    // 3. Description Input
+                    const tdDesc = document.createElement('td');
+                    tdDesc.className = 'py-2 px-2 align-middle';
+                    const inpDesc = document.createElement('input');
+                    inpDesc.type = 'text';
+                    inpDesc.value = node.description || '';
+                    inpDesc.disabled = node.skip;
+                    inpDesc.className = 'w-full text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 disabled:bg-gray-100 disabled:text-gray-400';
+                    inpDesc.onchange = (e) => node.description = e.target.value;
+                    tdDesc.appendChild(inpDesc);
+                    tr.appendChild(tdDesc);
+
+                    // 4. Widget Select (Leaves only)
+                    const tdWidget = document.createElement('td');
+                    tdWidget.className = 'py-2 px-2 align-middle';
+                    let selWidget;
+                    if (isLeaf) {
+                        selWidget = document.createElement('select');
+                        selWidget.className = 'w-full text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 py-1 disabled:bg-gray-100';
+                        selWidget.disabled = node.skip;
+                        const widgets = ['input', 'selection'];
+                        widgets.forEach(w => {
+                            const opt = document.createElement('option');
+                            opt.value = w;
+                            opt.text = w;
+                            if (node.widget === w) opt.selected = true;
+                            selWidget.appendChild(opt);
+                        });
+                        tdWidget.appendChild(selWidget);
+                    }
+                    tr.appendChild(tdWidget);
+
+                    // 4a. Ciselnik Input (Leaves only)
+                    const tdCiselnik = document.createElement('td');
+                    tdCiselnik.className = 'py-2 px-2 align-middle';
+                    const inpCiselnik = document.createElement('input');
+                    if (isLeaf) {
+                        inpCiselnik.type = 'text';
+                        inpCiselnik.value = node.ciselnik || '';
+                        inpCiselnik.placeholder = 'Kód číselníku';
+                        inpCiselnik.className = 'w-full text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 disabled:bg-gray-100 disabled:text-gray-400';
+
+                        const updateCiselnikState = () => {
+                            const isSel = node.widget === 'selection';
+                            inpCiselnik.disabled = node.skip || !isSel;
+                            if (!isSel) inpCiselnik.value = '';
+                        };
+                        updateCiselnikState();
+
+                        if (selWidget) {
+                            selWidget.onchange = (e) => {
+                                node.widget = e.target.value;
+                                updateCiselnikState();
+                            };
+                        }
+
+                        inpCiselnik.onchange = (e) => node.ciselnik = e.target.value;
+                        tdCiselnik.appendChild(inpCiselnik);
+                    }
+                    tr.appendChild(tdCiselnik);
+
+                    // 4b. Manual Parent Input (Leaves only)
+                    const tdParent = document.createElement('td');
+                    tdParent.className = 'py-2 px-2 align-middle';
+                    if (isLeaf) {
+                        const inpParent = document.createElement('input');
+                        inpParent.type = 'text';
+                        inpParent.value = node.manual_parent || '';
+                        inpParent.placeholder = 'path.to.parent';
+                        inpParent.disabled = node.skip;
+                        inpParent.className = 'w-full text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 disabled:bg-gray-100 disabled:text-gray-400';
+
+                        inpParent.onchange = (e) => {
+                            node.manual_parent = e.target.value;
+                            // Attempt live move (or revert if empty)
+                            if (nodes) {
+                                moveNode(node, node.manual_parent, nodes);
+                                render();
+                            }
+                        };
+                        tdParent.appendChild(inpParent);
+                    }
+                    tr.appendChild(tdParent);
+
+                    // 5. Order Input
+                    const tdOrder = document.createElement('td');
+                    tdOrder.className = 'py-2 px-2 text-center align-middle';
+                    const inpOrder = document.createElement('input');
+                    inpOrder.type = 'number';
+                    inpOrder.value = node.order || 0;
+                    inpOrder.disabled = node.skip;
+                    inpOrder.className = 'w-16 text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 text-center py-1 disabled:bg-gray-100';
+                    inpOrder.onchange = (e) => {
+                        node.order = parseInt(e.target.value) || 0;
+                        render();
+                    };
+                    tdOrder.appendChild(inpOrder);
+                    tr.appendChild(tdOrder);
+
+                    // 6. Width Input (Leaves only)
+                    const tdWidth = document.createElement('td');
+                    tdWidth.className = 'py-2 px-2 text-center align-middle';
+                    if (isLeaf) {
+                        const inpWidth = document.createElement('input');
+                        inpWidth.type = 'number';
+                        inpWidth.min = 1;
+                        inpWidth.max = 12;
+                        inpWidth.value = node.width || 12;
+                        inpWidth.disabled = node.skip;
+                        inpWidth.className = 'w-16 text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 text-center py-1 disabled:bg-gray-100';
+                        inpWidth.onchange = (e) => node.width = parseInt(e.target.value) || 12;
+                        tdWidth.appendChild(inpWidth);
+                    }
+                    tr.appendChild(tdWidth);
+
+                    // 7. Extra Info
+                    const tdInfo = document.createElement('td');
+                    tdInfo.className = 'py-2 px-2 text-xs text-gray-400 align-middle truncate max-w-xs';
+                    if (isLeaf) {
+                        let info = [];
+                        if (node.id) info.push(`<span class="text-indigo-600 font-mono font-bold">${node.id}</span>`);
+                        if (node.mandatory) info.push(`<strong>${node.mandatory}</strong>`);
+                        if (node.p) info.push(`P:${node.p}`);
+                        if (node.n) info.push(`N:${node.n}`);
+                        if (node.z) info.push(`Z:${node.z}`);
+                        tdInfo.innerHTML = info.join(' <span class="text-gray-300">|</span> ');
+                        tdInfo.title = JSON.stringify(node, null, 2);
+                    }
+                    tr.appendChild(tdInfo);
+
+                    tbody.appendChild(tr);
+
+                    if (node.children) {
+                        traverse(node.children, level + 1, fullKey, hidden || node.skip || node._collapsed, node.children);
+                    }
+                });
+            }
+
+            traverse(rootData, 0, '', false, rootData);
+        }
+
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(rootData, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "employee_structure_edited.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        function showStatus(msg, color) {
+            const el = document.getElementById('status');
+            el.textContent = msg;
+            el.className = `mb-4 p-4 rounded text-sm bg-${color}-50 text-${color}-700 block`;
+            el.classList.remove('hidden');
+            setTimeout(() => el.classList.add('hidden'), 5000);
+        }
+
+        window.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+
+</html>
