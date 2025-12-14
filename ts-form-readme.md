@@ -1,339 +1,263 @@
-TSForm
-Komponenta ts-form je univerzální formulářový generátor založený na JSON konfiguraci. Podporuje složité layouty, záložky (tabs), validace a širokou škálu vstupních prvků.
+# TS-FORM Technical Documentation
 
-Rychlý Příklad
+`ts-form` je webová komponenta (Custom Element) pro generování dynamických formulářů na základě JSON konfigurace. Je navržena tak, aby byla univerzální, snadno konfigurovatelná a integruvatelná do jakékoliv webové aplikace.
+
+## Základní použití
+
+```html
 <ts-form
-  layout='{
-    "rows": [
-      [{"field": "name", "width": "1fr"}, {"field": "email", "width": "1fr"}],
-      [{"field": "country", "width": "1fr"}]
-    ]
-  }'
-  fields='{
-    "name": {"type": "text", "label": "Jméno", "required": true},
-    "email": {"type": "email", "label": "E-mail", "required": true},
-    "country": {
-        "type": "combobox", 
-        "label": "Země", 
-        "options": [{"value": "cz", "label": "Česko"}, {"value": "sk", "label": "Slovensko"}]
-    }
-  }'
-  buttons='[
-    {"action": "save", "label": "Uložit", "variant": "primary"}
-  ]'
+  layout='{...}'
+  fields='{...}'
+  buttons='[...]'
+  values='{...}'
+  errors='{...}'
 ></ts-form>
+```
 
-Layout Konfigurace
-Layout formuláře se definuje pomocí JSON objektu předaného do atributu layout.
+Připojení listenerů:
+```javascript
+const form = document.querySelector('ts-form');
+form.addEventListener('form-submit', e => {
+    console.log('Action:', e.detail.action);
+    console.log('Data:', e.detail.formData);
+});
+```
 
-Struktura
-Layout může být definován dvěma způsoby:
+---
 
-Se záložkami (Tabs):
+## 1. Atributy komponenty
+
+### `layout` (JSON Object)
+Definuje strukturu formuláře. Dva režimy:
+
+**A. Tabs Layout (Se záložkami)**
+```json
 {
   "tabs": [
     {
-      "label": "Název záložky",
+      "label": "Záložka 1",
       "rows": [ ... ]
     },
     ...
   ]
 }
+```
 
-Bez záložek (Jednoduchý):
+**B. Single Layout (Bez záložek)**
+```json
 {
   "rows": [ ... ]
 }
+```
 
-Řádky a Sloupce (Grid)
-Vlastnost rows je pole polí, kde vnitřní pole reprezentuje řádek a jeho prvky jsou sloupce.
-
+**Definice řádků (`rows`):**
+Pole polí, kde vnitřní pole reprezentuje řádek a prvky v něm sloupce.
+```json
 "rows": [
-  [ { "field": "firstName", "width": "1fr" }, { "field": "lastName", "width": "1fr" } ], // 2 sloupce
-  [ { "field": "bio", "width": "100%" } ] // 1 sloupec přes celou šířku
+  [ { "field": "name", "width": "1fr" }, { "field": "surname", "width": "1fr" } ],
+  [ { "field": "bio", "width": "100%" } ]
 ]
+```
+- `field`: Klíč do objektu `fields`.
+- `width`: CSS grid šířka (např. `1fr`, `200px`, `auto`).
+- `align`: Zarovnání (`left`, `center`, `right`).
+- `type`: Speciální typy buněk:
+  - `'empty'`: Prázdné místo.
+  - `'separator'`: Oddělovač (`{ "type": "separator", "label": "Nadpis sekce" }`).
 
-Vlastnosti buňky layoutu
-field: (string) Název pole, který musí odpovídat klíči v definici fields.
-width: (string) Šířka sloupce. Lze použít CSS Grid jednotky (např. 1fr, 2fr, 150px, auto).
-align: (string) Horizontální zarovnání obsahu buňky ('left', 'center', 'right').
-type: (string) Speciální typ buňky, pokud se nejedná o pole.
-'empty': Prázdná buňka pro odsazení.
-'separator': Oddělovač (viz níže).
-Oddělovače (Separators)
-Lze vložit vizuální oddělovač sekcí.
+### `fields` (JSON Object)
+Definice jednotlivých vstupních polí. Klíč objektu odpovídá `field` v layoutu.
+Všechny typy polí a jejich konfigurace jsou popsány v sekci [3. Typy polí a konfigurace](#3-typy-polí-a-konfigurace).
 
-[ { "type": "separator", "label": "Osobní údaje" } ]
-
-Konfigurace Polí (Fields)
-Definice polí se předává do atributu fields jako JSON objekt, kde klíč je název pole.
-
-Společné parametry
-label: (string) Popisek pole.
-type: (string) Typ pole (viz níže).
-hidden: (boolean) Skryté pole.
-disabled: (boolean) Deaktivované pole.
-readonly: (boolean) Pole pouze pro čtení.
-hint: (string) Nápověda pod polem.
-width: (string) Šířka samotného inputu (např. '100%').
-autofocus: (boolean) Automaticky zaměří pole po načtení formuláře.
-enterAction: (string) Akce při stisku Enter (např. 'submit', 'click:myButton', 'focus:nextField').
-escapeAction: (string) Akce při stisku Escape (např. 'clear', 'click:cancel').
-Typy polí
-Textové vstupy
-text: Klasický textový input.
-password: Skryté znaky.
-textarea: Víceřádkový text. Parametr rows (number).
-combobox: Textový input s našeptávačem (datalist). Parametr options.
-allowCustom (boolean):
-false (default, Strict Mode): Povolí pouze hodnoty ze seznamu options.
-Při opuštění pole (blur) se nevalidní hodnota vrátí na předchozí validní hodnotu (revert).
-Klávesa Escape vrátí hodnotu na předchozí validní stav a zavře dropdown.
-Událost sl-change se vyvolá pouze při výběru validní možnosti.
-true (Custom Mode): Povolí zadat libovolný text.
-Neznámá hodnota je akceptována jako nová hodnota.
-Událost sl-change se vyvolá při výběru možnosti nebo zadání vlastního textu (po blur/enter).
-allowEmpty (boolean):
-true (default): Hodnota může být prázdná (uživatel ji může smazat).
-false: Pokud uživatel smaže hodnotu a opustí pole:
-Pokud existovala předchozí validní hodnota, pole se na ni vrátí (revert).
-Pokud neexistovala, pole se vyčistí (protože nelze vynutit hodnotu).
-Číselné vstupy
-number: Číslo. Parametry: min, max, step.
-Datum a Čas
-Používá knihovnu Flatpickr s českou lokalizací.
-
-date: Výběr data.
-datetime: Výběr data a času.
-Výběry (Selects a Radios)
-select: Jednoduchý výběr (dropdown).
-multiselect: Výběr více hodnot.
-radio: Skupina přepínačů (radio buttons).
-Parametr options:
-Pole objektů: [{ "value": "cz", "label": "Česko" }, ...]
-Nebo pole řetězců ve formátu "value/Label".
-Relationship Picker (M:N)
-Pokročilý výběr vazeb s vyhledáváním a čipy.
-
-type: 'relationship'
-targetEntity: (string) Název entity (pro dialog).
-mode: 'single' nebo 'multiple'.
-displayFields: (array) Pole zobrazovaná v tabulce výsledků.
-chipDisplayFields: (array) Pole zobrazovaná na vybraných čipech.
-options: (array) Data pro výběr (pole objektů).
-Přepínače a Checkboxy
-switch: Přepínač (ON/OFF).
-checkbox: Zaškrtávací políčko.
-Slider
-type: 'slider'
-min, max, step: Rozsah a krok.
-hideLabel: (boolean) Skryje číselnou hodnotu/label nad sliderem.
-Soubory a Obrázky
-file: Nahrávání souborů.
-image: Nahrávání obrázků (automaticky accept="image/*").
-multiple: (boolean) Povolit více souborů.
-accept: (string) MIME typy (např. .pdf,.doc).
-Download: U nahraných souborů se automaticky zobrazuje ikona pro stažení obsahu.
-Samostatná Tlačítka (v gridu)
-type: 'button'
-label: Text tlačítka.
-variant: 'primary', 'default', 'neutral', 'danger', atd.
-action: (string) Identifikátor akce pro event form-field-action.
-Informační boxy (Infobox)
-Zobrazí sl-alert pro statické informace.
-
-type: 'infobox'
-variant: 'primary', 'success', 'neutral', 'warning', 'danger'.
-icon: (string) Název ikony (Shoelace icon name).
-content: (html string) Obsah boxu. Může obsahovat HTML.
-value: (string) Alternativně lze obsah předat přes hodnotu pole.
-Markdown Obsah
-Zobrazí renderovaný markdown.
-
-type: 'markdown'
-content: (string) Markdown řetězec.
-value: (string) Alternativně lze obsah předat přes hodnotu pole.
-Tabulka (Embedded Table)
-Vloží plnohodnotnou ts-table do formuláře.
-
-type: 'table'
-columns: Definice sloupců (stejné jako u ts-table).
-data: Data tabulky (nebo předaná přes value formuláře).
-Podporované flagy: showCreateButton, enableSorting, enableFiltering, enablePagination, atd.
-Akce: singleItemActions, multipleItemsActions.
-Button Group
-Skupina tlačítek chovající se jako radio buttony.
-
-type: 'button-group'
-variant:
-'default': Standardní tlačítka.
-'process': Tlačítka ve tvaru šipek (procesní flow).
-options: Pole řetězců "value/enabled/variant/Label".
-Příklad: ["draft/true/neutral/Koncept", "published/true/success/Publikováno"]
-Tlačítka Formuláře (Buttons)
-Konfigurace akčních tlačítek v patičce formuláře (atribut buttons).
-
+### `buttons` (JSON Array)
+Definice tlačítek v patičce formuláře.
+```json
 [
-  {
-    "action": "submit",
-    "label": "Uložit",
-    "variant": "primary",
-    "disabled": false
-  },
-  {
-    "action": "cancel",
-    "label": "Zrušit",
-    "variant": "neutral",
-    "position": "left",
-    "hidden": false
+  { 
+    "action": "save", 
+    "label": "Uložit", 
+    "variant": "primary", 
+    "disabled": false,
+    "hidden": false,
+    "position": "right", // left, center, right
+    "confirmation": { ... } // Volitelné potvrzovací okno
   }
 ]
+```
 
-Parametry tlačítka
-action: (string) Identifikátor akce.
-label: (string) Text tlačítka.
-variant: (string) Vzhled tlačítka (primary, success, neutral, warning, danger, text, default).
-position: (string) Pozice tlačítka v patičce (left, center, right). Výchozí je right.
-disabled: (boolean) Pokud true, tlačítko je neaktivní (šedé).
-hidden: (boolean) Pokud true, tlačítko není vidět.
-Import a Export Dat
-Formulář podporuje vestavěné akce pro uložení a načtení dat ve formátu JSON (včetně souborů jako Base64).
+### `values` (JSON Object)
+Počáteční hodnoty formuláře. Klíč = název pole.
+```json
+{
+  "name": "Jan Novák",
+  "active": true
+}
+```
 
-export-data: Uloží kompletní stav formuláře do souboru form-data-YYYY-MM-DD.json.
-import-data: Otevře dialog pro výběr JSON souboru a načte data do formuláře.
-Příklad použití:
+### `errors` (JSON Object)
+Externí validace. Přiřazuje chybové hlášky k polím.
+```json
+{
+  "email": "Neplatný formát emailu"
+}
+```
 
-[
-  { "action": "export-data", "label": "Exportovat", "variant": "primary" },
-  { "action": "import-data", "label": "Importovat", "variant": "default" }
-]
+### `active-tab` (Number/String)
+Index aktivní záložky (0-indexed). Změna atributu přepne záložku.
 
-Potvrzení Akce (Confirmation)
-Tlačítka mohou vyžadovat potvrzení před provedením akce. To se konfiguruje objektem confirmation.
+### Potvrzení akce tlačítka (Confirmation)
+Každé tlačítko v `buttons` může vyžadovat potvrzení před provedením akce. To se definuje objektem `confirmation`.
 
+```json
 {
   "action": "delete",
   "label": "Smazat",
   "variant": "danger",
   "confirmation": {
-    "title": "Potvrdit akci",
-    "text": "Opravdu smazat záznam?",
+    "title": "Potvrdit smazání",
+    "text": "Opravdu chcete smazat tento záznam? Tuto akci nelze vrátit zpět.",
     "buttons": [
-      { "action": "no", "label": "Ne", "variant": "default" },
-      { "action": "yes", "label": "Ano", "variant": "danger", "confirm": true }
+      { "action": "cancel", "label": "Zrušit", "variant": "default" },
+      { "action": "confirm", "label": "Smazat", "variant": "danger", "confirm": true }
     ]
   }
 }
+```
+- `title`: (String) Nadpis dialogu.
+- `text`: (String) Text zprávy.
+- `buttons`: (Array) Definice tlačítek v dialogu.
+  - `confirm: true`: Toto tlačítko potvrdí původní akci a dialog zavře.
+  - Ostatní tlačítka pouze zavřou dialog.
 
-confirmation.title: (string) Nadpis dialogu.
-confirmation.text: (string) Text dialogu.
-confirmation.buttons: (array) Tlačítka v dialogu. Tlačítko s "confirm": true provede původní akci.
-Metody
-showImportResults(fieldName, results)
-Zobrazí dialog s výsledky importu nad konkrétním polem typu tabulka.
+### Speciální systémová tlačítka
+Některé hodnoty `action` mají v `ts-form` speciální, vestavěné chování:
 
-fieldName: (string) Název pole (klíč v fields konfiguraci).
-results: (object) Objekt s výsledky importu (obsahuje počty added, updated, skipped, rejected).
-Události (Events)
-Komponenta vyhazuje následující CustomEvents:
+1. **`export-data`**
+   - Automaticky stáhne aktuální data formuláře do souboru `form-data-YYYY-MM-DD.json`.
+   - Nevyžaduje žádné další handlery.
 
-form-changed
-Vyvolána při změně hodnoty jakéhokoliv pole.
+2. **`import-data`**
+   - Otevře systémový dialog pro výběr JSON souboru.
+   - Po výběru souboru se data automaticky načtou do formuláře.
+   - Podporuje i binární soubory v Base64 (pokud jsou tak ve formuláři uloženy).
 
-detail.field: (string) Název změněného pole.
-detail.value: (any) Nová hodnota.
-detail.formData: (object) Aktuální data celého formuláře.
-form-submit
-Vyvolána při kliknutí na tlačítko v patičce formuláře (definované v buttons).
+Příklad použití v konfiguraci:
+```json
+[
+  { "action": "export-data", "label": "Exportovat do souboru", "variant": "default" },
+  { "action": "import-data", "label": "Načíst ze souboru", "variant": "default" }
+]
+```
 
-detail.action: (string) Akce tlačítka (např. 'submit', 'cancel').
-detail.formData: (object) Data formuláře při odeslání.
-form-field-action
-Vyvolána při kliknutí na samostatné tlačítko uvnitř gridu (typ pole button).
+---
 
-detail.field: (string) Název pole tlačítka.
-detail.action: (string) Akce definovaná v konfiguraci pole.
-form-table-action
-Bublající událost z vnořené tabulky (typ pole table).
+## 2. Události (Events)
 
-detail.field: (string) Název pole tabulky.
-detail.action: (string) Typ akce (např. 'row-clicked', 'create-new-record').
-detail.originalDetail: (object) Původní detail události z ts-table.
-Ukázka
-<ts-form
-  layout='{
-    "tabs": [
-      {"label": "Základní informace", "rows": [
-        [{"field": "name", "width": "1fr"}, {"field": "email", "width": "1fr"}],
-        [{"field": "role", "width": "1fr"}, {"field": "active", "width": "auto"}],
-        [{"field": "bio", "width": "100%"}]
-      ]},
-      {"label": "Přílohy", "rows": [
-        [{"field": "avatar", "width": "1fr"}]
-      ]}
-    ]
-  }'
-  fields='{
-    "name": {"type": "text", "label": "Jméno", "required": true},
-    "email": {"type": "email", "label": "E-mail", "required": true},
-    "role": {
-        "type": "select", 
-        "label": "Role", 
-        "options": [{"value": "admin", "label": "Admin"}, {"value": "user", "label": "User"}]
-    },
-    "active": {"type": "switch", "label": "Aktivní účet"},
-    "bio": {"type": "textarea", "label": "O mně", "rows": 3},
-    "avatar": {"type": "image", "label": "Profilové foto"}
-  }'
-  errors='{
-    "email": "Zadejte platný email"
-  }'
-  buttons='[
-    {"action": "save", "label": "Uložit změny", "variant": "primary"},
-    {"action": "cancel", "label": "Zrušit", "variant": "default", "position": "left"}
-  ]'
-></ts-form>
-<script>
-  const form = document.querySelector('ts-form');
-  form.addEventListener('form-changed', (e) => console.log('Changed:', e.detail));
-  form.addEventListener('form-submit', (e) => console.log('Submit:', e.detail));
-  form.addEventListener('form-field-action', (e) => console.log('Action:', e.detail));
-</script>
+### `form-submit`
+Vyvolána kliknutím na tlačítko v patičce.
+- `detail.action`: (String) Identifikátor akce tlačítka.
+- `detail.formData`: (Object) Aktuální hodnoty všech polí formuláře.
 
-Validace a Chyby
-Chyby validace se předávají do atributu errors jako JSON objekt, kde klíčem je název pole a hodnotou chybová hláška.
+### `form-changed`
+Vyvolána při změně hodnoty pole.
+- `detail.field`: (String) Název změněného pole.
+- `detail.value`: (Any) Nová hodnota.
+- `detail.formData`: (Object) Aktuální hodnoty celého formuláře.
 
-{
-  "email": "Zadejte platný email",
-  "password": "Heslo je příliš krátké"
-}
+### `form-field-action`
+Vyvolána kliknutím na tlačítko typu `button` umístěné uvnitř formuláře (v gridu).
+- `detail.field`: (String) Název pole.
+- `detail.action`: (String) Akce definovaná v konfiguraci pole.
 
-Pokud pole obsahuje chybu:
+### `form-table-action`
+Bublající událost z vnořené tabulky (`type: 'table'`).
+- `detail.field`: (String) Název pole tabulky.
+- `detail.action`: (String) Akce (např. `row-clicked`, `delete`).
+- `detail.originalDetail`: (Object) Původní data události.
 
-Input zčervená (aplikuje se třída .input-invalid).
-Pod inputem se zobrazí chybová hláška.
-Ovládání Klávesnicí
-Formulář podporuje pokročilé ovládání klávesnicí konfigurovatelné pro každé pole.
+---
 
-Konfigurovatelné Akce (enterAction, escapeAction)
-Akce lze definovat jako řetězce v následujících formátech:
+## 3. Typy polí a konfigurace
 
-'submit': Odešle formulář (klikne na tlačítko typu submit nebo primary).
-'click:BUTTON_ACTION': Klikne na tlačítko s danou action (např. 'click:save').
-'focus:FIELD_NAME': Přesune focus na jiné pole (např. 'focus:password').
-'clear': Vymaže hodnotu pole (pouze pro escapeAction).
-'next': (Experimentální) Přesune focus na další pole.
-Příklad Konfigurace
-"username": {
-  "type": "text",
-  "label": "Uživatel",
-  "autofocus": true,
-  "enterAction": "focus:password",
-  "escapeAction": "click:cancel"
-},
-"password": {
-  "type": "password",
-  "label": "Heslo",
-  "enterAction": "submit",
-  "escapeAction": "click:cancel"
-}
+Každé pole v atributu `fields` má vlastnost `type` a další specifické vlastnosti.
+
+### Společné vlastnosti
+- `label`: (String) Popisek.
+- `required`: (Boolean) Povinné pole (zobrazí hvězdičku).
+- `hidden`: (Boolean) Skryté pole.
+- `disabled`: (Boolean) Deaktivované pole.
+- `readonly`: (Boolean) Pouze pro čtení.
+- `hint`: (String) Nápověda pod polem.
+- `autofocus`: (Boolean) Zaměření po načtení.
+- `enterAction`: (String) Akce na Enter (`submit`, `focus:field`, `click:action`).
+- `escapeAction`: (String) Akce na Escape (`clear`, `click:action`).
+
+### Textové a číselné
+- **`text`**: Běžný input.
+- **`textarea`**: Víceřádkový (`rows`: number).
+- **`password`**: Heslo.
+- **`number`**: Číslo (`min`, `max`, `step`, `roundTo`).
+- **`slider`**: Posuvník (`min`, `max`, `step`, `hideLabel`).
+
+### Výběry dat
+- **`select`**: Dropdown (`options`: `[{value, label}]` nebo `["val/lbl"]`).
+- **`multiselect`**: Výběr více hodnot (`multiple: true` u selectu).
+- **`combobox`**: Input s našeptávačem.
+  - `allowCustom`: (Boolean) Povolit vlastní hodnoty mimo seznam.
+  - `allowEmpty`: (Boolean) Povolit prázdnou hodnotu.
+- **`radio`**: Skupina přepínačů (`options`).
+- **`checkbox`**: Zaškrtávátko (Boolean hodnota).
+- **`switch`**: Přepínač (Boolean hodnota).
+- **`button-group`**: Skupina tlačítek chovající se jako radio.
+  - `variant`: `'default'` nebo `'process'` (šipkový vzhled).
+
+### Datum a čas
+- **`date`**: Datum (ISO string `YYYY-MM-DD`).
+- **`datetime`**: Datum a čas (ISO string `YYYY-MM-DDTHH:mm:ss`).
+
+### Soubory
+- **`file`**: Nahrávání souborů.
+- **`image`**: Nahrávání obrázků (`accept: image/*`).
+  - `multiple`: (Boolean) Více souborů.
+  - `innerLabel`: (String) Text uvnitř dropzóny (např. "Přetáhněte sem").
+  - `accept`: (String) MIME typy.
+
+### Relace (Relationship Picker)
+Komplexní výběr vazeb (M:N, 1:N) s vyhledáváním.
+- `type`: `'relationship'`
+- `mode`: `'single'` nebo `'multiple'`.
+- `targetEntity`: (String) Identifikátor entity.
+- `displayFields`: (Array) Pole zobrazovaná ve výběru.
+- `valueField`: (String) Klíč hodnoty (např. `id`).
+- `options`: (Array) Data pro výběr.
+
+### Speciální prvky
+- **`button`**: Tlačítko uvnitř formuláře (`action`, `variant`).
+- **`infobox`**: Statický alert (`variant`: `primary`, `warning`, ..., `content`: HTML).
+- **`markdown`**: Renderovaný MD text (`content`).
+- **`table`**: Vnořená `ts-table` s plnou funkcionalitou (`columns`, `data`, akce...).
+
+---
+
+## 4. Metody instance
+
+### `showImportResults(fieldName, results)`
+Programově zobrazí dialog s výsledky importu nad tabulkou.
+- `fieldName`: Název pole typu table.
+- `results`: Objekt `{ added, updated, skipped, rejected }`.
+
+### `exportFormData()`
+Spustí interní proces exportu dat do JSON souboru.
+
+### `importFormData()`
+Otevře dialog pro import dat z JSON souboru.
+
+---
+
+## 5. CSS Proměnné a Stylování
+Komponenta využívá Shoelace Design System proměnné. Důležité proměnné pro přizpůsobení:
+- `--sl-color-primary-*`: Barvy primárních prvků.
+- `--sl-font-sans`: Písmo.
+- `--label-spacing`: Odsazení labelu od inputu.
+
+Třída `.input-invalid` je aplikována na prvky s chybou validace.

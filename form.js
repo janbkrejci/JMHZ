@@ -364,7 +364,7 @@ function createFieldItem(node, fieldsAccumulator, enums, valuesAccumulator) {
             config.multiple = true;
         }
         if (node.label) {
-            config.label = node.label;
+            config.innerLabel = node.label;
         }
     }
 

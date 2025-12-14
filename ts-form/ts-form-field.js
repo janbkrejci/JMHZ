@@ -327,6 +327,9 @@ export class TSFormField extends HTMLElement {
             case 'textarea':
                 field = document.createElement('sl-textarea');
                 field.value = value || '';
+                if (config.rows) {
+                    field.rows = config.rows;
+                }
                 break;
             case 'password':
                 field = document.createElement('sl-input');
@@ -440,6 +443,9 @@ export class TSFormField extends HTMLElement {
                     field.setAttribute('accept', 'image/*');
                 } else if (config.accept) {
                     field.setAttribute('accept', config.accept);
+                }
+                if (config.innerLabel) {
+                    field.setAttribute('inner-label', config.innerLabel);
                 }
                 if (value) {
                     // value is passed as property, not attribute, for complex objects

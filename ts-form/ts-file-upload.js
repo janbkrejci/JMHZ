@@ -9,7 +9,7 @@ export class TSFileUpload extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['multiple', 'accept', 'label', 'value', 'error', 'required'];
+        return ['multiple', 'accept', 'label', 'inner-label', 'value', 'error', 'required'];
     }
 
     get required() {
@@ -31,6 +31,8 @@ export class TSFileUpload extends HTMLElement {
             this.accept = newValue || '*';
         } else if (name === 'label') {
             this.label = newValue;
+        } else if (name === 'inner-label') {
+            this.innerLabel = newValue;
         } else if (name === 'value') {
             // Handle initial value if needed (e.g. existing files)
         } else if (name === 'error') {
@@ -44,7 +46,7 @@ export class TSFileUpload extends HTMLElement {
         if (this.hasRendered) {
             if (name === 'multiple') {
                 this.updateUploadText();
-            } else if (name === 'label') {
+            } else if (name === 'label' || name === 'inner-label') {
                 this.render(); // Re-render for label change is safer as it affects multiple places
             }
         } else {
@@ -276,7 +278,7 @@ export class TSFileUpload extends HTMLElement {
             <div class="upload-icon">
                 <sl-icon name="cloud-upload"></sl-icon>
             </div>
-            <div>${this.label}</div>
+            <div>${this.innerLabel || this.label}</div>
             <div class="upload-text" style="font-size: 0.8em; color: var(--sl-color-neutral-500); margin-top: 0.25rem;">
                 ${this.multiple ? 'Přetáhněte soubory sem nebo klikněte pro nahrání' : 'Přetáhněte soubor sem nebo klikněte pro nahrání'}
             </div>

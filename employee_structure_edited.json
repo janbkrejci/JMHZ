@@ -8,25 +8,60 @@
     "order": 10,
     "children": [
       {
+        "key": "intro",
+        "description": "Úvod",
+        "order": 10,
+        "skip": false,
+        "new_only": false,
+        "original_path": "employee.intro",
+        "children": [
+          {
+            "key": "introtext",
+            "description": "úvodní text",
+            "order": 10,
+            "skip": false,
+            "new_only": false,
+            "original_path": "employee.intro.introtext",
+            "widget": "markdown",
+            "width": 12,
+            "content": "# Jednotné hlášení\n\nTento formulář slouží k doplnění povinných údajů nutných pro jednotné hlášení.\n\n## Jak pracovat s formulářem?\n\nPracovně si můžete ukládat rozepsaný formulář pomocí ```Uložit data (Export)```. Takto uložená data do formuláře můžete kdykoli znovu načíst a pokračovat v práci.\n\nMáte-li pocit, že máte formulář vyplněn kompletně a připraven k odevzdání, použijte tlačítko ```Zkontrolovat data```. Pokud data projdou základní validací, což ještě neznamená, že systém sociální správy si je takto vezme, můžete formulář uložit pomocí tlačítka ```Ulož dotazník``` a výsledný soubor poslat do mzdové účtárny.",
+            "children": []
+          }
+        ]
+      },
+      {
         "key": "client",
         "skip": false,
         "new_only": false,
         "description": "Osobní údaje",
         "default_value": "",
-        "order": 10,
+        "order": 20,
         "children": [
           {
-            "key": "cv",
-            "description": "Nový uzel",
+            "key": "message",
+            "description": "Vzkaz pro mzdovou účtárnu",
             "order": 10,
+            "skip": false,
+            "new_only": false,
+            "original_path": "employee.client.message",
+            "widget": "textarea",
+            "width": 12,
+            "rows": 6,
+            "default_value": "Tady můžete napsat cokoli se do formuláře nevešlo..."
+          },
+          {
+            "key": "cv",
+            "description": "Životopis",
+            "order": 20,
             "skip": false,
             "new_only": false,
             "original_path": "employee.client.cv",
             "widget": "file",
             "width": 12,
             "multiple": true,
-            "label": "Životopis",
-            "id": "99999"
+            "label": "Příložte životopis",
+            "id": "99999",
+            "children": []
           },
           {
             "key": "name",
@@ -34,7 +69,7 @@
             "new_only": false,
             "description": "",
             "default_value": "",
-            "order": 20,
+            "order": 30,
             "children": [
               {
                 "key": "fir",
@@ -141,7 +176,7 @@
             "new_only": true,
             "description": "Rodné číslo",
             "default_value": "",
-            "order": 30,
+            "order": 40,
             "original_path": "employee.client.bno",
             "id": "10057",
             "dat_typ": "NN",
@@ -164,7 +199,7 @@
             "new_only": true,
             "description": "EČP (Evid. č. pojištěnce ČSSZ)",
             "default_value": "",
-            "order": 40,
+            "order": 50,
             "original_path": "employee.client.ecp",
             "id": "10058",
             "dat_typ": "NN",
@@ -187,7 +222,7 @@
             "new_only": true,
             "description": "VČP (pokud FÚ přídělil)",
             "default_value": "",
-            "order": 50,
+            "order": 60,
             "original_path": "employee.client.vcp",
             "id": "10060",
             "dat_typ": "N",
@@ -210,7 +245,7 @@
             "new_only": true,
             "description": "IK MPSV (Os. itent. číslo - OIČ)",
             "default_value": "",
-            "order": 60,
+            "order": 70,
             "original_path": "employee.client.ikmpsv",
             "id": "10051",
             "dat_typ": "N",
@@ -233,7 +268,7 @@
             "new_only": true,
             "description": "Narození",
             "default_value": "",
-            "order": 70,
+            "order": 80,
             "children": [
               {
                 "key": "dat",
@@ -340,7 +375,7 @@
             "new_only": false,
             "description": "Trvalý pobyt",
             "default_value": "",
-            "order": 80,
+            "order": 90,
             "children": [
               {
                 "key": "str",
@@ -516,7 +551,7 @@
             "new_only": false,
             "description": "Kontaktní adresa",
             "default_value": "",
-            "order": 90,
+            "order": 100,
             "children": [
               {
                 "key": "str",
@@ -692,7 +727,7 @@
             "new_only": false,
             "description": "Pobyt v ČR, je-li tr.pobyt mimo ČR",
             "default_value": "",
-            "order": 100,
+            "order": 110,
             "children": [
               {
                 "key": "str",
@@ -845,7 +880,7 @@
             "new_only": false,
             "description": "Doklad totožnosti",
             "default_value": "",
-            "order": 110,
+            "order": 120,
             "children": [
               {
                 "key": "type",
@@ -952,7 +987,7 @@
             "new_only": false,
             "description": "Bydliště ve státě, kde je zaměstnanec rezidentem (mimo ČR)",
             "default_value": "",
-            "order": 120,
+            "order": 130,
             "children": [
               {
                 "key": "str",
@@ -1105,7 +1140,7 @@
             "new_only": false,
             "description": "Další údje",
             "default_value": "",
-            "order": 130,
+            "order": 140,
             "children": [
               {
                 "key": "cnt",
@@ -1166,7 +1201,7 @@
             "new_only": false,
             "description": "Daňová rezidentura (mimo ČR)",
             "default_value": "",
-            "order": 140,
+            "order": 150,
             "children": [
               {
                 "key": "stat",
@@ -1249,8 +1284,7 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": false
+        "manual_parent": ""
       },
       {
         "key": "fact",
@@ -1258,7 +1292,7 @@
         "new_only": false,
         "description": "Zdravotní omezení",
         "default_value": "",
-        "order": 20,
+        "order": 30,
         "children": [
           {
             "key": "healtrest",
@@ -1403,7 +1437,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 30,
+        "order": 40,
         "children": [
           {
             "key": "cit",
@@ -1648,7 +1682,7 @@
         "new_only": false,
         "description": "Příslušnost k cizím právním předpisům",
         "default_value": "",
-        "order": 40,
+        "order": 50,
         "children": [
           {
             "key": "juris",
@@ -1709,7 +1743,7 @@
         "new_only": false,
         "description": "Zdravotní pojištění v ČR",
         "default_value": "",
-        "order": 50,
+        "order": 60,
         "children": [
           {
             "key": "cnr",
@@ -1747,7 +1781,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 60,
+        "order": 70,
         "children": [
           {
             "key": "nam",
@@ -1785,7 +1819,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 70,
+        "order": 80,
         "children": [
           {
             "key": "nam",
@@ -1823,7 +1857,7 @@
         "new_only": false,
         "description": "Cizinec",
         "default_value": "",
-        "order": 80,
+        "order": 90,
         "children": [
           {
             "key": "freeacc",
@@ -1999,7 +2033,7 @@
         "new_only": false,
         "description": "Starobní důchod",
         "default_value": "",
-        "order": 90,
+        "order": 100,
         "children": [
           {
             "key": "early",
@@ -2106,7 +2140,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 100,
+        "order": 110,
         "children": [
           {
             "key": "avgmonear",
@@ -2458,7 +2492,7 @@
         "new_only": false,
         "description": "Číslo akce – určuje charakter požadované operace",
         "default_value": "",
-        "order": 110,
+        "order": 120,
         "original_path": "employee.act",
         "id": "10008",
         "dat_typ": "N",
@@ -2481,7 +2515,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 120,
+        "order": 130,
         "children": [
           {
             "key": "attach",
@@ -2580,7 +2614,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 130,
+        "order": 140,
         "children": [
           {
             "key": "nam",
@@ -2641,7 +2675,7 @@
         "new_only": false,
         "description": "datum vyplnění (vyhotovení) dat. věty",
         "default_value": "",
-        "order": 140,
+        "order": 150,
         "original_path": "employee.dat",
         "id": "10005",
         "dat_typ": "D",
@@ -2664,7 +2698,7 @@
         "new_only": false,
         "description": "číslo okresu (org. jednotky ČSSZ)",
         "default_value": "",
-        "order": 150,
+        "order": 160,
         "original_path": "employee.dep",
         "id": "10004",
         "dat_typ": "N",
@@ -2687,7 +2721,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 160,
+        "order": 170,
         "children": [
           {
             "key": "cit",
@@ -3146,7 +3180,7 @@
         "new_only": false,
         "description": "postavení v zaměstnání",
         "default_value": "",
-        "order": 170,
+        "order": 180,
         "original_path": "employee.job@relat",
         "id": "10249",
         "dat_typ": "N",
@@ -3169,7 +3203,7 @@
         "new_only": false,
         "description": "pořadové číslo věty v podání",
         "default_value": "",
-        "order": 180,
+        "order": 190,
         "original_path": "employee.sqnr",
         "id": "Bez vazby",
         "dat_typ": "N",
