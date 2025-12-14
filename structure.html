@@ -56,6 +56,10 @@
                 class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-3 py-1.5 rounded shadow-sm text-xs font-medium">
                 Načíst
             </button>
+            <button onclick="renumberNodes()"
+                class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-3 py-1.5 rounded shadow-sm text-xs font-medium">
+                Přečíslovat
+            </button>
             <div class="relative">
                 <button onclick="document.getElementById('file-merge').click()"
                     class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-3 py-1.5 rounded shadow-sm text-xs font-medium">
@@ -162,71 +166,106 @@
             reader.onload = (e) => {
                 try {
                     const mergeData = JSON.parse(e.target.result);
-                    const stats = { updated: 0, moved: 0 };
+                    const stats = { updated: 0, moved: 0, added: 0 };
 
-                    const pathMap = new Map();
+                    // 1. Map existing RootData by ID for reliable moving
                     const idMap = new Map();
-
-                    function buildMap(nodes, prefix = '') {
+                    function buildIdMap(nodes, parentArray) {
                         nodes.forEach(node => {
-                            const path = prefix ? `${prefix}.${node.key}` : node.key;
-                            pathMap.set(path, node);
-                            if (node.id) idMap.set(String(node.id), node);
-                            if (node.children) buildMap(node.children, path);
+                            if (node.id) idMap.set(String(node.id), { node, parentArray });
+                            if (node.children) buildIdMap(node.children, node.children);
                         });
                     }
-                    buildMap(mergeData);
+                    buildIdMap(rootData, rootData);
 
-                    function traverseAndMerge(nodes, prefix = '', parentArray = null) {
-                        [...nodes].forEach(node => {
-                            const path = prefix ? `${prefix}.${node.key}` : node.key;
-                            let source = null;
-                            if (node.id && idMap.has(String(node.id))) {
-                                source = idMap.get(String(node.id));
-                            } else if (pathMap.has(path)) {
-                                source = pathMap.get(path);
+                    // 2. Recursive Merge Function (Source-driven)
+                    function mergeProcessing(targetArray, sourceNodes) {
+                        sourceNodes.forEach(source => {
+                            // Find target node
+                            let targetInfo = null;
+                            if (source.id && idMap.has(String(source.id))) {
+                                targetInfo = idMap.get(String(source.id));
                             }
-                            if (source) {
+
+                            let targetNode = targetInfo ? targetInfo.node : null;
+
+                            // Fallback to Key match in ANY parent? No, scope to current targetArray usually?
+                            // But if we are restructuring, we might match by Key in old location?
+                            // For simplicity/safety, if no ID, we look in current targetArray.
+                            if (!targetNode) {
+                                targetNode = targetArray.find(n => n.key === source.key);
+                            }
+
+                            if (targetNode) {
+                                // UPDATE
                                 let changed = false;
-                                if (source.description !== undefined) { node.description = source.description; changed = true; }
-                                if (source.label !== undefined) { node.label = source.label; changed = true; } // Sync Label for File/Markdown if exists
-                                if (source.mandatory !== undefined) { node.mandatory = source.mandatory; changed = true; }
-                                if (source.dat_typ !== undefined) { node.dat_typ = source.dat_typ; changed = true; }
-                                if (source.delka !== undefined) { node.delka = source.delka; changed = true; }
-                                if (source.p !== undefined) { node.p = source.p; changed = true; }
-                                if (source.n !== undefined) { node.n = source.n; changed = true; }
-                                if (source.z !== undefined) { node.z = source.z; changed = true; }
-                                if (source.vysvetlivky !== undefined) { node.vysvetlivky = source.vysvetlivky; changed = true; }
+                                const propsToSync = [
+                                    'description', 'label', 'mandatory', 'dat_typ', 'delka',
+                                    'p', 'n', 'z', 'vysvetlivky', 'widget', 'order', 'width',
+                                    'skip', 'new_only', 'ciselnik', 'default_value', 'content',
+                                    'multiple', 'manual_parent', 'id'
+                                ];
 
-                                if (source.widget !== undefined) { node.widget = source.widget; changed = true; }
-                                if (source.order !== undefined) { node.order = source.order; changed = true; }
-                                if (source.width !== undefined) { node.width = source.width; changed = true; }
-                                if (source.skip !== undefined) { node.skip = source.skip; changed = true; }
-                                if (source.new_only !== undefined) { node.new_only = source.new_only; changed = true; }
-                                if (source.ciselnik !== undefined) { node.ciselnik = source.ciselnik; changed = true; }
-                                if (source.default_value !== undefined) { node.default_value = source.default_value; changed = true; }
-                                if (source.content !== undefined) { node.content = source.content; changed = true; } // Markdown
-                                if (source.multiple !== undefined) { node.multiple = source.multiple; changed = true; } // File
-                                if (source.manual_parent !== undefined && source.manual_parent !== node.manual_parent) {
-                                    node.manual_parent = source.manual_parent;
-                                    changed = true;
-                                    if (node.manual_parent && parentArray) {
-                                        // Allow folder moving too (no 'isLeaf' check here strictly, moveNode handles it)
-                                        moveNode(node, node.manual_parent, parentArray);
-                                        stats.moved++;
+                                propsToSync.forEach(prop => {
+                                    if (source[prop] !== undefined && targetNode[prop] !== source[prop]) {
+                                        targetNode[prop] = source[prop];
+                                        changed = true;
                                     }
+                                });
+
+                                // MOVE Strategy
+                                // If found by ID, it might be in a different parent
+                                if (targetInfo && targetInfo.parentArray !== targetArray) {
+                                    const oldIdx = targetInfo.parentArray.indexOf(targetNode);
+                                    if (oldIdx > -1) {
+                                        targetInfo.parentArray.splice(oldIdx, 1);
+                                        targetArray.push(targetNode); // Add to new parent
+                                        stats.moved++;
+                                        // Update parentRef for children recursion? Not needed, node ref is same.
+                                    }
+                                } else if (!targetArray.includes(targetNode)) {
+                                    // Found by Key elsewhere? Or logical edge case? 
+                                    // If found by Key in current array, includes is true.
+                                    // If found by ID and parentArray IS targetArray, includes is true.
+                                    // This block shouldn't hit unless key-match logic expands.
+                                    targetArray.push(targetNode);
                                 }
+
                                 if (changed) stats.updated++;
+
+                                // RECURSE
+                                if (source.children) {
+                                    if (!targetNode.children) targetNode.children = [];
+                                    mergeProcessing(targetNode.children, source.children);
+                                }
+
+                            } else {
+                                // ADD
+                                // Destructure children out to avoid shallow copy holding ref to source tree
+                                const { children, ...rest } = source;
+                                const newNode = { ...rest, children: [] };
+
+                                targetArray.push(newNode);
+                                stats.added++;
+
+                                if (source.children) {
+                                    mergeProcessing(newNode.children, source.children);
+                                }
                             }
-                            if (node.children) traverseAndMerge(node.children, path, node.children);
                         });
                     }
 
-                    traverseAndMerge(rootData, '', rootData);
+                    // For root, we treat rootData as the array
+                    // Check if mergeData is array or single object
+                    const sourceArray = Array.isArray(mergeData) ? mergeData : [mergeData];
+
+                    mergeProcessing(rootData, sourceArray);
+
                     render();
-                    showStatus(`Sloučeno: ${stats.updated} změn, ${stats.moved} přesunů.`, 'blue');
+                    showStatus(`Sloučeno: ${stats.updated} změn, ${stats.moved} přesunů, ${stats.added} nových.`, 'blue');
 
                 } catch (err) {
+                    console.error(err);
                     showStatus('Chyba Merge: ' + err.message, 'red');
                 }
             };
@@ -783,6 +822,26 @@
             el.className = `px-3 py-1 rounded text-xs bg-${color}-100 text-${color}-800 block`;
             el.classList.remove('hidden');
             setTimeout(() => el.classList.add('hidden'), 5000);
+        }
+
+        function renumberNodes() {
+            if (!confirm("Opravdu chcete přečíslovat všechny položky? (Pořadí zůstane zachováno, hodnoty budou 10, 20, 30...)")) return;
+
+            function processLevel(nodes) {
+                // Sort by current order first to respect visual order
+                nodes.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+                nodes.forEach((node, index) => {
+                    node.order = (index + 1) * 10;
+                    if (node.children && node.children.length > 0) {
+                        processLevel(node.children);
+                    }
+                });
+            }
+
+            processLevel(rootData);
+            render();
+            showStatus("Přečíslování dokončeno.", "blue");
         }
 
         window.addEventListener('DOMContentLoaded', loadData);
