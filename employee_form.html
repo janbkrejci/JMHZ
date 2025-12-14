@@ -71,17 +71,17 @@
 
     <script>
         // --- Configuration ---
-        // Toggle this to switch between 'Standard' (employee_form) and 'New' (new_employee_form)
-        // For employee_form.html, this should be FALSE.
-        const SHOW_NEW_ONLY_FIELDS = false;
+        // dynamic mode detection based on filename
+        const SHOW_NEW_ONLY_FIELDS = window.location.pathname.includes('new_employee_form');
 
         // --- Main Logic ---
         document.addEventListener('DOMContentLoaded', async () => {
+
             const formEl = document.getElementById('employeeForm');
             const modeBadge = document.getElementById('mode-badge');
 
             if (SHOW_NEW_ONLY_FIELDS) {
-                modeBadge.textContent = "New Employee (All Fields)";
+                modeBadge.textContent = "Nový zaměstnanec";
                 modeBadge.className = "font-mono bg-green-100 text-green-800 px-2 py-1 rounded";
             }
 

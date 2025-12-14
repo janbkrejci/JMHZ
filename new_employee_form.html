@@ -71,12 +71,12 @@
 
     <script>
         // --- Configuration ---
-        // Toggle this to switch between 'Standard' (employee_form) and 'New' (new_employee_form)
-        // For employee_form.html, this should be FALSE.
-        const SHOW_NEW_ONLY_FIELDS = true;
+        // dynamic mode detection based on filename
+        const SHOW_NEW_ONLY_FIELDS = window.location.pathname.includes('new_employee_form');
 
         // --- Main Logic ---
         document.addEventListener('DOMContentLoaded', async () => {
+
             const formEl = document.getElementById('employeeForm');
             const modeBadge = document.getElementById('mode-badge');
 
