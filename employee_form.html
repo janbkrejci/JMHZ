@@ -214,7 +214,8 @@
 
         function createFieldItem(node, fieldsAccumulator, enums, valuesAccumulator) {
             // Construct dotted path
-            const fieldName = node.original_path || node.key;
+            // NEW: Use ID if available, otherwise fallback to path/key
+            const fieldName = node.id || node.original_path || node.key;
 
             // Default config
             const config = {
