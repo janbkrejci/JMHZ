@@ -731,6 +731,18 @@ class TSForm extends HTMLElement {
                     setTimeout(updateIndicator, 0);
                 }
 
+                // Update active-tab attribute when tab changes
+                tabGroup.addEventListener('sl-tab-show', (event) => {
+                    const name = event.detail.name;
+                    if (name && name.startsWith('tab-')) {
+                        const index = name.replace('tab-', '');
+                        // Only update if changed to prevent loops if we logic relies on it
+                        if (this.getAttribute('active-tab') !== index) {
+                            this.setAttribute('active-tab', index);
+                        }
+                    }
+                });
+
                 form.appendChild(tabGroup);
             } else if (layoutConfig.rows) {
                 const contentWrapper = document.createElement('div');
