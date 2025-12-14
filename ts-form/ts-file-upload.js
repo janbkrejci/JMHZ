@@ -9,7 +9,19 @@ export class TSFileUpload extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['multiple', 'accept', 'label', 'value', 'error'];
+        return ['multiple', 'accept', 'label', 'value', 'error', 'required'];
+    }
+
+    get required() {
+        return this.hasAttribute('required');
+    }
+
+    set required(val) {
+        if (val) {
+            this.setAttribute('required', '');
+        } else {
+            this.removeAttribute('required');
+        }
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -24,6 +36,9 @@ export class TSFileUpload extends HTMLElement {
         } else if (name === 'error') {
             this.error = newValue;
             this.updateError();
+        } else if (name === 'required') {
+            // Just re-render to show/hide asterisk
+            if (this.hasRendered) this.render();
         }
 
         if (this.hasRendered) {
@@ -36,6 +51,10 @@ export class TSFileUpload extends HTMLElement {
             this.render();
         }
     }
+    // ... (skip to render method part)
+    // Since I can't skip nicely in one replace block for non-contiguous changes, I will use multi_replace for this file actually.
+    // Wait, I should use multi_replace_file_content as per instructions for non-contiguous edits.
+    // Canceling this tool call to use multi_replace_file_content.
 
     updateError() {
         if (!this.errorContainer) return;
@@ -50,8 +69,11 @@ export class TSFileUpload extends HTMLElement {
     }
 
     connectedCallback() {
-        this.render();
-        this.setupEventListeners();
+        this.render(); // Always render on connect, subsequent renders are handled by attributeChangedCallback or explicit calls
+        if (!this.hasListeners) {
+            this.setupEventListeners();
+            this.hasListeners = true;
+        }
         this.updateError();
     }
 
@@ -74,6 +96,15 @@ export class TSFileUpload extends HTMLElement {
             }
         });
     }
+
+    // ... (rest of methods)
+
+    // ... handleFiles, removeFile, etc ... (skipping to render)
+    // Wait, I can't skip in replace_file_content if I want to update render too.
+    // I am replacing connectedCallback AND setupEventListeners AND render needs modification.
+    // They are far apart? connectedCallback is line 71. render is 162.
+    // I should use multi_replace.
+
 
     handleFiles(fileList) {
         const newFiles = Array.from(fileList);
@@ -141,7 +172,7 @@ export class TSFileUpload extends HTMLElement {
     }
 
     render() {
-        if (this.hasRendered) return;
+        // Removed guard to allow re-rendering
         this.hasRendered = true;
 
         this.shadowRoot.innerHTML = '';
@@ -254,7 +285,7 @@ export class TSFileUpload extends HTMLElement {
 
         if (this.label) {
             const labelEl = document.createElement('label');
-            labelEl.textContent = this.label;
+            labelEl.innerHTML = this.label + (this.required ? ' <span>*</span>' : '');
             labelEl.className = 'file-upload-label';
             labelEl.setAttribute('part', 'label');
             container.appendChild(labelEl);
