@@ -53,8 +53,11 @@ export class TSCombobox extends HTMLElement {
     }
 
     getDisplayValue(value) {
-        if (!value) return '';
-        const option = this.options.find(opt => (opt.value || opt) === value);
+        if (value === null || value === undefined || value === '') return '';
+        const option = this.options.find(opt => {
+            const optVal = (opt && opt.value !== undefined) ? opt.value : opt;
+            return String(optVal) === String(value);
+        });
         if (option) {
             return option.label || option.value || option;
         }

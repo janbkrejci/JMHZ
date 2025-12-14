@@ -43,6 +43,14 @@
         }
 
         /* Override ts-form max-width - Reverted */
+        ts-form {
+            flex: 1;
+            overflow: hidden;
+            /* Force ts-form to stay within flex container */
+            display: flex;
+            /* Ensure it acts as a container */
+            flex-direction: column;
+        }
     </style>
 </head>
 
@@ -94,16 +102,21 @@
                 const { layout, fields, values } = buildMetadata(structure, enums);
 
                 // 3. Initialize Form
+                const buttonsConfig = [
+                    { "action": "import-data", "label": "Načíst data (Import)", "variant": "default", "position": "left" },
+                    { "action": "export-data", "label": "Uložit data (Export)", "variant": "primary", "position": "right" }
+                ];
+
                 formEl.setAttribute('fields', JSON.stringify(fields));
                 formEl.setAttribute('layout', JSON.stringify(layout));
+                formEl.setAttribute('buttons', JSON.stringify(buttonsConfig));
                 if (values && Object.keys(values).length > 0) {
                     formEl.setAttribute('values', JSON.stringify(values));
                 }
 
                 // 4. Listen for changes
                 formEl.addEventListener('form-changed', (e) => {
-                    const { field, value } = e.detail;
-                    console.log(`Field '${field}' changed to:`, value);
+                    // Logging removed as per request
                 });
 
                 // Wait for custom element to upgrade then run
@@ -221,6 +234,11 @@
                     config.options = []; // Fallback empty
                     console.warn(`Enum not found for ${fieldName} (ciselnik: ${node.ciselnik})`);
                 }
+            }
+
+            // Handle Mandatory
+            if (node.mandatory === 'P') {
+                config.required = true;
             }
 
             // Handle Default Value
