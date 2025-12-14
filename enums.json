@@ -1,0 +1,1010 @@
+{
+    "state": [
+        {
+            "value": "AD",
+            "label": "Andorra"
+        },
+        {
+            "value": "AE",
+            "label": "Spojené arabské emiráty"
+        },
+        {
+            "value": "AF",
+            "label": "Afghánistán"
+        },
+        {
+            "value": "AG",
+            "label": "Antigua a Barbuda"
+        },
+        {
+            "value": "AI",
+            "label": "Anguilla"
+        },
+        {
+            "value": "AL",
+            "label": "Albánie"
+        },
+        {
+            "value": "AM",
+            "label": "Arménie"
+        },
+        {
+            "value": "AO",
+            "label": "Angola"
+        },
+        {
+            "value": "AQ",
+            "label": "Antarktida"
+        },
+        {
+            "value": "AR",
+            "label": "Argentina"
+        },
+        {
+            "value": "AS",
+            "label": "Americká Samoa"
+        },
+        {
+            "value": "AT",
+            "label": "Rakousko"
+        },
+        {
+            "value": "AU",
+            "label": "Austrálie"
+        },
+        {
+            "value": "AW",
+            "label": "Aruba"
+        },
+        {
+            "value": "AX",
+            "label": "Alandy"
+        },
+        {
+            "value": "AZ",
+            "label": "Ázerbájdžán"
+        },
+        {
+            "value": "BA",
+            "label": "Bosna a Hercegovina"
+        },
+        {
+            "value": "BB",
+            "label": "Barbados"
+        },
+        {
+            "value": "BD",
+            "label": "Bangladéš"
+        },
+        {
+            "value": "BE",
+            "label": "Belgie"
+        },
+        {
+            "value": "BF",
+            "label": "Burkina Faso"
+        },
+        {
+            "value": "BG",
+            "label": "Bulharsko"
+        },
+        {
+            "value": "BH",
+            "label": "Bahrajn"
+        },
+        {
+            "value": "BI",
+            "label": "Burundi"
+        },
+        {
+            "value": "BJ",
+            "label": "Benin"
+        },
+        {
+            "value": "BL",
+            "label": "Svatý Bartoloměj"
+        },
+        {
+            "value": "BM",
+            "label": "Bermudy"
+        },
+        {
+            "value": "BN",
+            "label": "Brunej"
+        },
+        {
+            "value": "BO",
+            "label": "Bolívie"
+        },
+        {
+            "value": "BQ",
+            "label": "Bonaire, Svatý Eustach a Saba"
+        },
+        {
+            "value": "BR",
+            "label": "Brazílie"
+        },
+        {
+            "value": "BS",
+            "label": "Bahamy"
+        },
+        {
+            "value": "BT",
+            "label": "Bhútán"
+        },
+        {
+            "value": "BV",
+            "label": "Bouvetův ostrov"
+        },
+        {
+            "value": "BW",
+            "label": "Botswana"
+        },
+        {
+            "value": "BY",
+            "label": "Bělorusko"
+        },
+        {
+            "value": "BZ",
+            "label": "Belize"
+        },
+        {
+            "value": "CA",
+            "label": "Kanada"
+        },
+        {
+            "value": "CC",
+            "label": "Kokosové (Keelingovy) ostrovy"
+        },
+        {
+            "value": "CD",
+            "label": "Konžská demokratická republika"
+        },
+        {
+            "value": "CF",
+            "label": "Středoafrická republika"
+        },
+        {
+            "value": "CG",
+            "label": "Konžská republika"
+        },
+        {
+            "value": "CH",
+            "label": "Švýcarsko"
+        },
+        {
+            "value": "CI",
+            "label": "Pobřeží slonoviny"
+        },
+        {
+            "value": "CK",
+            "label": "Cookovy ostrovy"
+        },
+        {
+            "value": "CL",
+            "label": "Chile"
+        },
+        {
+            "value": "CM",
+            "label": "Kamerun"
+        },
+        {
+            "value": "CN",
+            "label": "Čína"
+        },
+        {
+            "value": "CO",
+            "label": "Kolumbie"
+        },
+        {
+            "value": "CR",
+            "label": "Kostarika"
+        },
+        {
+            "value": "CU",
+            "label": "Kuba"
+        },
+        {
+            "value": "CV",
+            "label": "Kapverdy"
+        },
+        {
+            "value": "CW",
+            "label": "Curaçao"
+        },
+        {
+            "value": "CX",
+            "label": "Vánoční ostrov"
+        },
+        {
+            "value": "CY",
+            "label": "Kypr"
+        },
+        {
+            "value": "CZ",
+            "label": "Česko"
+        },
+        {
+            "value": "DE",
+            "label": "Německo"
+        },
+        {
+            "value": "DJ",
+            "label": "Džibutsko"
+        },
+        {
+            "value": "DK",
+            "label": "Dánsko"
+        },
+        {
+            "value": "DM",
+            "label": "Dominika"
+        },
+        {
+            "value": "DO",
+            "label": "Dominikánská republika"
+        },
+        {
+            "value": "DZ",
+            "label": "Alžírsko"
+        },
+        {
+            "value": "EC",
+            "label": "Ekvádor"
+        },
+        {
+            "value": "EE",
+            "label": "Estonsko"
+        },
+        {
+            "value": "EG",
+            "label": "Egypt"
+        },
+        {
+            "value": "EH",
+            "label": "Západní Sahara"
+        },
+        {
+            "value": "ER",
+            "label": "Eritrea"
+        },
+        {
+            "value": "ES",
+            "label": "Španělsko"
+        },
+        {
+            "value": "ET",
+            "label": "Etiopie"
+        },
+        {
+            "value": "FI",
+            "label": "Finsko"
+        },
+        {
+            "value": "FJ",
+            "label": "Fidži"
+        },
+        {
+            "value": "FK",
+            "label": "Falklandy (Malvíny)"
+        },
+        {
+            "value": "FM",
+            "label": "Mikronésie"
+        },
+        {
+            "value": "FO",
+            "label": "Faerské ostrovy"
+        },
+        {
+            "value": "FR",
+            "label": "Francie"
+        },
+        {
+            "value": "GA",
+            "label": "Gabon"
+        },
+        {
+            "value": "GB",
+            "label": "Velká Británie a Severní Irsko"
+        },
+        {
+            "value": "GD",
+            "label": "Grenada"
+        },
+        {
+            "value": "GE",
+            "label": "Gruzie"
+        },
+        {
+            "value": "GF",
+            "label": "Francouzská Guyana"
+        },
+        {
+            "value": "GG",
+            "label": "Guernsey"
+        },
+        {
+            "value": "GH",
+            "label": "Ghana"
+        },
+        {
+            "value": "GI",
+            "label": "Gibraltar"
+        },
+        {
+            "value": "GL",
+            "label": "Grónsko"
+        },
+        {
+            "value": "GM",
+            "label": "Gambie"
+        },
+        {
+            "value": "GN",
+            "label": "Guinea"
+        },
+        {
+            "value": "GP",
+            "label": "Guadeloupe"
+        },
+        {
+            "value": "GQ",
+            "label": "Rovníková Guinea"
+        },
+        {
+            "value": "GR",
+            "label": "Řecko"
+        },
+        {
+            "value": "GS",
+            "label": "Jižní Georgie a Jižní Sandwichovy ostrovy"
+        },
+        {
+            "value": "GT",
+            "label": "Guatemala"
+        },
+        {
+            "value": "GU",
+            "label": "Guam"
+        },
+        {
+            "value": "GW",
+            "label": "Guinea-Bissau"
+        },
+        {
+            "value": "GY",
+            "label": "Guyana"
+        },
+        {
+            "value": "HK",
+            "label": "Hongkong"
+        },
+        {
+            "value": "HM",
+            "label": "Heardův ostrov a MacDonaldovy ostrovy"
+        },
+        {
+            "value": "HN",
+            "label": "Honduras"
+        },
+        {
+            "value": "HR",
+            "label": "Chorvatsko"
+        },
+        {
+            "value": "HT",
+            "label": "Haiti"
+        },
+        {
+            "value": "HU",
+            "label": "Maďarsko"
+        },
+        {
+            "value": "ID",
+            "label": "Indonésie"
+        },
+        {
+            "value": "IE",
+            "label": "Irsko"
+        },
+        {
+            "value": "IL",
+            "label": "Izrael"
+        },
+        {
+            "value": "IM",
+            "label": "Man"
+        },
+        {
+            "value": "IN",
+            "label": "Indie"
+        },
+        {
+            "value": "IO",
+            "label": "Britské indickooceánské území"
+        },
+        {
+            "value": "IQ",
+            "label": "Irák"
+        },
+        {
+            "value": "IR",
+            "label": "Írán"
+        },
+        {
+            "value": "IS",
+            "label": "Island"
+        },
+        {
+            "value": "IT",
+            "label": "Itálie"
+        },
+        {
+            "value": "JE",
+            "label": "Jersey"
+        },
+        {
+            "value": "JM",
+            "label": "Jamajka"
+        },
+        {
+            "value": "JO",
+            "label": "Jordánsko"
+        },
+        {
+            "value": "JP",
+            "label": "Japonsko"
+        },
+        {
+            "value": "KE",
+            "label": "Keňa"
+        },
+        {
+            "value": "KG",
+            "label": "Kyrgyzstán"
+        },
+        {
+            "value": "KH",
+            "label": "Kambodža"
+        },
+        {
+            "value": "KI",
+            "label": "Kiribati"
+        },
+        {
+            "value": "KM",
+            "label": "Komory"
+        },
+        {
+            "value": "KN",
+            "label": "Svatý Kryštof a Nevis"
+        },
+        {
+            "value": "KP",
+            "label": "Korejská lidově demokratická republika"
+        },
+        {
+            "value": "KR",
+            "label": "Korejská republika"
+        },
+        {
+            "value": "KW",
+            "label": "Kuvajt"
+        },
+        {
+            "value": "KY",
+            "label": "Kajmanské ostrovy"
+        },
+        {
+            "value": "KZ",
+            "label": "Kazachstán"
+        },
+        {
+            "value": "LA",
+            "label": "Laos"
+        },
+        {
+            "value": "LB",
+            "label": "Libanon"
+        },
+        {
+            "value": "LC",
+            "label": "Svatá Lucie"
+        },
+        {
+            "value": "LI",
+            "label": "Lichtenštejnsko"
+        },
+        {
+            "value": "LK",
+            "label": "Šrí Lanka"
+        },
+        {
+            "value": "LR",
+            "label": "Libérie"
+        },
+        {
+            "value": "LS",
+            "label": "Lesotho"
+        },
+        {
+            "value": "LT",
+            "label": "Litva"
+        },
+        {
+            "value": "LU",
+            "label": "Lucembursko"
+        },
+        {
+            "value": "LV",
+            "label": "Lotyšsko"
+        },
+        {
+            "value": "LY",
+            "label": "Libye"
+        },
+        {
+            "value": "MA",
+            "label": "Maroko"
+        },
+        {
+            "value": "MC",
+            "label": "Monako"
+        },
+        {
+            "value": "MD",
+            "label": "Moldavsko"
+        },
+        {
+            "value": "ME",
+            "label": "Černá Hora"
+        },
+        {
+            "value": "MF",
+            "label": "Svatý Martin (FR)"
+        },
+        {
+            "value": "MG",
+            "label": "Madagaskar"
+        },
+        {
+            "value": "MH",
+            "label": "Marshallovy ostrovy"
+        },
+        {
+            "value": "MK",
+            "label": "Severní Makedonie"
+        },
+        {
+            "value": "ML",
+            "label": "Mali"
+        },
+        {
+            "value": "MM",
+            "label": "Myanmar"
+        },
+        {
+            "value": "MN",
+            "label": "Mongolsko"
+        },
+        {
+            "value": "MO",
+            "label": "Macao"
+        },
+        {
+            "value": "MP",
+            "label": "Severní Mariany"
+        },
+        {
+            "value": "MQ",
+            "label": "Martinik"
+        },
+        {
+            "value": "MR",
+            "label": "Mauritánie"
+        },
+        {
+            "value": "MS",
+            "label": "Montserrat"
+        },
+        {
+            "value": "MT",
+            "label": "Malta"
+        },
+        {
+            "value": "MU",
+            "label": "Mauricius"
+        },
+        {
+            "value": "MV",
+            "label": "Maledivy"
+        },
+        {
+            "value": "MW",
+            "label": "Malawi"
+        },
+        {
+            "value": "MX",
+            "label": "Mexiko"
+        },
+        {
+            "value": "MY",
+            "label": "Malajsie"
+        },
+        {
+            "value": "MZ",
+            "label": "Mosambik"
+        },
+        {
+            "value": "NC",
+            "label": "Nová Kaledonie"
+        },
+        {
+            "value": "NE",
+            "label": "Niger"
+        },
+        {
+            "value": "NF",
+            "label": "Norfolk"
+        },
+        {
+            "value": "NG",
+            "label": "Nigérie"
+        },
+        {
+            "value": "NI",
+            "label": "Nikaragua"
+        },
+        {
+            "value": "NL",
+            "label": "Nizozemské království"
+        },
+        {
+            "value": "NO",
+            "label": "Norsko"
+        },
+        {
+            "value": "NP",
+            "label": "Nepál"
+        },
+        {
+            "value": "NR",
+            "label": "Nauru"
+        },
+        {
+            "value": "NU",
+            "label": "Niue"
+        },
+        {
+            "value": "NZ",
+            "label": "Nový Zéland"
+        },
+        {
+            "value": "OM",
+            "label": "Omán"
+        },
+        {
+            "value": "PA",
+            "label": "Panama"
+        },
+        {
+            "value": "PE",
+            "label": "Peru"
+        },
+        {
+            "value": "PF",
+            "label": "Francouzská Polynésie"
+        },
+        {
+            "value": "PG",
+            "label": "Papua Nová Guinea"
+        },
+        {
+            "value": "PH",
+            "label": "Filipíny"
+        },
+        {
+            "value": "PK",
+            "label": "Pákistán"
+        },
+        {
+            "value": "PL",
+            "label": "Polsko"
+        },
+        {
+            "value": "PM",
+            "label": "Saint Pierre a Miquelon"
+        },
+        {
+            "value": "PN",
+            "label": "Pitcairn"
+        },
+        {
+            "value": "PR",
+            "label": "Portoriko"
+        },
+        {
+            "value": "PS",
+            "label": "Palestina"
+        },
+        {
+            "value": "PT",
+            "label": "Portugalsko"
+        },
+        {
+            "value": "PW",
+            "label": "Palau"
+        },
+        {
+            "value": "PY",
+            "label": "Paraguay"
+        },
+        {
+            "value": "QA",
+            "label": "Katar"
+        },
+        {
+            "value": "RE",
+            "label": "Réunion"
+        },
+        {
+            "value": "RO",
+            "label": "Rumunsko"
+        },
+        {
+            "value": "RS",
+            "label": "Srbsko"
+        },
+        {
+            "value": "RU",
+            "label": "Rusko"
+        },
+        {
+            "value": "RW",
+            "label": "Rwanda"
+        },
+        {
+            "value": "SA",
+            "label": "Saúdská Arábie"
+        },
+        {
+            "value": "SB",
+            "label": "Šalomounovy ostrovy"
+        },
+        {
+            "value": "SC",
+            "label": "Seychely"
+        },
+        {
+            "value": "SD",
+            "label": "Súdán"
+        },
+        {
+            "value": "SE",
+            "label": "Švédsko"
+        },
+        {
+            "value": "SG",
+            "label": "Singapur"
+        },
+        {
+            "value": "SH",
+            "label": "Svatá Helena"
+        },
+        {
+            "value": "SI",
+            "label": "Slovinsko"
+        },
+        {
+            "value": "SJ",
+            "label": "Špicberky a Jan Mayen"
+        },
+        {
+            "value": "SK",
+            "label": "Slovensko"
+        },
+        {
+            "value": "SL",
+            "label": "Sierra Leone"
+        },
+        {
+            "value": "SM",
+            "label": "San Marino"
+        },
+        {
+            "value": "SN",
+            "label": "Senegal"
+        },
+        {
+            "value": "SO",
+            "label": "Somálsko"
+        },
+        {
+            "value": "SR",
+            "label": "Surinam"
+        },
+        {
+            "value": "SS",
+            "label": "Jižní Súdán"
+        },
+        {
+            "value": "ST",
+            "label": "Svatý Tomáš a Princův ostrov"
+        },
+        {
+            "value": "SV",
+            "label": "Salvador"
+        },
+        {
+            "value": "SX",
+            "label": "Svatý Martin (NL)"
+        },
+        {
+            "value": "SY",
+            "label": "Sýrie"
+        },
+        {
+            "value": "SZ",
+            "label": "Svazijsko"
+        },
+        {
+            "value": "TC",
+            "label": "Turks a Caicos"
+        },
+        {
+            "value": "TD",
+            "label": "Čad"
+        },
+        {
+            "value": "TF",
+            "label": "Francouzská jižní a antarktická území"
+        },
+        {
+            "value": "TG",
+            "label": "Togo"
+        },
+        {
+            "value": "TH",
+            "label": "Thajsko"
+        },
+        {
+            "value": "TJ",
+            "label": "Tádžikistán"
+        },
+        {
+            "value": "TK",
+            "label": "Tokelau"
+        },
+        {
+            "value": "TL",
+            "label": "Východní Timor"
+        },
+        {
+            "value": "TM",
+            "label": "Turkmenistán"
+        },
+        {
+            "value": "TN",
+            "label": "Tunisko"
+        },
+        {
+            "value": "TO",
+            "label": "Tonga"
+        },
+        {
+            "value": "TR",
+            "label": "Turecko"
+        },
+        {
+            "value": "TT",
+            "label": "Trinidad a Tobago"
+        },
+        {
+            "value": "TV",
+            "label": "Tuvalu"
+        },
+        {
+            "value": "TW",
+            "label": "Tchaj-wan"
+        },
+        {
+            "value": "TZ",
+            "label": "Tanzanie"
+        },
+        {
+            "value": "UA",
+            "label": "Ukrajina"
+        },
+        {
+            "value": "UG",
+            "label": "Uganda"
+        },
+        {
+            "value": "UM",
+            "label": "Menší odlehlé ostrovy USA"
+        },
+        {
+            "value": "US",
+            "label": "Spojené státy"
+        },
+        {
+            "value": "UY",
+            "label": "Uruguay"
+        },
+        {
+            "value": "UZ",
+            "label": "Uzbekistán"
+        },
+        {
+            "value": "VA",
+            "label": "Vatikán"
+        },
+        {
+            "value": "VC",
+            "label": "Svatý Vincenc a Grenadiny"
+        },
+        {
+            "value": "VE",
+            "label": "Venezuela"
+        },
+        {
+            "value": "VG",
+            "label": "Britské Panenské ostrovy"
+        },
+        {
+            "value": "VI",
+            "label": "Americké Panenské ostrovy"
+        },
+        {
+            "value": "VN",
+            "label": "Vietnam"
+        },
+        {
+            "value": "VU",
+            "label": "Vanuatu"
+        },
+        {
+            "value": "WF",
+            "label": "Wallis a Futuna"
+        },
+        {
+            "value": "WS",
+            "label": "Samoa"
+        },
+        {
+            "value": "XK",
+            "label": "Kosovo"
+        },
+        {
+            "value": "YE",
+            "label": "Jemen"
+        },
+        {
+            "value": "YT",
+            "label": "Mayotte"
+        },
+        {
+            "value": "ZA",
+            "label": "Jižní Afrika"
+        },
+        {
+            "value": "ZM",
+            "label": "Zambie"
+        },
+        {
+            "value": "ZW",
+            "label": "Zimbabwe"
+        }
+    ],
+    "sex": [
+        {
+            "value": "M",
+            "label": "mužské"
+        },
+        {
+            "value": "Ž",
+            "label": "ženské"
+        }
+    ]
+}

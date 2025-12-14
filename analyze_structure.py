@@ -119,6 +119,7 @@ try:
             "skip": False,
             "new_only": False,
             "description": "",
+            "default_value": "",
             "order": 100,      
             "children": []
         }
@@ -159,6 +160,7 @@ try:
                 node['width'] = 12
                 node['manual_parent'] = ""
                 node['ciselnik'] = ""
+                node['default_value'] = ""
                 
                 node['mandatory'] = item['mandatory']
                 node['p'] = item['p']

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Form</title>
+    <!-- Shoelace & Tailwind -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/themes/light.css" />
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/shoelace-autoloader.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- TS Form Component -->
+    <script type="module" src="./ts-form-bundle.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: #f3f4f6;
+        }
+
+        .app-container {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+
+        header {
+            background: white;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Override ts-form max-width - Reverted */
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1 class="text-xl font-bold text-gray-800">Osobní dotazník</h1>
+            <div class="text-sm text-gray-500">
+                Režim: <span id="mode-badge" class="font-mono bg-blue-100 text-blue-800 px-2 py-1 rounded">Doplnění
+                    údajů pro JMHZ</span>
+            </div>
+        </header>
+
+        <!-- The Form Component -->
+        <ts-form id="employeeForm"></ts-form>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        // Toggle this to switch between 'Standard' (employee_form) and 'New' (new_employee_form)
+        // For employee_form.html, this should be FALSE.
+        const SHOW_NEW_ONLY_FIELDS = true;
+
+        // --- Main Logic ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            const formEl = document.getElementById('employeeForm');
+            const modeBadge = document.getElementById('mode-badge');
+
+            if (SHOW_NEW_ONLY_FIELDS) {
+                modeBadge.textContent = "Nový zaměstnanec";
+                modeBadge.className = "font-mono bg-green-100 text-green-800 px-2 py-1 rounded";
+            }
+
+            try {
+                // 1. Fetch Structure and Enums
+                const [structureResp, enumsResp] = await Promise.all([
+                    fetch('employee_structure_edited.json'),
+                    fetch('enums.json')
+                ]);
+
+                if (!structureResp.ok) throw new Error('Failed to load JSON structure');
+                if (!enumsResp.ok) throw new Error('Failed to load Enums');
+
+                const structure = await structureResp.json();
+                const enums = await enumsResp.json();
+
+                // 2. Transform Data
+                const { layout, fields, values } = buildMetadata(structure, enums);
+
+                // 3. Initialize Form
+                formEl.setAttribute('fields', JSON.stringify(fields));
+                formEl.setAttribute('layout', JSON.stringify(layout));
+                if (values && Object.keys(values).length > 0) {
+                    formEl.setAttribute('values', JSON.stringify(values));
+                }
+
+                // 4. Listen for changes
+                formEl.addEventListener('form-changed', (e) => {
+                    const { field, value } = e.detail;
+                    console.log(`Field '${field}' changed to:`, value);
+                });
+
+                // Wait for custom element to upgrade then run
+                customElements.whenDefined('ts-form').then(() => {
+                    formEl.run();
+                });
+
+            } catch (err) {
+                console.error(err);
+                document.body.innerHTML = `<div class="p-8 text-red-600">Error loading form: ${err.message}</div>`;
+            }
+        });
+
+        // --- Builder Functions ---
+
+        function buildMetadata(structure, enums) {
+            // Assume structure is array [ { key: 'employee', children: [...] } ]
+            const root = structure.find(n => n.key === 'employee');
+            if (!root) throw new Error("Root 'employee' node not found");
+
+            const fields = {};
+            const initialValues = {};
+            const tabs = [];
+
+            // Process Root Children as Tabs
+            if (root.children) {
+                root.children.forEach(child => {
+                    if (shouldSkip(child)) return;
+
+                    const tab = buildTab(child, fields, enums, initialValues);
+                    if (tab) tabs.push(tab);
+                });
+            }
+
+            return {
+                layout: { tabs },
+                fields: fields,
+                values: initialValues
+            };
+        }
+
+        function shouldSkip(node) {
+            if (node.skip) return true;
+            // If Standard Mode (SHOW_NEW_ONLY_FIELDS = false), skip if node is 'new_only'
+            if (!SHOW_NEW_ONLY_FIELDS && node.new_only) return true;
+            return false;
+        }
+
+        function buildTab(node, fieldsAccumulator, enums, valuesAccumulator) {
+            // Flatten the node's subtree into a list of Items (Fields or Separators)
+            const flatItems = flattenNode(node, fieldsAccumulator, enums, valuesAccumulator); // Returns array of { type, ... }
+
+            if (flatItems.length === 0) return null;
+
+            // Pack Items into Rows
+            const rows = packRows(flatItems);
+
+            return {
+                label: node.description || node.key,
+                rows: rows
+            };
+        }
+
+        function flattenNode(node, fieldsAccumulator, enums, valuesAccumulator) {
+            let items = [];
+
+            if (node.children && node.children.length > 0) {
+                // It's a Group/Section
+                node.children.forEach(child => {
+                    if (shouldSkip(child)) return;
+
+                    // If child is a group (has children), adds Separator + Recurse
+                    // If child is a leaf, adds Field
+
+                    if (child.children && child.children.length > 0) {
+                        // Group
+                        if (child.description) {
+                            items.push({
+                                type: 'separator',
+                                label: child.description,
+                                width: 12
+                            });
+                        }
+                        items = items.concat(flattenNode(child, fieldsAccumulator, enums, valuesAccumulator));
+                    } else {
+                        // Leaf
+                        const item = createFieldItem(child, fieldsAccumulator, enums, valuesAccumulator);
+                        items.push(item);
+                    }
+                });
+            }
+
+            return items;
+        }
+
+        function createFieldItem(node, fieldsAccumulator, enums, valuesAccumulator) {
+            // Construct dotted path
+            const fieldName = node.original_path || node.key;
+
+            // Default config
+            const config = {
+                type: node.widget || 'input',
+                label: node.description || node.key,
+            };
+
+            // Handle Selection -> Combobox
+            if (node.widget === 'selection') {
+                config.type = 'combobox';
+                config.allowCustom = false;
+                config.placeholder = 'Vyberte...';
+
+                if (node.ciselnik && enums[node.ciselnik]) {
+                    config.options = enums[node.ciselnik];
+                } else {
+                    config.options = []; // Fallback empty
+                    console.warn(`Enum not found for ${fieldName} (ciselnik: ${node.ciselnik})`);
+                }
+            }
+
+            // Handle Default Value
+            if (node.default_value !== undefined && node.default_value !== null && node.default_value !== "") {
+                valuesAccumulator[fieldName] = node.default_value;
+            }
+
+            // Add to fields config
+            fieldsAccumulator[fieldName] = config;
+
+            return {
+                type: 'field',
+                field: fieldName,
+                width: parseInt(node.width || 12, 10), // Ensure number
+            };
+        }
+
+        function packRows(items) {
+            const rows = [];
+            let currentRow = [];
+            let currentWidthSum = 0;
+
+            items.forEach(item => {
+                if (currentWidthSum + item.width > 12) {
+                    // Finish current row
+                    if (currentRow.length > 0) {
+                        // Pad if needed
+                        if (currentWidthSum < 12) {
+                            const diff = 12 - currentWidthSum;
+                            currentRow.push({ type: 'empty', width: diff });
+                        }
+                        rows.push(convertRowToFr(currentRow));
+                    }
+                    currentRow = [];
+                    currentWidthSum = 0;
+                }
+
+                currentRow.push(item);
+                currentWidthSum += item.width;
+            });
+
+            if (currentRow.length > 0) {
+                if (currentWidthSum < 12) {
+                    const diff = 12 - currentWidthSum;
+                    currentRow.push({ type: 'empty', width: diff });
+                }
+                rows.push(convertRowToFr(currentRow));
+            }
+
+            return rows;
+        }
+
+        function convertRowToFr(rowItems) {
+            // rowItems: [{field, width}, ...]
+            // Output: [{field, width: '6fr'}, ...]
+            return rowItems.map(item => {
+                if (item.type === 'separator') {
+                    return { type: 'separator', label: item.label, width: '12fr' }; // Full width
+                }
+                if (item.type === 'empty') {
+                    return { type: 'empty', width: `${item.width}fr` };
+                }
+
+                // Destructure width out of item to strictly avoid integer overwrite
+                // or just spread first. Spread first is safer for unknown props.
+                const { width, ...rest } = item;
+
+                return {
+                    ...rest,
+                    width: `${width}fr`
+                };
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

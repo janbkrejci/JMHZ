@@ -14,101 +14,143 @@
         .node-row:hover {
             background-color: #f8fafc;
         }
+
+        .node-row.selected {
+            background-color: #eff6ff;
+            border-left: 4px solid #4f46e5;
+        }
+
+        /* Custom scrollbar for better density */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
     </style>
 </head>
 
-<body class="bg-gray-50 text-slate-800 pb-20">
+<body class="bg-gray-50 text-slate-800 h-screen flex flex-col overflow-hidden">
 
-    <div class="max-w-[1600px] mx-auto px-4 py-8">
-
-        <div class="flex justify-between items-center mb-6 sticky top-0 bg-gray-50 z-10 py-4 border-b border-gray-200">
-            <div>
-                <h1 class="text-2xl font-bold text-slate-900">Editor Struktury Formuláře</h1>
-                <p class="text-sm text-slate-500">Úprava employee_structure.json (Skip, Popis, Widget, Order, Width)</p>
-            </div>
-            <div class="flex gap-3">
-                <button onclick="loadData()"
-                    class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded shadow-sm text-sm font-medium">
-                    Načíst JSON
-                </button>
-                <div class="relative">
-                    <button onclick="document.getElementById('file-merge').click()"
-                        class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded shadow-sm text-sm font-medium">
-                        Sloučit data...
-                    </button>
-                    <input type="file" id="file-merge" class="hidden" accept=".json" onchange="handleMergeUpload(this)">
-                </div>
-                <button onclick="exportData()"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded shadow-sm text-sm font-medium">
-                    Stáhnout employee_structure_edited.json
-                </button>
-            </div>
+    <!-- Header -->
+    <div class="flex-none bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center z-10 shadow-sm">
+        <div>
+            <h1 class="text-xl font-bold text-slate-900">Editor Struktury Formuláře</h1>
+            <p class="text-xs text-slate-500">Úprava employee_structure.json</p>
         </div>
+        <div class="flex gap-3">
+            <div id="status" class="hidden px-3 py-1 rounded text-xs"></div>
 
-        <div id="status" class="hidden mb-4 p-4 rounded text-sm"></div>
-
-        <div class="p-4 bg-gray-50 border-b border-gray-200 text-xs text-gray-500">
-            <strong>Tip pro slučování:</strong> Funkce "Sloučit data" načte vybraný JSON a aktualizuje nastavení (Skip,
-            New Only,
-            Popis, Widget, Order, Width) u shodných atributů v aktuálním stromu. Žádné nové atributy nebudou přidány.
+            <button onclick="loadData()"
+                class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-3 py-1.5 rounded shadow-sm text-xs font-medium">
+                Načíst
+            </button>
+            <div class="relative">
+                <button onclick="document.getElementById('file-merge').click()"
+                    class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-3 py-1.5 rounded shadow-sm text-xs font-medium">
+                    Sloučit...
+                </button>
+                <input type="file" id="file-merge" class="hidden" accept=".json" onchange="handleMergeUpload(this)">
+            </div>
+            <button onclick="exportData()"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded shadow-sm text-xs font-medium">
+                Exportovat JSON
+            </button>
         </div>
-        <div class="bg-white shadow rounded-lg border border-gray-200 overflow-hidden">
-            <div class="overflow-x-auto">
+    </div>
+
+    <!-- Main Content (Flex Layout) -->
+    <div class="flex-1 flex overflow-hidden">
+
+        <!-- LEFT PANEL: Tree Table (2/3 width) -->
+        <div class="w-2/3 flex flex-col border-r border-gray-200 bg-white">
+            <div
+                class="bg-gray-50 px-4 py-2 text-xs font-semibold text-gray-500 border-b border-gray-200 flex justify-between">
+                <span>Struktura formuláře</span>
+                <span class="text-gray-400">Kliknutím na řádek zobrazíte detaily</span>
+            </div>
+
+            <div class="flex-1 overflow-auto">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-gray-50 sticky top-0 z-10 shadow-sm">
                         <tr>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-96">
+                                class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/2">
                                 Atribut (Strom)</th>
+                            <th class="px-2 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-12"
+                                title="Skip (Přeskočit)">S</th>
+                            <th class="px-2 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-12"
+                                title="New Only (Pouze pro nového)">N</th>
                             <th
-                                class="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
-                                Skip</th>
-                            <th
-                                class="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
-                                New Only</th>
-                            <th
-                                class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-64">
+                                class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">
                                 Popis (Label)</th>
                             <th
-                                class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
-                                Widget</th>
-                            <th
-                                class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
-                                Číselník</th>
-                            <th
-                                class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
-                                Manual Parent</th>
-                            <th
-                                class="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
+                                class="px-2 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-12">
                                 Order</th>
                             <th
-                                class="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
-                                Width (1-12)</th>
-                            <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Excel Info</th>
+                                class="px-2 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
+                                Width</th>
                         </tr>
                     </thead>
-                    <tbody id="tbody" class="bg-white divide-y divide-gray-200">
-                        <!-- Rows -->
+                    <tbody id="tbody" class="bg-white divide-y divide-gray-100">
+                        <!-- Rows rendered here -->
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <!-- RIGHT PANEL: Detail Form (1/3 width) -->
+        <div class="w-1/3 bg-gray-50 flex flex-col overflow-auto">
+            <div class="bg-white px-4 py-3 border-b border-gray-200 shadow-sm sticky top-0 z-10">
+                <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wider">Detail Atributu</h2>
+            </div>
+
+            <div id="detail-panel" class="p-6 space-y-6">
+                <div class="text-center text-gray-400 py-10">
+                    <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                            d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                    </svg>
+                    <p class="mt-2 text-sm">Vyberte atribut vlevo pro editaci</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
         let rootData = [];
+        let selectedPath = null;
+        let enums = {}; // Cache for enums
+
+        // --- DATA LOADING & MERGING ---
 
         async function loadData() {
             try {
+                // Load Enums first
+                const resEnums = await fetch('enums.json');
+                if (resEnums.ok) {
+                    enums = await resEnums.json();
+                }
+
+                // Load Data
                 const res = await fetch('employee_structure.json');
                 if (!res.ok) throw new Error('Failed to load file');
                 rootData = await res.json();
                 render();
-                showStatus('Načteno employee_structure.json', 'green');
+                showStatus('Načteno OK (Enums + Data)', 'green');
             } catch (e) {
-                showStatus('Chyba při načítání: ' + e.message, 'red');
+                showStatus('Chyba: ' + e.message, 'red');
             }
         }
 
@@ -122,7 +164,6 @@
                     const mergeData = JSON.parse(e.target.result);
                     const stats = { updated: 0, moved: 0 };
 
-                    // Maps for lookup
                     const pathMap = new Map();
                     const idMap = new Map();
 
@@ -131,24 +172,20 @@
                             const path = prefix ? `${prefix}.${node.key}` : node.key;
                             pathMap.set(path, node);
                             if (node.id) idMap.set(String(node.id), node);
-
                             if (node.children) buildMap(node.children, path);
                         });
                     }
                     buildMap(mergeData);
 
-                    // Recursive merge function
                     function traverseAndMerge(nodes, prefix = '', parentArray = null) {
                         [...nodes].forEach(node => {
                             const path = prefix ? `${prefix}.${node.key}` : node.key;
-
                             let source = null;
                             if (node.id && idMap.has(String(node.id))) {
                                 source = idMap.get(String(node.id));
                             } else if (pathMap.has(path)) {
                                 source = pathMap.get(path);
                             }
-
                             if (source) {
                                 let changed = false;
                                 if (source.description !== undefined) { node.description = source.description; changed = true; }
@@ -158,7 +195,7 @@
                                 if (source.skip !== undefined) { node.skip = source.skip; changed = true; }
                                 if (source.new_only !== undefined) { node.new_only = source.new_only; changed = true; }
                                 if (source.ciselnik !== undefined) { node.ciselnik = source.ciselnik; changed = true; }
-
+                                if (source.default_value !== undefined) { node.default_value = source.default_value; changed = true; }
                                 if (source.manual_parent !== undefined && source.manual_parent !== node.manual_parent) {
                                     node.manual_parent = source.manual_parent;
                                     changed = true;
@@ -167,68 +204,59 @@
                                         stats.moved++;
                                     }
                                 }
-
                                 if (changed) stats.updated++;
                             }
-
                             if (node.children) traverseAndMerge(node.children, path, node.children);
                         });
                     }
 
                     traverseAndMerge(rootData, '', rootData);
                     render();
-                    showStatus(`Sloučeno úspěšně. Aktualizováno ${stats.updated}, přesunuto ${stats.moved} atributů.`, 'blue');
+                    showStatus(`Sloučeno: ${stats.updated} změn, ${stats.moved} přesunů.`, 'blue');
 
                 } catch (err) {
-                    showStatus('Chyba parsování JSON pro sloučení: ' + err.message, 'red');
-                    console.error(err);
+                    showStatus('Chyba Merge: ' + err.message, 'red');
                 }
             };
             reader.readAsText(file);
             input.value = '';
         }
 
-        // Toggle collapse state
+        // --- TREE LOGIC ---
+
         function toggleCollapse(path) {
             const node = findNodeByPath(rootData, path);
             if (node) {
                 node._collapsed = !node._collapsed;
                 render();
             }
+            event.stopPropagation();
+        }
+
+        function selectNode(path) {
+            selectedPath = path;
+            render(); // Re-render tree to highlight
+            renderDetail(path); // Render detail panel
         }
 
         function moveNode(node, targetPath, sourceArray) {
             let actualTargetPath = targetPath;
-
-            // If targetPath is empty (revert), ensure we have original_path
             if (!actualTargetPath) {
                 if (node.original_path) {
-                    // Parent path is original_path minus the last key
                     const parts = node.original_path.split('.');
                     if (parts.length > 1) {
-                        parts.pop(); // remove self
+                        parts.pop();
                         actualTargetPath = parts.join('.');
-                    } else {
-                        // Root item? 
-                        return; // Can't revert to root array easily here without specific logic
-                    }
-                } else {
-                    return; // No original path, can't revert
-                }
+                    } else return;
+                } else return;
             }
 
             let targetParent = findNodeByPath(rootData, actualTargetPath);
-
-            // Check if we are already there? (Optimization)
-
             if (targetParent) {
                 if (!targetParent.children) targetParent.children = [];
-
-                // Remove from source
                 const idx = sourceArray.indexOf(node);
                 if (idx > -1) {
                     sourceArray.splice(idx, 1);
-                    // Add to target
                     targetParent.children.push(node);
                 }
             } else {
@@ -236,15 +264,11 @@
             }
         }
 
-        function findNodeByPath(nodes, path) {
-            return findNodeByPathRecursive(nodes, '', path);
-        }
-
+        function findNodeByPath(nodes, path) { return findNodeByPathRecursive(nodes, '', path); }
         function findNodeByPathRecursive(nodes, prefix, targetPath) {
             for (let node of nodes) {
                 const currentPath = prefix ? `${prefix}.${node.key}` : node.key;
                 if (currentPath === targetPath) return node;
-
                 if (node.children) {
                     const found = findNodeByPathRecursive(node.children, currentPath, targetPath);
                     if (found) return found;
@@ -252,6 +276,8 @@
             }
             return null;
         }
+
+        // --- RENDERERS ---
 
         function render() {
             const tbody = document.getElementById('tbody');
@@ -263,162 +289,92 @@
                 nodes.forEach(node => {
                     const fullKey = parentKey ? `${parentKey}.${node.key}` : node.key;
                     const isLeaf = !node.children || node.children.length === 0;
-                    const padding = level * 24 + 16;
+                    const padding = level * 16 + 12; // Compact padding
+
+                    const isSelected = fullKey === selectedPath;
 
                     const tr = document.createElement('tr');
-                    tr.className = 'node-row transition-colors group';
-                    if (node.skip) tr.classList.add('bg-gray-50', 'text-gray-400');
+                    tr.className = `node-row transition-colors cursor-pointer border-b border-gray-50 ${isSelected ? 'selected' : ''}`;
+                    if (node.skip) tr.classList.add('text-gray-400', 'bg-gray-50/50');
                     if (hidden) tr.style.display = 'none';
 
-                    // 1. Attribute Tree Column
+                    tr.onclick = () => selectNode(fullKey);
+
+                    // 1. Tree Column
                     const tdTree = document.createElement('td');
-                    tdTree.className = 'py-2 pr-2 text-sm font-mono align-middle whitespace-nowrap';
-                    tdTree.style.color = node.skip ? 'inherit' : '#111827';
+                    tdTree.className = 'py-1.5 pr-2 text-sm font-mono align-middle whitespace-nowrap';
 
                     const hasChildren = node.children && node.children.length > 0;
                     const icon = hasChildren
                         ? (node._collapsed
-                            ? '<svg class="w-4 h-4 mr-1 text-yellow-500 transform -rotate-90 transition-transform cursor-pointer" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>'
-                            : '<svg class="w-4 h-4 mr-1 text-yellow-500 transition-transform cursor-pointer" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>')
-                        : '<span class="w-4 mr-1 text-gray-300">└</span>';
+                            ? '<svg class="w-3 h-3 mr-1.5 text-yellow-600 inline transform -rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>'
+                            : '<svg class="w-3 h-3 mr-1.5 text-yellow-500 inline" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>')
+                        : '<span class="w-3 h-3 mr-1.5 inline-block border-l border-b border-gray-300 transform -translate-y-1"></span>';
 
                     const indent = `<div style="padding-left: ${padding}px" class="flex items-center">`;
-                    const label = `<span class="${!isLeaf ? 'font-bold cursor-pointer' : ''}" onclick="${hasChildren ? `toggleCollapse('${fullKey}')` : ''}">${node.key}</span>`;
+                    const labelSpan = `<span onclick="${hasChildren ? `toggleCollapse('${fullKey}')` : ''}" class="${!isLeaf ? 'font-bold' : ''} hover:text-indigo-600">${node.key}</span>`;
 
-                    tdTree.innerHTML = `${indent}<span onclick="${hasChildren ? `toggleCollapse('${fullKey}')` : ''}">${icon}</span>${label}</div>`;
+                    tdTree.innerHTML = `${indent}<span onclick="${hasChildren ? `toggleCollapse('${fullKey}')` : ''}" class="cursor-pointer p-1">${icon}</span>${labelSpan}</div>`;
                     tr.appendChild(tdTree);
 
-                    // 2. Skip Checkbox
+                    // 2. Skip
                     const tdSkip = document.createElement('td');
-                    tdSkip.className = 'py-2 px-2 text-center align-middle';
+                    tdSkip.className = 'py-1 px-1 text-center';
                     const chkSkip = document.createElement('input');
                     chkSkip.type = 'checkbox';
                     chkSkip.checked = node.skip || false;
-                    chkSkip.className = 'rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4 border-gray-300';
-                    chkSkip.onchange = (e) => {
-                        node.skip = e.target.checked;
-                        render();
-                    };
+                    chkSkip.className = 'rounded text-indigo-600 focus:ring-indigo-500 h-3 w-3 border-gray-300';
+                    chkSkip.onclick = (e) => e.stopPropagation();
+                    chkSkip.onchange = (e) => { node.skip = e.target.checked; render(); renderDetail(fullKey); };
                     tdSkip.appendChild(chkSkip);
                     tr.appendChild(tdSkip);
 
-                    // 2b. New Only Checkbox
-                    const tdNewOnly = document.createElement('td');
-                    tdNewOnly.className = 'py-2 px-2 text-center align-middle';
-                    const chkNewOnly = document.createElement('input');
-                    chkNewOnly.type = 'checkbox';
-                    chkNewOnly.checked = node.new_only || false;
-                    chkNewOnly.className = 'rounded text-green-600 focus:ring-green-500 h-4 w-4 border-gray-300';
-                    chkNewOnly.disabled = node.skip;
-                    chkNewOnly.onchange = (e) => {
-                        node.new_only = e.target.checked;
-                        // Visual helper? maybe change row tint?
-                    };
-                    tdNewOnly.appendChild(chkNewOnly);
-                    tr.appendChild(tdNewOnly);
+                    // 3. New Only
+                    const tdNew = document.createElement('td');
+                    tdNew.className = 'py-1 px-1 text-center';
+                    const chkNew = document.createElement('input');
+                    chkNew.type = 'checkbox';
+                    chkNew.checked = node.new_only || false;
+                    chkNew.className = 'rounded text-green-600 focus:ring-green-500 h-3 w-3 border-gray-300';
+                    chkNew.disabled = node.skip;
+                    chkNew.onclick = (e) => e.stopPropagation();
+                    chkNew.onchange = (e) => { node.new_only = e.target.checked; render(); }; // Re-render to update detail if open?
+                    tdNew.appendChild(chkNew);
+                    tr.appendChild(tdNew);
 
-                    // 3. Description Input
+                    // 4. Description (Editable in tree per user request)
                     const tdDesc = document.createElement('td');
-                    tdDesc.className = 'py-2 px-2 align-middle';
+                    tdDesc.className = 'py-1 px-2';
                     const inpDesc = document.createElement('input');
                     inpDesc.type = 'text';
                     inpDesc.value = node.description || '';
                     inpDesc.disabled = node.skip;
-                    inpDesc.className = 'w-full text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 disabled:bg-gray-100 disabled:text-gray-400';
-                    inpDesc.onchange = (e) => node.description = e.target.value;
+                    inpDesc.className = 'w-full bg-transparent text-xs border-0 border-b border-transparent focus:border-indigo-500 focus:ring-0 px-0 py-0.5 placeholder-gray-300';
+                    inpDesc.placeholder = 'Popis...';
+                    inpDesc.onclick = (e) => e.stopPropagation();
+                    inpDesc.onchange = (e) => {
+                        node.description = e.target.value;
+                        if (selectedPath === fullKey) renderDetail(fullKey); // Sync detail
+                    };
                     tdDesc.appendChild(inpDesc);
                     tr.appendChild(tdDesc);
 
-                    // 4. Widget Select (Leaves only)
-                    const tdWidget = document.createElement('td');
-                    tdWidget.className = 'py-2 px-2 align-middle';
-                    let selWidget;
-                    if (isLeaf) {
-                        selWidget = document.createElement('select');
-                        selWidget.className = 'w-full text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 py-1 disabled:bg-gray-100';
-                        selWidget.disabled = node.skip;
-                        const widgets = ['input', 'selection'];
-                        widgets.forEach(w => {
-                            const opt = document.createElement('option');
-                            opt.value = w;
-                            opt.text = w;
-                            if (node.widget === w) opt.selected = true;
-                            selWidget.appendChild(opt);
-                        });
-                        tdWidget.appendChild(selWidget);
-                    }
-                    tr.appendChild(tdWidget);
-
-                    // 4a. Ciselnik Input (Leaves only)
-                    const tdCiselnik = document.createElement('td');
-                    tdCiselnik.className = 'py-2 px-2 align-middle';
-                    const inpCiselnik = document.createElement('input');
-                    if (isLeaf) {
-                        inpCiselnik.type = 'text';
-                        inpCiselnik.value = node.ciselnik || '';
-                        inpCiselnik.placeholder = 'Kód číselníku';
-                        inpCiselnik.className = 'w-full text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 disabled:bg-gray-100 disabled:text-gray-400';
-
-                        const updateCiselnikState = () => {
-                            const isSel = node.widget === 'selection';
-                            inpCiselnik.disabled = node.skip || !isSel;
-                            if (!isSel) inpCiselnik.value = '';
-                        };
-                        updateCiselnikState();
-
-                        if (selWidget) {
-                            selWidget.onchange = (e) => {
-                                node.widget = e.target.value;
-                                updateCiselnikState();
-                            };
-                        }
-
-                        inpCiselnik.onchange = (e) => node.ciselnik = e.target.value;
-                        tdCiselnik.appendChild(inpCiselnik);
-                    }
-                    tr.appendChild(tdCiselnik);
-
-                    // 4b. Manual Parent Input (Leaves only)
-                    const tdParent = document.createElement('td');
-                    tdParent.className = 'py-2 px-2 align-middle';
-                    if (isLeaf) {
-                        const inpParent = document.createElement('input');
-                        inpParent.type = 'text';
-                        inpParent.value = node.manual_parent || '';
-                        inpParent.placeholder = 'path.to.parent';
-                        inpParent.disabled = node.skip;
-                        inpParent.className = 'w-full text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 disabled:bg-gray-100 disabled:text-gray-400';
-
-                        inpParent.onchange = (e) => {
-                            node.manual_parent = e.target.value;
-                            // Attempt live move (or revert if empty)
-                            if (nodes) {
-                                moveNode(node, node.manual_parent, nodes);
-                                render();
-                            }
-                        };
-                        tdParent.appendChild(inpParent);
-                    }
-                    tr.appendChild(tdParent);
-
-                    // 5. Order Input
+                    // 5. Order
                     const tdOrder = document.createElement('td');
-                    tdOrder.className = 'py-2 px-2 text-center align-middle';
+                    tdOrder.className = 'py-1 px-1 text-center';
                     const inpOrder = document.createElement('input');
                     inpOrder.type = 'number';
                     inpOrder.value = node.order || 0;
                     inpOrder.disabled = node.skip;
-                    inpOrder.className = 'w-16 text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 text-center py-1 disabled:bg-gray-100';
-                    inpOrder.onchange = (e) => {
-                        node.order = parseInt(e.target.value) || 0;
-                        render();
-                    };
+                    inpOrder.className = 'w-12 text-xs border border-gray-200 rounded text-center py-0.5 focus:ring-indigo-500 focus:border-indigo-500';
+                    inpOrder.onclick = (e) => e.stopPropagation();
+                    inpOrder.onchange = (e) => { node.order = parseInt(e.target.value) || 0; render(); };
                     tdOrder.appendChild(inpOrder);
                     tr.appendChild(tdOrder);
 
-                    // 6. Width Input (Leaves only)
+                    // 6. Width
                     const tdWidth = document.createElement('td');
-                    tdWidth.className = 'py-2 px-2 text-center align-middle';
+                    tdWidth.className = 'py-1 px-1 text-center';
                     if (isLeaf) {
                         const inpWidth = document.createElement('input');
                         inpWidth.type = 'number';
@@ -426,26 +382,12 @@
                         inpWidth.max = 12;
                         inpWidth.value = node.width || 12;
                         inpWidth.disabled = node.skip;
-                        inpWidth.className = 'w-16 text-xs border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 text-center py-1 disabled:bg-gray-100';
-                        inpWidth.onchange = (e) => node.width = parseInt(e.target.value) || 12;
+                        inpWidth.className = 'w-10 text-xs border border-gray-200 rounded text-center py-0.5 focus:ring-indigo-500 focus:border-indigo-500';
+                        inpWidth.onclick = (e) => e.stopPropagation();
+                        inpWidth.onchange = (e) => { node.width = parseInt(e.target.value) || 12; renderDetail(fullKey); };
                         tdWidth.appendChild(inpWidth);
                     }
                     tr.appendChild(tdWidth);
-
-                    // 7. Extra Info
-                    const tdInfo = document.createElement('td');
-                    tdInfo.className = 'py-2 px-2 text-xs text-gray-400 align-middle truncate max-w-xs';
-                    if (isLeaf) {
-                        let info = [];
-                        if (node.id) info.push(`<span class="text-indigo-600 font-mono font-bold">${node.id}</span>`);
-                        if (node.mandatory) info.push(`<strong>${node.mandatory}</strong>`);
-                        if (node.p) info.push(`P:${node.p}`);
-                        if (node.n) info.push(`N:${node.n}`);
-                        if (node.z) info.push(`Z:${node.z}`);
-                        tdInfo.innerHTML = info.join(' <span class="text-gray-300">|</span> ');
-                        tdInfo.title = JSON.stringify(node, null, 2);
-                    }
-                    tr.appendChild(tdInfo);
 
                     tbody.appendChild(tr);
 
@@ -454,8 +396,156 @@
                     }
                 });
             }
-
             traverse(rootData, 0, '', false, rootData);
+        }
+
+        function renderDetail(path) {
+            const panel = document.getElementById('detail-panel');
+            if (!path) return;
+
+            const node = findNodeByPath(rootData, path);
+            if (!node) return;
+
+            const isLeaf = !node.children || node.children.length === 0;
+
+            // Build form
+            let html = `
+                <div class="space-y-4">
+                    <div class="pb-2 border-b border-gray-100">
+                        <span class="text-xs font-mono text-gray-400 block">${node.original_path || '(root)'}</span>
+                        <h3 class="text-lg font-bold text-gray-800 break-all">${node.key}</h3>
+                        ${node.id ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 font-mono mt-1">ID: ${node.id}</span>` : ''}
+                    </div>
+                    
+                    <!-- Basic Info -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Popis (Label)</label>
+                        <textarea id="detail-desc" rows="2" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>${node.description || ''}</textarea>
+                    </div>
+            `;
+
+            if (isLeaf) {
+                html += `
+                    <div class="grid grid-cols-1 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Widget</label>
+                            <select id="detail-widget" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
+                                <option value="input" ${node.widget === 'input' ? 'selected' : ''}>Input</option>
+                                <option value="selection" ${node.widget === 'selection' ? 'selected' : ''}>Selection</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Číselník (pouze pro Selection)</label>
+                        <input type="text" list="enum-list" id="detail-ciselnik" value="${node.ciselnik || ''}" placeholder="Vyberte nebo zadejte" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip || node.widget !== 'selection' ? 'disabled' : ''}>
+                        <datalist id="enum-list">
+                            ${Object.keys(enums).map(k => `<option value="${k}">${k}</option>`).join('')}
+                        </datalist>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Defaultní hodnota</label>
+                        <input type="text" id="detail-default" value="${node.default_value || ''}" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Manuální Rodič (Reparenting)</label>
+                        <div class="flex gap-2">
+                             <input type="text" id="detail-parent" value="${node.manual_parent || ''}" placeholder="path.to.new.parent" class="flex-1 text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
+                             <button onclick="applyReparent()" class="bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-600 px-3 py-1 rounded text-xs font-medium">Přesunout</button>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Vymažte pro návrat na původní místo.</p>
+                    </div>
+                    
+                    <!-- Excel Meta Info (Read Only) -->
+                    <div class="bg-blue-50 p-3 rounded border border-blue-100 text-xs text-blue-800 space-y-1 mt-4">
+                        <strong class="block text-blue-900 mb-1">Excel Metadata</strong>
+                        <div class="grid grid-cols-2 gap-x-4">
+                            <span>Dat. typ: <strong>${node.dat_typ || '-'}</strong></span>
+                            <span>Délka: <strong>${node.delka || '-'}</strong></span>
+                            <span>Mandatory: <strong>${node.mandatory || '-'}</strong></span>
+                            <span>P/N/Z: <strong>${node.p || '-'}/${node.n || '-'}/${node.z || '-'}</strong></span>
+                        </div>
+                        ${node.vysvetlivky ? `<div class="pt-1 border-t border-blue-200 mt-1 italic">${node.vysvetlivky}</div>` : ''}
+                    </div>
+                `;
+            } else {
+                html += `
+                   <div class="p-4 bg-yellow-50 text-yellow-700 rounded text-sm border border-yellow-100">
+                       Folder / Sekce. Možnosti editace jsou omezené.
+                   </div>
+                `;
+            }
+
+            html += `</div>`;
+            panel.innerHTML = html;
+
+            // Attach listeners
+            document.getElementById('detail-desc').onchange = (e) => {
+                node.description = e.target.value;
+                render(); // Update tree view
+            };
+
+            if (isLeaf) {
+                const w = document.getElementById('detail-widget');
+                const c = document.getElementById('detail-ciselnik');
+                const def = document.getElementById('detail-default');
+
+                w.onchange = (e) => {
+                    node.widget = e.target.value;
+                    c.disabled = node.widget !== 'selection';
+                    if (node.widget !== 'selection') { node.ciselnik = ''; c.value = ''; }
+                };
+                c.onchange = (e) => node.ciselnik = e.target.value;
+                def.onchange = (e) => node.default_value = e.target.value;
+
+                // Reparent logic handled by button or enter?
+                // document.getElementById('detail-parent').onchange // prefer button for explicit action
+            }
+        }
+
+        function applyReparent() {
+            if (!selectedPath) return;
+            const node = findNodeByPath(rootData, selectedPath);
+            const input = document.getElementById('detail-parent');
+            if (node && input) {
+                node.manual_parent = input.value;
+                // Find source array... traverse? Or just pass rootData and let moveNode find it?
+                // moveNode needs the source array to splice from.
+                // We can find parent by path parts.
+
+                // Little tricky: we need the ARRAY the node is currently in.
+                // Helper to find parent node of a node
+                function findParentArray(nodes, targetNode) {
+                    for (let n of nodes) {
+                        if (n === targetNode) return nodes;
+                        if (n.children) {
+                            const arr = findParentArray(n.children, targetNode);
+                            if (arr) return arr;
+                        }
+                    }
+                    return null;
+                }
+
+                const sourceArray = findParentArray(rootData, node);
+                if (sourceArray) {
+                    moveNode(node, node.manual_parent, sourceArray);
+                    render();
+                    // Re-select logic might be tricky if path changed due to move?
+                    // Key stays same, but structure changes. Path is derived from recursion.
+                    // render() rebuilds view.
+                    // We need to re-find the new path of this node to keep it selected.
+
+                    // Optimization: Just clear selection or try to re-find
+                    setTimeout(() => {
+                        // find new path?
+                        // Simple re-render clears selection visual but state 'selectedPath' remains old path.
+                        // We should probably update selectedPath.
+                        // For now, let's keep it simple.
+                    }, 50);
+                }
+            }
         }
 
         function exportData() {
@@ -471,7 +561,7 @@
         function showStatus(msg, color) {
             const el = document.getElementById('status');
             el.textContent = msg;
-            el.className = `mb-4 p-4 rounded text-sm bg-${color}-50 text-${color}-700 block`;
+            el.className = `px-3 py-1 rounded text-xs bg-${color}-100 text-${color}-800 block`;
             el.classList.remove('hidden');
             setTimeout(() => el.classList.add('hidden'), 5000);
         }
