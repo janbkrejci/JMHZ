@@ -237,6 +237,35 @@
                 }
             }
 
+            // Handle Markdown
+            if (node.widget === 'markdown') {
+                config.type = 'markdown';
+                if (node.content) {
+                    config.content = node.content;
+                }
+                // Markdown fields often span full width
+                config.width = '12';
+            }
+
+            // Handle File
+            if (node.widget === 'file') {
+                config.type = 'file';
+                if (node.multiple) {
+                    config.multiple = true;
+                }
+                if (node.label) {
+                    config.label = node.label;
+                }
+            }
+
+            // Handle Textarea
+            if (node.widget === 'textarea') {
+                config.type = 'textarea';
+                if (node.rows) {
+                    config.rows = node.rows;
+                }
+            }
+
             // Handle Mandatory
             if (node.mandatory === 'P') {
                 config.required = true;

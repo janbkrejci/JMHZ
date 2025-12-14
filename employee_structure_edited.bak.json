@@ -16,33 +16,6 @@
         "order": 10,
         "children": [
           {
-            "key": "info",
-            "description": "Informace",
-            "order": 2,
-            "skip": false,
-            "new_only": false,
-            "original_path": "employee.client.info",
-            "widget": "markdown",
-            "width": 12,
-            "id": "99900",
-            "content": "# JMHZ - jednotné měsíční hlášení zaměstnanců\n\nZa tohle poděkujte panu Fialovi a jeho vládě, to si nevymyslela mzdová účtárna, ale naše skvělá vláda a parlament.\n"
-          },
-          {
-            "key": "attachment",
-            "description": "Příloha",
-            "order": 3,
-            "skip": false,
-            "new_only": false,
-            "original_path": "employee.attachment",
-            "widget": "file",
-            "width": 12,
-            "manual_parent": "employee.client",
-            "id": "99901",
-            "multiple": true,
-            "label": "Nahrát přílohy",
-            "mandatory": "P"
-          },
-          {
             "key": "name",
             "skip": false,
             "new_only": false,

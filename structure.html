@@ -189,6 +189,15 @@
                             if (source) {
                                 let changed = false;
                                 if (source.description !== undefined) { node.description = source.description; changed = true; }
+                                if (source.label !== undefined) { node.label = source.label; changed = true; } // Sync Label for File/Markdown if exists
+                                if (source.mandatory !== undefined) { node.mandatory = source.mandatory; changed = true; }
+                                if (source.dat_typ !== undefined) { node.dat_typ = source.dat_typ; changed = true; }
+                                if (source.delka !== undefined) { node.delka = source.delka; changed = true; }
+                                if (source.p !== undefined) { node.p = source.p; changed = true; }
+                                if (source.n !== undefined) { node.n = source.n; changed = true; }
+                                if (source.z !== undefined) { node.z = source.z; changed = true; }
+                                if (source.vysvetlivky !== undefined) { node.vysvetlivky = source.vysvetlivky; changed = true; }
+
                                 if (source.widget !== undefined) { node.widget = source.widget; changed = true; }
                                 if (source.order !== undefined) { node.order = source.order; changed = true; }
                                 if (source.width !== undefined) { node.width = source.width; changed = true; }
@@ -196,10 +205,13 @@
                                 if (source.new_only !== undefined) { node.new_only = source.new_only; changed = true; }
                                 if (source.ciselnik !== undefined) { node.ciselnik = source.ciselnik; changed = true; }
                                 if (source.default_value !== undefined) { node.default_value = source.default_value; changed = true; }
+                                if (source.content !== undefined) { node.content = source.content; changed = true; } // Markdown
+                                if (source.multiple !== undefined) { node.multiple = source.multiple; changed = true; } // File
                                 if (source.manual_parent !== undefined && source.manual_parent !== node.manual_parent) {
                                     node.manual_parent = source.manual_parent;
                                     changed = true;
                                     if (node.manual_parent && parentArray) {
+                                        // Allow folder moving too (no 'isLeaf' check here strictly, moveNode handles it)
                                         moveNode(node, node.manual_parent, parentArray);
                                         stats.moved++;
                                     }
@@ -239,28 +251,124 @@
             renderDetail(path); // Render detail panel
         }
 
-        function moveNode(node, targetPath, sourceArray) {
+        function moveNode(sourceNode, targetPath, sourceArray, sourceIndex) {
+            // 1. Resolve Target Path
             let actualTargetPath = targetPath;
             if (!actualTargetPath) {
-                if (node.original_path) {
-                    const parts = node.original_path.split('.');
+                // Return to original parent logic if empty? 
+                // Currently user clears it to return. 
+                // But if they type "root" or empty?
+                // Logic says: "Vymažte pro návrat na původní místo" -> checks original_path
+                if (sourceNode.original_path) {
+                    const parts = sourceNode.original_path.split('.');
                     if (parts.length > 1) {
                         parts.pop();
                         actualTargetPath = parts.join('.');
-                    } else return;
-                } else return;
+                    } else {
+                        // Original was root
+                        actualTargetPath = '';
+                    }
+                }
             }
 
-            let targetParent = findNodeByPath(rootData, actualTargetPath);
-            if (targetParent) {
-                if (!targetParent.children) targetParent.children = [];
-                const idx = sourceArray.indexOf(node);
-                if (idx > -1) {
-                    sourceArray.splice(idx, 1);
-                    targetParent.children.push(node);
+            // 2. Helper Cyclic Check
+            function isDescendant(parent, child) {
+                if (!parent.children) return false;
+                for (let c of parent.children) {
+                    if (c === child || isDescendant(c, child)) return true;
+                }
+                return false;
+            }
+
+            // 3. Find Target Node
+            let targetNode = null;
+            if (actualTargetPath) {
+                targetNode = findNodeByPath(rootData, actualTargetPath);
+            } else {
+                targetNode = { children: rootData }; // Virtual root
+            }
+
+            if (targetNode) {
+                // Cycle Check
+                if (isDescendant(sourceNode, targetNode)) {
+                    showStatus('Chyba: Nelze přesunout složku do jejího vlastního potomka.', 'red');
+                    return;
+                }
+
+                // 4. Perform Move
+                if (sourceIndex > -1) {
+                    sourceArray.splice(sourceIndex, 1);
+                    if (!targetNode.children) targetNode.children = [];
+
+                    // If virtual root, targetNode.children IS rootData
+                    // But we created a new object {children: rootData}. 
+                    // Pushing to targetNode.children pushes to rootData. Correct.
+
+                    targetNode.children.push(sourceNode);
+
+                    render();
+                    selectNode(actualTargetPath ? `${actualTargetPath}.${sourceNode.key}` : sourceNode.key);
                 }
             } else {
-                console.warn(`Target parent ${actualTargetPath} not found.`);
+                showStatus(`Cílová složka '${actualTargetPath}' nebyla nalezena.`, 'red');
+            }
+        }
+
+        // --- MANIPULATION (ADD/DELETE) ---
+
+        function addNode(parentKey, type) {
+            const parentNode = parentKey ? findNodeByPath(rootData, parentKey) : { children: rootData }; // Mock parent for root
+            if (!parentNode) return;
+
+            const children = parentKey ? (parentNode.children || (parentNode.children = [])) : rootData;
+            const newKey = prompt("Zadejte unikátní klíč pro nový uzel:", "new_node");
+            if (!newKey) return;
+
+            // Simple duplicate check in siblings
+            if (children.find(c => c.key === newKey)) {
+                alert("Klíč již existuje v této úrovni.");
+                return;
+            }
+
+            const newNode = {
+                key: newKey,
+                description: "Nový uzel",
+                order: (children.length + 1) * 10,
+                skip: false,
+                new_only: false,
+                original_path: parentKey ? `${parentKey}.${newKey}` : newKey
+            };
+
+            if (type === 'leaf') {
+                newNode.widget = 'input';
+                newNode.width = 12;
+            } else {
+                newNode.children = [];
+            }
+
+            children.push(newNode);
+            render();
+            selectNode(newNode.original_path); // Might need recalcing path if original_path logic is strict
+        }
+
+        function deleteNode(path) {
+            if (!confirm(`Opravdu smazat uzel ${path}?`)) return;
+
+            const parts = path.split('.');
+            const key = parts.pop();
+            const parentPath = parts.join('.');
+
+            let parentArray = rootData;
+            if (parentPath) {
+                const p = findNodeByPath(rootData, parentPath);
+                if (p) parentArray = p.children;
+            }
+
+            const idx = parentArray.findIndex(n => n.key === key);
+            if (idx !== -1) {
+                parentArray.splice(idx, 1);
+                render();
+                document.getElementById('detail-panel').innerHTML = ''; // Clear detail
             }
         }
 
@@ -285,6 +393,14 @@
 
             function traverse(nodes, level = 0, parentKey = '', hidden = false, parentArray = null) {
                 nodes.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+                if (parentArray === null) {
+                    const btn = document.createElement('div');
+                    btn.className = 'mb-2 p-2';
+                    btn.innerHTML = `<button onclick="addNode('', 'leaf')" class="bg-green-100 hover:bg-green-200 text-green-700 px-2 py-1 rounded text-xs mr-2">+ Root Leaf</button>
+                              <button onclick="addNode('', 'folder')" class="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-2 py-1 rounded text-xs">+ Root Folder</button>`;
+                    tbody.appendChild(btn);
+                }
 
                 nodes.forEach(node => {
                     const fullKey = parentKey ? `${parentKey}.${node.key}` : node.key;
@@ -406,102 +522,209 @@
             const node = findNodeByPath(rootData, path);
             if (!node) return;
 
-            const isLeaf = !node.children || node.children.length === 0;
+            const isFolder = Array.isArray(node.children);
 
-            // Build form
             let html = `
                 <div class="space-y-4">
-                    <div class="pb-2 border-b border-gray-100">
-                        <span class="text-xs font-mono text-gray-400 block">${node.original_path || '(root)'}</span>
-                        <h3 class="text-lg font-bold text-gray-800 break-all">${node.key}</h3>
-                        ${node.id ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 font-mono mt-1">ID: ${node.id}</span>` : ''}
-                    </div>
-                    
-                    <!-- Basic Info -->
-                    <div>
-                        <label class="block text-xs font-medium text-gray-700 mb-1">Popis (Label)</label>
-                        <textarea id="detail-desc" rows="2" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>${node.description || ''}</textarea>
-                    </div>
-            `;
-
-            if (isLeaf) {
-                html += `
-                    <div class="grid grid-cols-1 gap-4">
+                    <div class="pb-2 border-b border-gray-100 flex justify-between items-start">
                         <div>
-                            <label class="block text-xs font-medium text-gray-700 mb-1">Widget</label>
-                            <select id="detail-widget" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
-                                <option value="input" ${node.widget === 'input' ? 'selected' : ''}>Input</option>
-                                <option value="selection" ${node.widget === 'selection' ? 'selected' : ''}>Selection</option>
-                            </select>
+                             <span class="text-xs font-mono text-gray-400 block">${node.original_path || '(root)'}</span>
+                             ${node.id
+                    ? `<input type="text" class="text-xs font-medium bg-purple-50 text-purple-800 font-mono mt-1 border-purple-200 rounded px-1" value="${node.id}" onchange="updateNodeProp('${path}', 'id', this.value)" title="ID Node">`
+                    : `<button onclick="updateNodeProp('${path}', 'id', prompt('Assign ID:'))" class="text-xs text-blue-500 hover:underline">+ Assign ID</button>`}
+                        </div>
+                        <div class="flex flex-col gap-1 items-end">
+                              <button onclick="deleteNode('${path}')" class="text-red-500 hover:text-red-700 text-xs px-2">Smazat</button>
+                              ${isFolder ? `
+                                <div class="flex gap-1 mt-1">
+                                     <button onclick="addNode('${path}', 'leaf')" class="bg-green-50 hover:bg-green-100 text-green-700 text-[10px] px-1.5 py-0.5 rounded border border-green-200">+ Child</button>
+                                     <button onclick="addNode('${path}', 'folder')" class="bg-yellow-50 hover:bg-yellow-100 text-yellow-700 text-[10px] px-1.5 py-0.5 rounded border border-yellow-200">+ Folder</button>
+                                </div>
+                              ` : ''}
                         </div>
                     </div>
                     
                     <div>
-                        <label class="block text-xs font-medium text-gray-700 mb-1">Číselník (pouze pro Selection)</label>
-                        <input type="text" list="enum-list" id="detail-ciselnik" value="${node.ciselnik || ''}" placeholder="Vyberte nebo zadejte" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip || node.widget !== 'selection' ? 'disabled' : ''}>
+                         <label class="block text-xs font-medium text-gray-700 mb-1">Klíč (Key)</label>
+                         <input type="text" value="${node.key}" onchange="updateNodeKey('${path}', this.value)" class="w-full text-sm font-bold border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+
+                    <!-- Basic Info -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Popis (Label/Description)</label>
+                        <textarea id="detail-desc" rows="2" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>${node.description || ''}</textarea>
+                    </div>
+            `;
+
+            // Common fields for everything now (user requested editable everywhere)
+            // Specially Widget type
+            html += `
+                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Widget / Typ</label>
+                        <select id="detail-widget" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
+                            <option value="input" ${node.widget === 'input' ? 'selected' : ''}>Input (Text)</option>
+                            <option value="selection" ${node.widget === 'selection' ? 'selected' : ''}>Selection (Dropdown)</option>
+                            <option value="file" ${node.widget === 'file' ? 'selected' : ''}>File (Upload)</option>
+                            <option value="markdown" ${node.widget === 'markdown' ? 'selected' : ''}>Markdown (Rich Text)</option>
+                            <option value="group" ${!node.widget && isFolder ? 'selected' : ''}>Group / Folder</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+
+            // Conditional Fields
+            if (node.widget === 'selection') {
+                html += `
+                    <div class="mt-2">
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Číselník</label>
+                        <input type="text" list="enum-list" id="detail-ciselnik" value="${node.ciselnik || ''}" placeholder="Vyberte nebo zadejte" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                         <datalist id="enum-list">
                             ${Object.keys(enums).map(k => `<option value="${k}">${k}</option>`).join('')}
                         </datalist>
-                    </div>
+                    </div>`;
+            }
 
-                    <div>
-                        <label class="block text-xs font-medium text-gray-700 mb-1">Defaultní hodnota</label>
-                        <input type="text" id="detail-default" value="${node.default_value || ''}" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
-                    </div>
-                    
-                    <div>
+            if (node.widget === 'file') {
+                html += `
+                     <div class="mt-2 flex items-center">
+                         <input type="checkbox" id="detail-multiple" ${node.multiple ? 'checked' : ''} class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                         <label for="detail-multiple" class="ml-2 block text-xs font-medium text-gray-700">Povolit více souborů (Multiple)</label>
+                     </div>
+                     <div class="mt-2">
+                         <label class="block text-xs font-medium text-gray-700 mb-1">Label pro nahrávání</label>
+                         <input type="text" id="detail-label" value="${node.label || ''}" placeholder="Např. Nahrát přílohy" class="w-full text-sm border-gray-300 rounded shadow-sm">
+                     </div>
+                 `;
+            }
+
+            if (node.widget === 'markdown') {
+                html += `
+                      <div class="mt-2">
+                          <label class="block text-xs font-medium text-gray-700 mb-1">Markdown Content</label>
+                          <textarea id="detail-content" rows="6" class="w-full text-sm font-mono border-gray-300 rounded shadow-sm bg-gray-50">${node.content || ''}</textarea>
+                          <p class="text-[10px] text-gray-400">Podporuje **bold**, *italic*, [link](#), - list</p>
+                      </div>
+                  `;
+            }
+
+            // Reparenting available for everyone
+            html += `
+                    <div class="mt-3 pt-3 border-t border-gray-100">
                         <label class="block text-xs font-medium text-gray-700 mb-1">Manuální Rodič (Reparenting)</label>
                         <div class="flex gap-2">
                              <input type="text" id="detail-parent" value="${node.manual_parent || ''}" placeholder="path.to.new.parent" class="flex-1 text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
                              <button onclick="applyReparent()" class="bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-600 px-3 py-1 rounded text-xs font-medium">Přesunout</button>
                         </div>
-                        <p class="text-xs text-gray-400 mt-1">Vymažte pro návrat na původní místo.</p>
                     </div>
-                    
-                    <!-- Excel Meta Info (Read Only) -->
-                    <div class="bg-blue-50 p-3 rounded border border-blue-100 text-xs text-blue-800 space-y-1 mt-4">
-                        <strong class="block text-blue-900 mb-1">Excel Metadata</strong>
-                        <div class="grid grid-cols-2 gap-x-4">
-                            <span>Dat. typ: <strong>${node.dat_typ || '-'}</strong></span>
-                            <span>Délka: <strong>${node.delka || '-'}</strong></span>
-                            <span>Mandatory: <strong>${node.mandatory || '-'}</strong></span>
-                            <span>P/N/Z: <strong>${node.p || '-'}/${node.n || '-'}/${node.z || '-'}</strong></span>
+
+                    <!-- Default Value -->
+                    <div class="mt-2">
+                         <label class="block text-xs font-medium text-gray-700 mb-1">Defaultní hodnota</label>
+                         <input type="text" id="detail-default" value="${node.default_value || ''}" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
+                    </div>
+
+                    <!-- Editable Excel Meta Info -->
+                    <div class="bg-blue-50 p-3 rounded border border-blue-100 text-xs text-blue-800 space-y-2 mt-4">
+                        <strong class="block text-blue-900 mb-1 border-b border-blue-200 pb-1">Excel Metadata (Editable)</strong>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] text-blue-600">Dat. typ</label>
+                                <input type="text" value="${node.dat_typ || ''}" onchange="updateNodeProp('${path}', 'dat_typ', this.value)" class="w-full text-xs border-blue-200 rounded p-1">
+                            </div>
+                             <div>
+                                <label class="block text-[10px] text-blue-600">Délka</label>
+                                <input type="text" value="${node.delka || ''}" onchange="updateNodeProp('${path}', 'delka', this.value)" class="w-full text-xs border-blue-200 rounded p-1">
+                            </div>
+                             <div>
+                                <label class="block text-[10px] text-blue-600">Mandatory</label>
+                                <input type="text" value="${node.mandatory || ''}" onchange="updateNodeProp('${path}', 'mandatory', this.value)" class="w-full text-xs border-blue-200 rounded p-1">
+                            </div>
+                             <div>
+                                <label class="block text-[10px] text-blue-600">P / N / Z</label>
+                                <div class="flex gap-1">
+                                    <input type="text" placeholder="P" value="${node.p || ''}" onchange="updateNodeProp('${path}', 'p', this.value)" class="w-1/3 text-xs border-blue-200 rounded p-1">
+                                    <input type="text" placeholder="N" value="${node.n || ''}" onchange="updateNodeProp('${path}', 'n', this.value)" class="w-1/3 text-xs border-blue-200 rounded p-1">
+                                    <input type="text" placeholder="Z" value="${node.z || ''}" onchange="updateNodeProp('${path}', 'z', this.value)" class="w-1/3 text-xs border-blue-200 rounded p-1">
+                                </div>
+                            </div>
                         </div>
-                        ${node.vysvetlivky ? `<div class="pt-1 border-t border-blue-200 mt-1 italic">${node.vysvetlivky}</div>` : ''}
+                        <div>
+                             <label class="block text-[10px] text-blue-600">Vysvětlivky</label>
+                             <textarea rows="2" onchange="updateNodeProp('${path}', 'vysvetlivky', this.value)" class="w-full text-xs border-blue-200 rounded p-1">${node.vysvetlivky || ''}</textarea>
+                        </div>
                     </div>
                 `;
-            } else {
-                html += `
-                   <div class="p-4 bg-yellow-50 text-yellow-700 rounded text-sm border border-yellow-100">
-                       Folder / Sekce. Možnosti editace jsou omezené.
-                   </div>
-                `;
-            }
+
+            /* Removed isLeaf check block - merged into above */
 
             html += `</div>`;
             panel.innerHTML = html;
 
             // Attach listeners
-            document.getElementById('detail-desc').onchange = (e) => {
-                node.description = e.target.value;
-                render(); // Update tree view
-            };
+            document.getElementById('detail-desc').onchange = (e) => { node.description = e.target.value; render(); };
+            document.getElementById('detail-default').onchange = (e) => { node.default_value = e.target.value; };
 
-            if (isLeaf) {
-                const w = document.getElementById('detail-widget');
-                const c = document.getElementById('detail-ciselnik');
-                const def = document.getElementById('detail-default');
-
+            const w = document.getElementById('detail-widget');
+            if (w) {
                 w.onchange = (e) => {
                     node.widget = e.target.value;
-                    c.disabled = node.widget !== 'selection';
-                    if (node.widget !== 'selection') { node.ciselnik = ''; c.value = ''; }
+                    // Clear props if switching types to avoid junk? Maybe allow keeping.
+                    renderDetail(path); // Re-render to show type-specific fields
                 };
-                c.onchange = (e) => node.ciselnik = e.target.value;
-                def.onchange = (e) => node.default_value = e.target.value;
+            }
 
-                // Reparent logic handled by button or enter?
-                // document.getElementById('detail-parent').onchange // prefer button for explicit action
+            // Bind Specifics
+            if (document.getElementById('detail-ciselnik')) {
+                document.getElementById('detail-ciselnik').onchange = (e) => node.ciselnik = e.target.value;
+            }
+            if (document.getElementById('detail-multiple')) {
+                document.getElementById('detail-multiple').onchange = (e) => node.multiple = e.target.checked;
+            }
+            if (document.getElementById('detail-label')) {
+                document.getElementById('detail-label').onchange = (e) => node.label = e.target.value;
+            }
+            if (document.getElementById('detail-content')) {
+                document.getElementById('detail-content').onchange = (e) => node.content = e.target.value;
+            }
+        }
+
+        // Helper for single prop updates
+        function updateNodeProp(path, prop, value) {
+            const node = findNodeByPath(rootData, path);
+            if (node) {
+                node[prop] = value;
+            }
+        }
+
+        function updateNodeKey(path, newKey) {
+            const node = findNodeByPath(rootData, path);
+            if (node && newKey && newKey !== node.key) {
+                // Check for sibling key collision
+                const parts = path.split('.');
+                const oldKey = parts.pop();
+                const parentPath = parts.join('.');
+
+                let parentArray = rootData;
+                if (parentPath) {
+                    const p = findNodeByPath(rootData, parentPath);
+                    if (p) parentArray = p.children;
+                }
+
+                if (parentArray && parentArray.some(n => n.key === newKey && n !== node)) {
+                    showStatus(`Chyba: Klíč '${newKey}' již existuje na této úrovni.`, 'red');
+                    return;
+                }
+
+                node.key = newKey;
+                // Update original_path if it exists
+                if (node.original_path) {
+                    const opParts = node.original_path.split('.');
+                    opParts[opParts.length - 1] = newKey;
+                    node.original_path = opParts.join('.');
+                }
+                render();
+                selectNode(node.original_path || newKey); // Re-select with potentially new path
             }
         }
 
@@ -530,20 +753,16 @@
 
                 const sourceArray = findParentArray(rootData, node);
                 if (sourceArray) {
-                    moveNode(node, node.manual_parent, sourceArray);
-                    render();
-                    // Re-select logic might be tricky if path changed due to move?
-                    // Key stays same, but structure changes. Path is derived from recursion.
-                    // render() rebuilds view.
-                    // We need to re-find the new path of this node to keep it selected.
-
-                    // Optimization: Just clear selection or try to re-find
-                    setTimeout(() => {
-                        // find new path?
-                        // Simple re-render clears selection visual but state 'selectedPath' remains old path.
-                        // We should probably update selectedPath.
-                        // For now, let's keep it simple.
-                    }, 50);
+                    const sourceIndex = sourceArray.indexOf(node);
+                    if (sourceIndex > -1) {
+                        moveNode(node, node.manual_parent, sourceArray, sourceIndex);
+                        render();
+                        // Try to re-select
+                        setTimeout(() => {
+                            // We don't know the exact new path easily without recalc, but we can try to select by key in the tree logic if we enhanced selectNode. 
+                            // For now, just keep the tree open.
+                        }, 50);
+                    }
                 }
             }
         }
