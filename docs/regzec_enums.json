@@ -1040,5 +1040,15 @@
             "value": "08",
             "label": "jiné"
         }
+    ],
+    "bool": [
+        {
+            "value": "true",
+            "label": "ANO"
+        },
+        {
+            "value": "false",
+            "label": "NE"
+        }
     ]
 }

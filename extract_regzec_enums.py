@@ -98,6 +98,13 @@ def extract_enums():
     except Exception as e:
         print(f"Error extracting CIS Sektor: {e}")
 
+    # 4. Bool (Static)
+    enums['bool'] = [
+        {'value': 'true', 'label': 'ANO'},
+        {'value': 'false', 'label': 'NE'}
+    ]
+    print(f"Added static 'bool' enum.")
+
     # Save to JSON
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(enums, f, indent=4, ensure_ascii=False)

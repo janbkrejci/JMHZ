@@ -7,7 +7,7 @@ echo "Updating ts-form assets from ../TSWebUI..."
 
 # 1. Copy ts-form-bundle.js from ../TSWebUI/dist folder
 if [ -f "../TSWebUI/dist/ts-form-bundle.js" ]; then
-    cp ../TSWebUI/dist/ts-form-bundle.js .
+    cp ../TSWebUI/dist/ts-form-bundle.js ./docs
     echo "✅ Copied ts-form-bundle.js"
 else
     echo "⚠️  ../TSWebUI/dist/ts-form-bundle.js not found"

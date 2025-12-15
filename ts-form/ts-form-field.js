@@ -429,6 +429,9 @@ export class TSFormField extends HTMLElement {
                 if (config.allowEmpty) {
                     field.setAttribute('allow-empty', '');
                 }
+                if (config.required) {
+                    field.setAttribute('required', '');
+                }
                 break;
             case 'file':
             case 'image':
