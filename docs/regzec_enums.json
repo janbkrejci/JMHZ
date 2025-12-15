@@ -1041,6 +1041,38 @@
             "label": "jiné"
         }
     ],
+    "tax_identification": [
+        {
+            "value": "D",
+            "label": "DIČ"
+        },
+        {
+            "value": "R",
+            "label": "RČ"
+        },
+        {
+            "value": "S",
+            "label": "Sociální pojištění"
+        },
+        {
+            "value": "J",
+            "label": "Jiné"
+        }
+    ],
+    "typ_dokladu": [
+        {
+            "value": "I",
+            "label": "Průkaz totožnosti"
+        },
+        {
+            "value": "P",
+            "label": "Pas"
+        },
+        {
+            "value": "O",
+            "label": "Ostatní"
+        }
+    ],
     "bool": [
         {
             "value": "A",

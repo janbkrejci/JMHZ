@@ -337,6 +337,7 @@ function createFieldItem(node, fieldsAccumulator, enums, valuesAccumulator) {
     if (node.widget === 'selection') {
         config.type = 'combobox';
         config.allowCustom = false;
+        config.allowEmpty = true;
         config.placeholder = 'Vyberte...';
 
         if (node.ciselnik && enums[node.ciselnik]) {

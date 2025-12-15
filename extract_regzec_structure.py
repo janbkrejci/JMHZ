@@ -162,7 +162,10 @@ try:
                 node['vysvetlivky'] = item['vysvetlivky']
                 
                 # New attributes (UI Config - Defaults)
-                node['widget'] = "input"
+                if item['dat_typ'] == 'D':
+                    node['widget'] = "date"
+                else:
+                    node['widget'] = "input"
                 node['width'] = 12
                 node['manual_parent'] = ""
                 node['ciselnik'] = ""

@@ -603,6 +603,7 @@
                         <label class="block text-xs font-medium text-gray-700 mb-1">Widget / Typ</label>
                         <select id="detail-widget" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
                             <option value="input" ${node.widget === 'input' ? 'selected' : ''}>Input (Text)</option>
+                            <option value="date" ${node.widget === 'date' ? 'selected' : ''}>Date (Datum)</option>
                             <option value="selection" ${node.widget === 'selection' ? 'selected' : ''}>Selection (Dropdown)</option>
                             <option value="file" ${node.widget === 'file' ? 'selected' : ''}>File (Upload)</option>
                             <option value="textarea" ${node.widget === 'textarea' ? 'selected' : ''}>Textarea (Long Text)</option>

@@ -98,6 +98,56 @@ def extract_enums():
     except Exception as e:
         print(f"Error extracting CIS Sektor: {e}")
 
+    # 4. Tax Identification (CIS Typ daňové identifikace)
+    try:
+        print("Extracting 'tax_identification' from CIS Typ daňové identifikace...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='CIS Typ daňové identifikace', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['tax_identification'] = df.to_dict('records')
+        print(f"Extracted {len(enums['tax_identification'])} tax_identification entries.")
+        
+    except Exception as e:
+        print(f"Error extracting CIS Typ daňové identifikace: {e}")
+
+    # 5. Document Type (CIS Typ dokladu)
+    try:
+        print("Extracting 'typ_dokladu' from CIS Typ dokladu...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='CIS Typ dokladu', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['typ_dokladu'] = df.to_dict('records')
+        print(f"Extracted {len(enums['typ_dokladu'])} typ_dokladu entries.")
+        
+    except Exception as e:
+        print(f"Error extracting CIS Typ dokladu: {e}")
+
     # 4. Bool (Static)
     enums['bool'] = [
         {'value': 'A', 'label': 'ANO'},
