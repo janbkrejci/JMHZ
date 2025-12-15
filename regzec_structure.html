@@ -47,7 +47,7 @@
     <div class="flex-none bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center z-10 shadow-sm">
         <div>
             <h1 class="text-xl font-bold text-slate-900">Editor Struktury Formuláře</h1>
-            <p class="text-xs text-slate-500">Úprava employee_structure.json</p>
+            <p class="text-xs text-slate-500">Úprava regzec_structure.json</p>
         </div>
         <div class="flex gap-3">
             <div id="status" class="hidden px-3 py-1 rounded text-xs"></div>
@@ -142,13 +142,13 @@
         async function loadData() {
             try {
                 // Load Enums first
-                const resEnums = await fetch('enums.json');
+                const resEnums = await fetch('docs/regzec_enums.json');
                 if (resEnums.ok) {
                     enums = await resEnums.json();
                 }
 
                 // Load Data
-                const res = await fetch('employee_structure.json');
+                const res = await fetch('regzec_structure.json');
                 if (!res.ok) throw new Error('Failed to load file');
                 rootData = await res.json();
                 render();
@@ -823,7 +823,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(rootData, null, 2));
             const downloadAnchorNode = document.createElement('a');
             downloadAnchorNode.setAttribute("href", dataStr);
-            downloadAnchorNode.setAttribute("download", "employee_structure_edited.json");
+            downloadAnchorNode.setAttribute("download", "regzec_form.json");
             document.body.appendChild(downloadAnchorNode);
             downloadAnchorNode.click();
             downloadAnchorNode.remove();

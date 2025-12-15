@@ -9,8 +9,8 @@ import pandas as pd
 import json
 import os
 
-EXCEL_FILE = 'jednotné hlášení.xlsx'
-OUTPUT_FILE = 'enums.json'
+EXCEL_FILE = 'regzec.xlsx'
+OUTPUT_FILE = 'docs/regzec_enums.json'
 
 def extract_enums():
     if not os.path.exists(EXCEL_FILE):

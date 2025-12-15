@@ -22,7 +22,7 @@ def normalize_key(key):
 try:
 
     # Read Excel
-    df = pd.read_excel('jednotné hlášení.xlsx', sheet_name='Slovník', header=None)
+    df = pd.read_excel('regzec.xlsx', sheet_name='Slovník', header=None)
     
     # Headers at row 16 (index 15)
     headers_raw = df.iloc[15].tolist()
@@ -190,7 +190,7 @@ try:
     clean_tree(tree)
 
     # Save
-    with open('employee_structure.json', 'w', encoding='utf-8') as f:
+    with open('regzec_structure.json', 'w', encoding='utf-8') as f:
         json.dump(tree, f, ensure_ascii=False, indent=2)
         
     print(f"Success: Generated structure with {len(flat_items)} paths.")

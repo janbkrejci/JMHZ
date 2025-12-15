@@ -1,6 +1,6 @@
 // --- Configuration ---
 // dynamic mode detection based on filename
-const SHOW_NEW_ONLY_FIELDS = window.location.pathname.includes('new_employee_form');
+const SHOW_NEW_ONLY_FIELDS = window.location.pathname.includes('new_regzec_form');
 
 // --- Main Logic ---
 document.addEventListener('DOMContentLoaded', async () => {
@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // 1. Fetch Structure and Enums
         // Note: paths are relative to the HTML file location
         const [structureResp, enumsResp] = await Promise.all([
-            fetch('employee_structure_edited.json'),
-            fetch('enums.json')
+            fetch('regzec_form.json'),
+            fetch('regzec_enums.json')
         ]);
 
         if (!structureResp.ok) throw new Error('Failed to load JSON structure');
