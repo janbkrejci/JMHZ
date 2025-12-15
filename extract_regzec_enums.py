@@ -148,6 +148,184 @@ def extract_enums():
     except Exception as e:
         print(f"Error extracting CIS Typ dokladu: {e}")
 
+    # 6. Health Insurance (C_ZPOJ)
+    try:
+        print("Extracting 'zdravotni_pojistovny' from C_ZPOJ...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='C_ZPOJ', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Format label: "Code - Name"
+        df['label'] = df['value'] + " - " + df['label']
+
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['zdravotni_pojistovny'] = df.to_dict('records')
+        print(f"Extracted {len(enums['zdravotni_pojistovny'])} zdravotni_pojistovny entries.")
+        
+    except Exception as e:
+        print(f"Error extracting C_ZPOJ: {e}")
+
+    # 7. Pension Type (C_DUCH)
+    try:
+        print("Extracting 'druh_duchodu' from C_DUCH...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='C_DUCH', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['druh_duchodu'] = df.to_dict('records')
+        print(f"Extracted {len(enums['druh_duchodu'])} druh_duchodu entries.")
+        
+    except Exception as e:
+        print(f"Error extracting C_DUCH: {e}")
+
+    # 8. Education (CIS Kategorie dosaženého vzdělá)
+    try:
+        print("Extracting 'vzdelani' from CIS Kategorie dosaženého vzdělá...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='CIS Kategorie dosaženého vzdělá', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['vzdelani'] = df.to_dict('records')
+        print(f"Extracted {len(enums['vzdelani'])} vzdelani entries.")
+        
+    except Exception as e:
+        print(f"Error extracting CIS Kategorie dosaženého vzdělá: {e}")
+
+    # 9. Health Limitations (CIS Zdravotní omezení)
+    try:
+        print("Extracting 'zdravotni_omezeni' from CIS Zdravotní omezení...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='CIS Zdravotní omezení', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['zdravotni_omezeni'] = df.to_dict('records')
+        print(f"Extracted {len(enums['zdravotni_omezeni'])} zdravotni_omezeni entries.")
+        
+    except Exception as e:
+        print(f"Error extracting CIS Zdravotní omezení: {e}")
+
+    # 10. Work Permission Type (CIS Druh pracovního oprávnění)
+    try:
+        print("Extracting 'druh_prac_opravneni' from CIS Druh pracovního oprávnění...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='CIS Druh pracovního oprávnění', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['druh_prac_opravneni'] = df.to_dict('records')
+        print(f"Extracted {len(enums['druh_prac_opravneni'])} druh_prac_opravneni entries.")
+        
+    except Exception as e:
+        print(f"Error extracting CIS Druh pracovního oprávnění: {e}")
+
+    # 11. Access Reason (CIS Důvod pro volný přístup na)
+    try:
+        print("Extracting 'duvod_volneho_pristupu' from CIS Důvod pro volný přístup na...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='CIS Důvod pro volný přístup na ', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['duvod_volneho_pristupu'] = df.to_dict('records')
+        print(f"Extracted {len(enums['duvod_volneho_pristupu'])} duvod_volneho_pristupu entries.")
+        
+    except Exception as e:
+        print(f"Error extracting CIS Důvod pro volný přístup na: {e}")
+
+    # 12. Job Offices (CIS krajských poboček ÚP ČR)
+    try:
+        print("Extracting 'pobocky_uradu_prace' from CIS krajských poboček ÚP ČR...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='CIS krajských poboček ÚP ČR', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['pobocky_uradu_prace'] = df.to_dict('records')
+        print(f"Extracted {len(enums['pobocky_uradu_prace'])} pobocky_uradu_prace entries.")
+        
+    except Exception as e:
+        print(f"Error extracting CIS krajských poboček ÚP ČR: {e}")
+
     # 4. Bool (Static)
     enums['bool'] = [
         {'value': 'A', 'label': 'ANO'},

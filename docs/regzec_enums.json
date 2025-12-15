@@ -1073,6 +1073,316 @@
             "label": "Ostatní"
         }
     ],
+    "zdravotni_pojistovny": [
+        {
+            "value": "111",
+            "label": "111 - Všeobecná zdravotní pojišťovna ČR"
+        },
+        {
+            "value": "201",
+            "label": "201 - Vojenská zdravotní pojišťovna ČR"
+        },
+        {
+            "value": "205",
+            "label": "205 - Česká průmyslová zdravotní pojišťovna"
+        },
+        {
+            "value": "207",
+            "label": "207 - Oborová zdravotní pojišťovna zaměstnanců bank, pojišťoven a stavebnictví"
+        },
+        {
+            "value": "209",
+            "label": "209 - Zaměstnanecká pojišťovna ŠKODA"
+        },
+        {
+            "value": "211",
+            "label": "211 - Zdravotní pojišťovna Ministerstva vnitra ČR"
+        },
+        {
+            "value": "213",
+            "label": "213 - Revírní bratrská pokladna, zdravotní pojišťovna"
+        },
+        {
+            "value": "300",
+            "label": "300 - Samoplátce"
+        },
+        {
+            "value": "999",
+            "label": "999 - Ostatní"
+        }
+    ],
+    "druh_duchodu": [
+        {
+            "value": "1",
+            "label": "starobní"
+        },
+        {
+            "value": "2",
+            "label": "invalidní 3. stupně"
+        },
+        {
+            "value": "8",
+            "label": "invalidní 1. nebo 2. stupně"
+        },
+        {
+            "value": "A",
+            "label": "cizí charakteru starobního"
+        },
+        {
+            "value": "B",
+            "label": "cizí charakteru invalidního 3. stupně"
+        },
+        {
+            "value": "C",
+            "label": "cizí charakteru invalidního 1. nebo 2. stupně"
+        }
+    ],
+    "vzdelani": [
+        {
+            "value": "A",
+            "label": "Bez vzdělání"
+        },
+        {
+            "value": "B",
+            "label": "Neúplné základní vzdělání"
+        },
+        {
+            "value": "C",
+            "label": "Základní vzdělání"
+        },
+        {
+            "value": "D",
+            "label": "Nižší střední vzdělání"
+        },
+        {
+            "value": "E",
+            "label": "Nižší střední odborné vzdělání"
+        },
+        {
+            "value": "H",
+            "label": "Střední odborné vzdělání s výučním listem"
+        },
+        {
+            "value": "J",
+            "label": "Střední nebo střední odborné vzdělání bez maturity i výučního listu"
+        },
+        {
+            "value": "K",
+            "label": "Úplné střední všeobecné vzdělání"
+        },
+        {
+            "value": "L",
+            "label": "Úplné střední odborné vzdělání s vyučením i maturitou"
+        },
+        {
+            "value": "M",
+            "label": "Úplné střední odborné vzdělání s maturitou (bez vyučení)"
+        },
+        {
+            "value": "N",
+            "label": "Vyšší odborné vzdělání"
+        },
+        {
+            "value": "P",
+            "label": "Vyšší odborné vzdělání v konzervatoři"
+        },
+        {
+            "value": "R",
+            "label": "Vysokoškolské bakalářské vzdělání"
+        },
+        {
+            "value": "T",
+            "label": "Vysokoškolské magisterské vzdělání"
+        },
+        {
+            "value": "V",
+            "label": "Vysokoškolské doktorské vzdělání"
+        }
+    ],
+    "zdravotni_omezeni": [
+        {
+            "value": "1",
+            "label": "III. stupeň invalidity"
+        },
+        {
+            "value": "2",
+            "label": "III. stupeň invalidity - schopnost výdělečné činnosti za zcela mimořádných podmínek (§39 odst. 4 písm. f zákona č. 155/1995 Sb.)"
+        },
+        {
+            "value": "3",
+            "label": "II. stupeň invalidity"
+        },
+        {
+            "value": "4",
+            "label": "I. stupeň invalidity"
+        },
+        {
+            "value": "5",
+            "label": "Přiznaný POUZE statut OZZ (osoba zdravotně znevýhodněná)"
+        }
+    ],
+    "druh_prac_opravneni": [
+        {
+            "value": "1",
+            "label": "povolení k zaměstnání"
+        },
+        {
+            "value": "2",
+            "label": "zaměstnanecká karta"
+        },
+        {
+            "value": "3",
+            "label": "karta vnitropodnikově převedeného zaměstnance"
+        },
+        {
+            "value": "4",
+            "label": "modrá karta"
+        }
+    ],
+    "duvod_volneho_pristupu": [
+        {
+            "value": "1",
+            "label": "§ 87 Občan EU/EHP a Švýcarska"
+        },
+        {
+            "value": "2",
+            "label": "§ 87 Občan Spojeného království Velké Británie a Severního Irska"
+        },
+        {
+            "value": "3",
+            "label": "§ 87 Rodinný příslušník občana EU/EHP nebo Švýcarska"
+        },
+        {
+            "value": "4",
+            "label": "§ 98 písm. a) Povolen trvalý pobyt - mimo ochranu Ukrajina"
+        },
+        {
+            "value": "5",
+            "label": "§ 98 písm. a) Povolen trvalý pobyt - dočasná ochrana Ukrajina"
+        },
+        {
+            "value": "6",
+            "label": "§ 98 písm. b) Rodinný přísluš. člena diplomat. mise"
+        },
+        {
+            "value": "7",
+            "label": "§ 98 písm. c) Udělen azyl nebo doplňková ochrana"
+        },
+        {
+            "value": "8",
+            "label": "§ 98 písm. d) Krátkodobá prac. činnost (do 7 dnů)"
+        },
+        {
+            "value": "9",
+            "label": "§ 98 písm. e) Mezinárodní smlouva"
+        },
+        {
+            "value": "10",
+            "label": "§ 98 písm. j) Příprava na budoucí povolání"
+        },
+        {
+            "value": "11",
+            "label": "§ 98 písm. l) Dlouhodobý pobyt - společ. soužití rodiny"
+        },
+        {
+            "value": "12",
+            "label": "§ 98 písm. m) Rezident jiného státu EU"
+        },
+        {
+            "value": "13",
+            "label": "§ 98 písm. n) Soustavná vzděl. nebo věd. činnost"
+        },
+        {
+            "value": "14",
+            "label": "§ 98 písm. o) Získané SŠ, VOŠ nebo VŠ vzdělání"
+        },
+        {
+            "value": "15",
+            "label": "§ 98 písm. p) Dlouhodobý pobyt za účelem ochrany"
+        },
+        {
+            "value": "16",
+            "label": "§ 98 písm. r) Duchovní církve registrované v ČR"
+        },
+        {
+            "value": "17",
+            "label": "§ 98 písm. s) Vnitropodnikově převedený zaměstnanec (z EU)"
+        },
+        {
+            "value": "18",
+            "label": "§ 98 písm. t) výkon práce v zájmu ČR"
+        },
+        {
+            "value": "19",
+            "label": "§ 98 písm. u): Občan státu nevyžadujícího pracovní oprávnění (whitelist)"
+        },
+        {
+            "value": "20",
+            "label": "§ 98 písm. v): Umělecká činnost"
+        },
+        {
+            "value": "21",
+            "label": "§ 98a Vyslání - zvyšování dovedností"
+        }
+    ],
+    "pobocky_uradu_prace": [
+        {
+            "value": "HMP",
+            "label": "Krajská pobočka pro hlavní město Prahu"
+        },
+        {
+            "value": "JMK",
+            "label": "Krajská pobočka v Brně"
+        },
+        {
+            "value": "JCK",
+            "label": "Krajská pobočka v Českých Budějovicích"
+        },
+        {
+            "value": "HKK",
+            "label": "Krajská pobočka v Hradci Králové"
+        },
+        {
+            "value": "VYK",
+            "label": "Krajská pobočka v Jihlavě"
+        },
+        {
+            "value": "KVK",
+            "label": "Krajská pobočka v Karlových Varech"
+        },
+        {
+            "value": "LBK",
+            "label": "Krajská pobočka v Liberci"
+        },
+        {
+            "value": "OLK",
+            "label": "Krajská pobočka v Olomouci"
+        },
+        {
+            "value": "MSK",
+            "label": "Krajská pobočka v Ostravě"
+        },
+        {
+            "value": "PAK",
+            "label": "Krajská pobočka v Pardubicích"
+        },
+        {
+            "value": "PMK",
+            "label": "Krajská pobočka v Plzni"
+        },
+        {
+            "value": "SCK",
+            "label": "Krajská pobočka v Příbrami"
+        },
+        {
+            "value": "ULK",
+            "label": "Krajská pobočka v Ústí nad Labem"
+        },
+        {
+            "value": "ZLK",
+            "label": "Krajská pobočka ve Zlíně"
+        }
+    ],
     "bool": [
         {
             "value": "A",
