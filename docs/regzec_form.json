@@ -14,6 +14,7 @@
         "skip": false,
         "new_only": false,
         "original_path": "employee.intro",
+        "_collapsed": true,
         "children": [
           {
             "key": "introtext",
@@ -27,8 +28,7 @@
             "content": "# Jednotné hlášení\n\nTento formulář slouží k doplnění povinných údajů nutných pro jednotné hlášení.\n\n## Jak pracovat s formulářem?\n\nPracovně si můžete ukládat rozepsaný formulář pomocí ```Uložit data (Export)```. Takto uložená data do formuláře můžete kdykoli znovu načíst a pokračovat v práci.\n\nMáte-li pocit, že máte formulář vyplněn kompletně a připraven k odevzdání, použijte tlačítko ```Zkontrolovat data```. Pokud data projdou základní validací, což ještě neznamená, že systém sociální správy si je takto vezme, můžete formulář uložit pomocí tlačítka ```Ulož dotazník``` a výsledný soubor poslat do mzdové účtárny.",
             "children": []
           }
-        ],
-        "_collapsed": true
+        ]
       },
       {
         "key": "client",
@@ -170,8 +170,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "bno",
@@ -370,8 +369,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "adr",
@@ -723,8 +721,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "fdr",
@@ -877,8 +874,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "proofid",
@@ -985,8 +981,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "rdr",
@@ -1139,8 +1134,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "stat",
@@ -1201,8 +1195,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "taxidrezid",
@@ -1286,16 +1279,14 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           }
         ],
         "original_path": "employee.client",
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": false
+        "manual_parent": ""
       },
       {
         "key": "fact",
@@ -1440,8 +1431,7 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": true
+        "manual_parent": ""
       },
       {
         "key": "forin",
@@ -1457,7 +1447,7 @@
             "new_only": false,
             "description": "Specifikace",
             "default_value": "",
-            "order": 1,
+            "order": 10,
             "original_path": "employee.forin.cur",
             "id": "10092",
             "dat_typ": "A",
@@ -1466,7 +1456,7 @@
             "logicke_kontroly": "Číselník C_SCIP\n\nKontrola, že u akce A6 musí být vyplněna hodnota \"P\" a u akce A7 hodnota \"S\"",
             "vysvetlivky": "Vyplní se pouze v případě, že zaměstnanec byl účasten nemocenského pojištění v cizině a zaměstnavatel je jeho prvním zaměstnavatelem po skončení pojištění nebo je v době nástupu do zaměstnání účasten pojištění v cizině.\n\nU akce A6 se vyplňuje hodnota \"P\" (poslední) a akce A7 hodnota \"S\" (současný).",
             "widget": "input",
-            "width": 12,
+            "width": 6,
             "manual_parent": "",
             "ciselnik": "",
             "mandatory": "PP",
@@ -1480,7 +1470,7 @@
             "new_only": false,
             "description": "Číslo cizozemského pojištění",
             "default_value": "",
-            "order": 2,
+            "order": 20,
             "original_path": "employee.forin.id",
             "id": "10100",
             "dat_typ": "A,NN,ZZ",
@@ -1489,7 +1479,7 @@
             "logicke_kontroly": "",
             "vysvetlivky": "",
             "widget": "input",
-            "width": 12,
+            "width": 6,
             "manual_parent": "",
             "ciselnik": "",
             "mandatory": "N",
@@ -1503,7 +1493,7 @@
             "new_only": false,
             "description": "Název pojistitele",
             "default_value": "",
-            "order": 3,
+            "order": 30,
             "original_path": "employee.forin.nam",
             "id": "10093",
             "dat_typ": "L2",
@@ -1512,7 +1502,7 @@
             "logicke_kontroly": "",
             "vysvetlivky": "",
             "widget": "input",
-            "width": 12,
+            "width": 6,
             "manual_parent": "",
             "ciselnik": "",
             "mandatory": "N",
@@ -1526,7 +1516,7 @@
             "new_only": false,
             "description": "Sektor (účel pojištění)",
             "default_value": "",
-            "order": 4,
+            "order": 40,
             "original_path": "employee.forin.sec",
             "id": "10101",
             "dat_typ": "NN",
@@ -1534,10 +1524,10 @@
             "specificke_povinnosti": "",
             "logicke_kontroly": "Číselník EESSI - Sektor",
             "vysvetlivky": "",
-            "widget": "input",
-            "width": 12,
+            "widget": "selection",
+            "width": 6,
             "manual_parent": "",
-            "ciselnik": "",
+            "ciselnik": "sector",
             "mandatory": "N",
             "p": "",
             "n": "",
@@ -1549,7 +1539,7 @@
             "new_only": false,
             "description": "Ulice",
             "default_value": "",
-            "order": 10,
+            "order": 50,
             "original_path": "employee.forin.str",
             "id": "10094",
             "dat_typ": "A,NN,ZZ, SP",
@@ -1572,7 +1562,7 @@
             "new_only": false,
             "description": "Číslo popisné",
             "default_value": "",
-            "order": 20,
+            "order": 60,
             "original_path": "employee.forin.num",
             "id": "10095",
             "dat_typ": "A,NN,ZZ",
@@ -1595,7 +1585,7 @@
             "new_only": false,
             "description": "Číslo orientační",
             "default_value": "",
-            "order": 30,
+            "order": 70,
             "original_path": "employee.forin.onum",
             "id": "10096",
             "dat_typ": "A,NN,ZZ, SP",
@@ -1618,7 +1608,7 @@
             "new_only": false,
             "description": "PSČ (postcode)",
             "default_value": "",
-            "order": 40,
+            "order": 80,
             "original_path": "employee.forin.pnu",
             "id": "10098",
             "dat_typ": "A,NN,ZZ, SP",
@@ -1641,7 +1631,7 @@
             "new_only": false,
             "description": "Obec",
             "default_value": "",
-            "order": 50,
+            "order": 90,
             "original_path": "employee.forin.cit",
             "id": "10097",
             "dat_typ": "A,NN,ZL,SP",
@@ -1664,7 +1654,7 @@
             "new_only": false,
             "description": "Stát",
             "default_value": "",
-            "order": 60,
+            "order": 100,
             "original_path": "employee.forin.cnt",
             "id": "10099",
             "dat_typ": "A",
@@ -1672,10 +1662,10 @@
             "specificke_povinnosti": "Pokud je u kterékoliv akce uveden kterýkoliv z údajů o ciz. nositeli pojištění, musí být uveden i stát.",
             "logicke_kontroly": "číselník C_STAT",
             "vysvetlivky": "",
-            "widget": "input",
+            "widget": "selection",
             "width": 4,
             "manual_parent": "",
-            "ciselnik": "",
+            "ciselnik": "state",
             "mandatory": "PP",
             "p": "Uveden alespoň  jeden z ostatních údajů adresy (10094,10095,10096,10098,10097,10099)",
             "n": "",
@@ -1691,7 +1681,7 @@
       {
         "key": "forinreg",
         "skip": false,
-        "new_only": false,
+        "new_only": true,
         "description": "Příslušnost k cizím právním předpisům",
         "default_value": "",
         "order": 50,

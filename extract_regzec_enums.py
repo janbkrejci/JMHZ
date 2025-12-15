@@ -73,6 +73,31 @@ def extract_enums():
     except Exception as e:
         print(f"Error extracting C_POHL: {e}")
 
+    # 3. Sektor (CIS Sektor)
+    try:
+        print("Extracting 'sector' from CIS Sektor...")
+        df = pd.read_excel(EXCEL_FILE, sheet_name='CIS Sektor', header=None)
+        
+        # Skip first row (header)
+        df = df.iloc[1:]
+        
+        # Select first 2 columns
+        df = df.iloc[:, :2]
+        df.columns = ['value', 'label']
+        
+        # Clean data
+        df['value'] = df['value'].astype(str).str.strip()
+        df['label'] = df['label'].astype(str).str.strip()
+        
+        # Filter valid
+        df = df[df['value'] != 'nan']
+        
+        enums['sector'] = df.to_dict('records')
+        print(f"Extracted {len(enums['sector'])} sector entries.")
+        
+    except Exception as e:
+        print(f"Error extracting CIS Sektor: {e}")
+
     # Save to JSON
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(enums, f, indent=4, ensure_ascii=False)

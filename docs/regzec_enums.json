@@ -1006,5 +1006,39 @@
             "value": "Ž",
             "label": "ženské"
         }
+    ],
+    "sector": [
+        {
+            "value": "01",
+            "label": "Pracovní úrazy nemoci z povolání"
+        },
+        {
+            "value": "02",
+            "label": "Rodinné dávky"
+        },
+        {
+            "value": "03",
+            "label": "Vše"
+        },
+        {
+            "value": "04",
+            "label": "Důchody"
+        },
+        {
+            "value": "05",
+            "label": "Vymáhání a zápočty"
+        },
+        {
+            "value": "06",
+            "label": "Nemoc"
+        },
+        {
+            "value": "07",
+            "label": "Dávky v nezaměstnanosti"
+        },
+        {
+            "value": "08",
+            "label": "jiné"
+        }
     ]
 }
