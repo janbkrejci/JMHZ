@@ -189,6 +189,7 @@ Každé pole v atributu `fields` má vlastnost `type` a další specifické vlas
 - `readonly`: (Boolean) Pouze pro čtení.
 - `hint`: (String) Nápověda pod polem.
 - `autofocus`: (Boolean) Zaměření po načtení.
+- `placeholder`: (String) Text zobrazený v prázdném poli (týká se textových polí, comboboxu, data atd.).
 - `enterAction`: (String) Akce na Enter (`submit`, `focus:field`, `click:action`).
 - `escapeAction`: (String) Akce na Escape (`clear`, `click:action`).
 

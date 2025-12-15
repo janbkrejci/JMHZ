@@ -387,6 +387,11 @@ function createFieldItem(node, fieldsAccumulator, enums, valuesAccumulator) {
         valuesAccumulator[fieldName] = node.default_value;
     }
 
+    // Handle Placeholder
+    if (node.placeholder) {
+        config.placeholder = node.placeholder;
+    }
+
     // Add to fields config
     fieldsAccumulator[fieldName] = config;
 

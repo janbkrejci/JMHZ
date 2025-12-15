@@ -330,6 +330,9 @@ export class TSFormField extends HTMLElement {
                 if (config.rows) {
                     field.rows = config.rows;
                 }
+                if (config.placeholder) {
+                    field.placeholder = config.placeholder;
+                }
                 break;
             case 'password':
                 field = document.createElement('sl-input');
@@ -337,6 +340,9 @@ export class TSFormField extends HTMLElement {
                 field.passwordToggle = true;
                 field.setAttribute('autocomplete', 'current-password');
                 field.value = value || '';
+                if (config.placeholder) {
+                    field.placeholder = config.placeholder;
+                }
                 break;
             case 'checkbox':
                 const checkboxWrapper = document.createElement('div');
@@ -550,7 +556,11 @@ export class TSFormField extends HTMLElement {
                 field.type = 'text';
                 field.inputMode = 'decimal';
                 field.classList.add('text-right');
+                field.classList.add('text-right');
                 field.setAttribute('autocomplete', 'off');
+                if (config.placeholder) {
+                    field.placeholder = config.placeholder;
+                }
 
                 // Input restriction: only numbers, minus, dot, comma, math operators
                 field.addEventListener('sl-input', () => {
@@ -1035,6 +1045,9 @@ export class TSFormField extends HTMLElement {
                 field.type = config.type || 'text';
                 field.setAttribute('autocomplete', 'off');
                 field.value = value || '';
+                if (config.placeholder) {
+                    field.placeholder = config.placeholder;
+                }
         }
 
         field.name = fieldName;

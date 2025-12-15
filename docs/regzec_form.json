@@ -14,7 +14,7 @@
         "skip": false,
         "new_only": false,
         "original_path": "employee.intro",
-        "_collapsed": true,
+        "_collapsed": false,
         "children": [
           {
             "key": "introtext",
@@ -37,9 +37,23 @@
             "original_path": "employee.client.message",
             "widget": "textarea",
             "width": 12,
-            "rows": 6,
-            "default_value": "Tady můžete napsat cokoli se do formuláře nevešlo...",
+            "rows": 8,
+            "default_value": "",
             "manual_parent": "employee.intro",
+            "placeholder": "Tady můžete napsat vše, co se do formuláře nevešlo...",
+            "children": []
+          },
+          {
+            "key": "common_attachments",
+            "description": "Další přílohy",
+            "order": 30,
+            "skip": false,
+            "new_only": false,
+            "original_path": "employee.intro.common_attachments",
+            "widget": "file",
+            "width": 12,
+            "multiple": true,
+            "label": "Sem můžete dát další přílohy, které se jinam nevešly",
             "children": []
           }
         ]
@@ -81,7 +95,8 @@
                 "mandatory": "P",
                 "p": "",
                 "n": "",
-                "z": ""
+                "z": "",
+                "placeholder": ""
               },
               {
                 "key": "sur",
@@ -1271,7 +1286,8 @@
                 "widget": "file",
                 "width": 12,
                 "multiple": true,
-                "label": "Nahrajte přílohu(y)"
+                "label": "Nahrajte přílohu(y)",
+                "children": []
               }
             ],
             "original_path": "employee.client.proofid",

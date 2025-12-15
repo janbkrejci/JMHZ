@@ -593,12 +593,13 @@
                         <label class="block text-xs font-medium text-gray-700 mb-1">Popis (Label/Description)</label>
                         <textarea id="detail-desc" rows="2" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>${node.description || ''}</textarea>
                     </div>
-            `;
 
-            // Common fields for everything now (user requested editable everywhere)
-            // Specially Widget type
-            html += `
-                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                         <label class="block text-xs font-medium text-gray-700 mb-1">Placeholder</label>
+                         <input type="text" id="detail-placeholder" value="${node.placeholder || ''}" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-4">
                     <div>
                         <label class="block text-xs font-medium text-gray-700 mb-1">Widget / Typ</label>
                         <select id="detail-widget" class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-indigo-500 focus:ring-indigo-500" ${node.skip ? 'disabled' : ''}>
@@ -712,6 +713,7 @@
 
             // Attach listeners
             document.getElementById('detail-desc').onchange = (e) => { node.description = e.target.value; render(); };
+            document.getElementById('detail-placeholder').onchange = (e) => { node.placeholder = e.target.value; };
             document.getElementById('detail-default').onchange = (e) => { node.default_value = e.target.value; };
 
             const w = document.getElementById('detail-widget');

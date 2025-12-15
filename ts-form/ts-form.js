@@ -483,7 +483,7 @@ class TSForm extends HTMLElement {
                 detail: {
                     field: field,
                     value: value,
-                    formData: this.formData
+                    formData: this.getSubmissionData()
                 },
                 bubbles: true,
                 composed: true
@@ -935,7 +935,7 @@ class TSForm extends HTMLElement {
         if (this.fieldsConfig) {
             Object.keys(this.fieldsConfig).forEach(fieldName => {
                 const config = this.fieldsConfig[fieldName];
-                if (config.excludeFromSubmit) {
+                if (config.excludeFromSubmit || config.type === 'markdown' || config.type === 'infobox') {
                     delete submissionData[fieldName];
                 }
             });
