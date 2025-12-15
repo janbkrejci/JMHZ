@@ -1043,11 +1043,11 @@
     ],
     "bool": [
         {
-            "value": "true",
+            "value": "A",
             "label": "ANO"
         },
         {
-            "value": "false",
+            "value": "N",
             "label": "NE"
         }
     ]

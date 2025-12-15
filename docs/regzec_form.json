@@ -27,6 +27,20 @@
             "width": 12,
             "content": "# Jednotné hlášení\n\nTento formulář slouží k doplnění povinných údajů nutných pro jednotné hlášení.\n\n## Jak pracovat s formulářem?\n\nPracovně si můžete ukládat rozepsaný formulář pomocí ```Uložit data (Export)```. Takto uložená data do formuláře můžete kdykoli znovu načíst a pokračovat v práci.\n\nMáte-li pocit, že máte formulář vyplněn kompletně a připraven k odevzdání, použijte tlačítko ```Zkontrolovat data```. Pokud data projdou základní validací, což ještě neznamená, že systém sociální správy si je takto vezme, můžete formulář uložit pomocí tlačítka ```Ulož dotazník``` a výsledný soubor poslat do mzdové účtárny.",
             "children": []
+          },
+          {
+            "key": "message",
+            "description": "Vzkaz pro mzdovou účtárnu",
+            "order": 20,
+            "skip": false,
+            "new_only": false,
+            "original_path": "employee.client.message",
+            "widget": "textarea",
+            "width": 12,
+            "rows": 6,
+            "default_value": "Tady můžete napsat cokoli se do formuláře nevešlo...",
+            "children": [],
+            "manual_parent": "employee.intro"
           }
         ]
       },
@@ -38,33 +52,6 @@
         "default_value": "",
         "order": 20,
         "children": [
-          {
-            "key": "message",
-            "description": "Vzkaz pro mzdovou účtárnu",
-            "order": 10,
-            "skip": false,
-            "new_only": false,
-            "original_path": "employee.client.message",
-            "widget": "textarea",
-            "width": 12,
-            "rows": 6,
-            "default_value": "Tady můžete napsat cokoli se do formuláře nevešlo...",
-            "children": []
-          },
-          {
-            "key": "cv",
-            "description": "Životopis",
-            "order": 20,
-            "skip": false,
-            "new_only": false,
-            "original_path": "employee.client.cv",
-            "widget": "file",
-            "width": 12,
-            "multiple": true,
-            "label": "Příložte životopis",
-            "id": "99999",
-            "children": []
-          },
           {
             "key": "name",
             "skip": false,
@@ -170,7 +157,8 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": ""
+            "manual_parent": "",
+            "_collapsed": true
           },
           {
             "key": "bno",
@@ -267,7 +255,7 @@
           {
             "key": "birth",
             "skip": false,
-            "new_only": true,
+            "new_only": false,
             "description": "Narození",
             "default_value": "",
             "order": 80,
@@ -1158,10 +1146,10 @@
                 "specificke_povinnosti": "",
                 "logicke_kontroly": "číselník C_STAT",
                 "vysvetlivky": "",
-                "widget": "input",
+                "widget": "selection",
                 "width": 4,
                 "manual_parent": "",
-                "ciselnik": "",
+                "ciselnik": "state",
                 "mandatory": "P",
                 "p": "",
                 "n": "",
@@ -1201,7 +1189,7 @@
             "key": "taxidrezid",
             "skip": false,
             "new_only": false,
-            "description": "Daňová rezidentura (mimo ČR)",
+            "description": "Daňová rezidentura",
             "default_value": "",
             "order": 150,
             "children": [
@@ -1287,7 +1275,7 @@
         "width": 12,
         "ciselnik": "",
         "manual_parent": "",
-        "_collapsed": true
+        "_collapsed": false
       },
       {
         "key": "fact",
@@ -1683,7 +1671,7 @@
         "key": "forinreg",
         "skip": false,
         "new_only": true,
-        "description": "Příslušnost k cizím právním předpisům",
+        "description": "Cizí předpisy - A1",
         "default_value": "",
         "order": 50,
         "children": [
@@ -1691,7 +1679,7 @@
             "key": "juris",
             "skip": false,
             "new_only": false,
-            "description": "příslušnost k cizím právním předpisům",
+            "description": "Příslušnost k cizím právním předpisům",
             "default_value": "",
             "order": 10,
             "original_path": "employee.forinreg.juris",

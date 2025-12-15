@@ -100,8 +100,8 @@ def extract_enums():
 
     # 4. Bool (Static)
     enums['bool'] = [
-        {'value': 'true', 'label': 'ANO'},
-        {'value': 'false', 'label': 'NE'}
+        {'value': 'A', 'label': 'ANO'},
+        {'value': 'N', 'label': 'NE'}
     ]
     print(f"Added static 'bool' enum.")
 
