@@ -595,6 +595,10 @@ class TSForm extends HTMLElement {
             // Create form element
             const form = document.createElement('form');
             form.noValidate = true;
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
             // Styles are now in CSS
 
 

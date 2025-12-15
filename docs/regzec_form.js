@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             { "action": "export-data", "label": "Uložit data (Export)", "variant": "neutral", "position": "left" },
 
             // New buttons on right
-            { "action": "check-data", "label": "Zkontroluj data", "variant": "neutral", "position": "right" },
+            { "action": "check-data", "label": "Zkontroluj data", "variant": "neutral", "position": "right", "disabled": false },
             { "action": "save", "label": "Ulož dotazník", "variant": "primary", "position": "right", "disabled": true }
         ];
 
