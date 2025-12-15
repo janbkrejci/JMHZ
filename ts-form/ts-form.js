@@ -583,7 +583,7 @@ class TSForm extends HTMLElement {
             const valuesConfig = values ? JSON.parse(values) : {};
 
             // Merge values into formData
-            this.formData = { ...this.formData, ...valuesConfig };
+            this.formData = { ...valuesConfig, ...this.formData };
 
             // Ensure structure exists
             this.ensureStructure();
