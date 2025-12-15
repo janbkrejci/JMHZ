@@ -46,10 +46,18 @@
         ts-form {
             flex: 1;
             overflow: hidden;
-            /* Force ts-form to stay within flex container */
-            display: flex;
             /* Ensure it acts as a container */
+            display: flex;
             flex-direction: column;
+        }
+
+        /* Fix: Tailwind .text-right causes Shoelace label to align right. Reset host, enforce part. */
+        sl-input.text-right {
+            text-align: left;
+        }
+
+        sl-input.text-right::part(input) {
+            text-align: right;
         }
     </style>
 </head>
