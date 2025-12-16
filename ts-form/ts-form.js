@@ -904,9 +904,6 @@ class TSForm extends HTMLElement {
 
                 const fieldConfig = fieldsConfig[col.field];
                 if (fieldConfig) {
-                    const fieldContainer = document.createElement('div');
-                    // Padding removed to fix vertical gap issue
-
                     const fieldComponent = document.createElement('ts-form-field');
                     fieldComponent.setAttribute('field-name', col.field);
                     fieldComponent.setAttribute('config', JSON.stringify(fieldConfig));
@@ -925,8 +922,8 @@ class TSForm extends HTMLElement {
                         fieldComponent.setAttribute('error', error);
                     }
 
-                    fieldContainer.appendChild(fieldComponent);
-                    rowDiv.appendChild(fieldContainer);
+                    colDiv.appendChild(fieldComponent);
+                    rowDiv.appendChild(colDiv);
                 }
             });
             parent.appendChild(rowDiv);
