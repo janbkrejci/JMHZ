@@ -2,15 +2,15 @@
     "state": [
         {
             "value": "AD",
-            "label": "Andorra"
+            "label": "Andorrské knížectví"
         },
         {
             "value": "AE",
-            "label": "Spojené arabské emiráty"
+            "label": "Stát Spojené arabské emiráty"
         },
         {
             "value": "AF",
-            "label": "Afghánistán"
+            "label": "Afghánská islámská republika"
         },
         {
             "value": "AG",
@@ -22,15 +22,15 @@
         },
         {
             "value": "AL",
-            "label": "Albánie"
+            "label": "Albánská republika"
         },
         {
             "value": "AM",
-            "label": "Arménie"
+            "label": "Arménská republika"
         },
         {
             "value": "AO",
-            "label": "Angola"
+            "label": "Angolská republika"
         },
         {
             "value": "AQ",
@@ -38,19 +38,19 @@
         },
         {
             "value": "AR",
-            "label": "Argentina"
+            "label": "Argentinská republika"
         },
         {
             "value": "AS",
-            "label": "Americká Samoa"
+            "label": "Území Americká Samoa"
         },
         {
             "value": "AT",
-            "label": "Rakousko"
+            "label": "Rakouská republika"
         },
         {
             "value": "AU",
-            "label": "Austrálie"
+            "label": "Australské společenství"
         },
         {
             "value": "AW",
@@ -58,11 +58,11 @@
         },
         {
             "value": "AX",
-            "label": "Alandy"
+            "label": "Provincie Alandy"
         },
         {
             "value": "AZ",
-            "label": "Ázerbájdžán"
+            "label": "Ázerbájdžánská republika"
         },
         {
             "value": "BA",
@@ -74,11 +74,11 @@
         },
         {
             "value": "BD",
-            "label": "Bangladéš"
+            "label": "Bangladéšská lidová republika"
         },
         {
             "value": "BE",
-            "label": "Belgie"
+            "label": "Belgické království"
         },
         {
             "value": "BF",
@@ -86,23 +86,23 @@
         },
         {
             "value": "BG",
-            "label": "Bulharsko"
+            "label": "Bulharská republika"
         },
         {
             "value": "BH",
-            "label": "Bahrajn"
+            "label": "Království Bahrajn"
         },
         {
             "value": "BI",
-            "label": "Burundi"
+            "label": "Burundská republika"
         },
         {
             "value": "BJ",
-            "label": "Benin"
+            "label": "Beninská republika"
         },
         {
             "value": "BL",
-            "label": "Svatý Bartoloměj"
+            "label": "Společenství Svatý Bartoloměj"
         },
         {
             "value": "BM",
@@ -110,11 +110,11 @@
         },
         {
             "value": "BN",
-            "label": "Brunej"
+            "label": "Stát Brunej Darussalam"
         },
         {
             "value": "BO",
-            "label": "Bolívie"
+            "label": "Mnohonárodní stát Bolívie"
         },
         {
             "value": "BQ",
@@ -122,15 +122,15 @@
         },
         {
             "value": "BR",
-            "label": "Brazílie"
+            "label": "Brazilská federativní republika"
         },
         {
             "value": "BS",
-            "label": "Bahamy"
+            "label": "Bahamské společenství"
         },
         {
             "value": "BT",
-            "label": "Bhútán"
+            "label": "Bhútánské království"
         },
         {
             "value": "BV",
@@ -138,11 +138,11 @@
         },
         {
             "value": "BW",
-            "label": "Botswana"
+            "label": "Botswanská republika"
         },
         {
             "value": "BY",
-            "label": "Bělorusko"
+            "label": "Běloruská republika"
         },
         {
             "value": "BZ",
@@ -154,7 +154,7 @@
         },
         {
             "value": "CC",
-            "label": "Kokosové (Keelingovy) ostrovy"
+            "label": "Území Kokosové (Keelingovy) ostrovy"
         },
         {
             "value": "CD",
@@ -170,11 +170,11 @@
         },
         {
             "value": "CH",
-            "label": "Švýcarsko"
+            "label": "Švýcarská konfederace"
         },
         {
             "value": "CI",
-            "label": "Pobřeží slonoviny"
+            "label": "Republika Pobřeží slonoviny"
         },
         {
             "value": "CK",
@@ -182,63 +182,63 @@
         },
         {
             "value": "CL",
-            "label": "Chile"
+            "label": "Chilská republika"
         },
         {
             "value": "CM",
-            "label": "Kamerun"
+            "label": "Kamerunská republika"
         },
         {
             "value": "CN",
-            "label": "Čína"
+            "label": "Čínská lidová republika"
         },
         {
             "value": "CO",
-            "label": "Kolumbie"
+            "label": "Kolumbijská republika"
         },
         {
             "value": "CR",
-            "label": "Kostarika"
+            "label": "Kostarická republika"
         },
         {
             "value": "CU",
-            "label": "Kuba"
+            "label": "Kubánská republika"
         },
         {
             "value": "CV",
-            "label": "Kapverdy"
+            "label": "Kapverdská republika"
         },
         {
             "value": "CW",
-            "label": "Curaçao"
+            "label": "Země Curaçao"
         },
         {
             "value": "CX",
-            "label": "Vánoční ostrov"
+            "label": "Území Vánoční ostrov"
         },
         {
             "value": "CY",
-            "label": "Kypr"
+            "label": "Kyperská republika"
         },
         {
             "value": "CZ",
-            "label": "Česko"
+            "label": "Česká republika"
         },
         {
             "value": "DE",
-            "label": "Německo"
+            "label": "Spolková republika Německo"
         },
         {
             "value": "DJ",
-            "label": "Džibutsko"
+            "label": "Džibutská republika"
         },
         {
             "value": "DK",
-            "label": "Dánsko"
+            "label": "Dánské království"
         },
         {
             "value": "DM",
-            "label": "Dominika"
+            "label": "Dominické společenství"
         },
         {
             "value": "DO",
@@ -246,43 +246,43 @@
         },
         {
             "value": "DZ",
-            "label": "Alžírsko"
+            "label": "Alžírská demokratická a lidová republika"
         },
         {
             "value": "EC",
-            "label": "Ekvádor"
+            "label": "Ekvádorská republika"
         },
         {
             "value": "EE",
-            "label": "Estonsko"
+            "label": "Estonská republika"
         },
         {
             "value": "EG",
-            "label": "Egypt"
+            "label": "Egyptská arabská republika"
         },
         {
             "value": "EH",
-            "label": "Západní Sahara"
+            "label": "Saharská arabská demokratická republika"
         },
         {
             "value": "ER",
-            "label": "Eritrea"
+            "label": "Stát Eritrea"
         },
         {
             "value": "ES",
-            "label": "Španělsko"
+            "label": "Španělské království"
         },
         {
             "value": "ET",
-            "label": "Etiopie"
+            "label": "Etiopská federativní demokratická republika"
         },
         {
             "value": "FI",
-            "label": "Finsko"
+            "label": "Finská republika"
         },
         {
             "value": "FJ",
-            "label": "Fidži"
+            "label": "Fidžijská republika"
         },
         {
             "value": "FK",
@@ -290,7 +290,7 @@
         },
         {
             "value": "FM",
-            "label": "Mikronésie"
+            "label": "Federativní státy Mikronésie"
         },
         {
             "value": "FO",
@@ -298,15 +298,15 @@
         },
         {
             "value": "FR",
-            "label": "Francie"
+            "label": "Francouzská republika"
         },
         {
             "value": "GA",
-            "label": "Gabon"
+            "label": "Gabonská republika"
         },
         {
             "value": "GB",
-            "label": "Velká Británie a Severní Irsko"
+            "label": "Spojené království Velké Británie a Severního Irska"
         },
         {
             "value": "GD",
@@ -322,11 +322,11 @@
         },
         {
             "value": "GG",
-            "label": "Guernsey"
+            "label": "Bailiwick Guernsey"
         },
         {
             "value": "GH",
-            "label": "Ghana"
+            "label": "Ghanská republika"
         },
         {
             "value": "GI",
@@ -338,23 +338,23 @@
         },
         {
             "value": "GM",
-            "label": "Gambie"
+            "label": "Gambijská republika"
         },
         {
             "value": "GN",
-            "label": "Guinea"
+            "label": "Guinejská republika"
         },
         {
             "value": "GP",
-            "label": "Guadeloupe"
+            "label": "Region Guadeloupe"
         },
         {
             "value": "GQ",
-            "label": "Rovníková Guinea"
+            "label": "Republika Rovníková Guinea"
         },
         {
             "value": "GR",
-            "label": "Řecko"
+            "label": "Řecká republika"
         },
         {
             "value": "GS",
@@ -362,23 +362,23 @@
         },
         {
             "value": "GT",
-            "label": "Guatemala"
+            "label": "Guatemalská republika"
         },
         {
             "value": "GU",
-            "label": "Guam"
+            "label": "Teritorium Guam"
         },
         {
             "value": "GW",
-            "label": "Guinea-Bissau"
+            "label": "Republika Guinea-Bissau"
         },
         {
             "value": "GY",
-            "label": "Guyana"
+            "label": "Guyanská kooperativní republika"
         },
         {
             "value": "HK",
-            "label": "Hongkong"
+            "label": "Zvláštní administrativní oblast Čínské lidové republiky Hongkong"
         },
         {
             "value": "HM",
@@ -386,15 +386,15 @@
         },
         {
             "value": "HN",
-            "label": "Honduras"
+            "label": "Honduraská republika"
         },
         {
             "value": "HR",
-            "label": "Chorvatsko"
+            "label": "Chorvatská republika"
         },
         {
             "value": "HT",
-            "label": "Haiti"
+            "label": "Republika Haiti"
         },
         {
             "value": "HU",
@@ -402,7 +402,7 @@
         },
         {
             "value": "ID",
-            "label": "Indonésie"
+            "label": "Indonéská republika"
         },
         {
             "value": "IE",
@@ -410,39 +410,39 @@
         },
         {
             "value": "IL",
-            "label": "Izrael"
+            "label": "Stát Izrael"
         },
         {
             "value": "IM",
-            "label": "Man"
+            "label": "Ostrov Man"
         },
         {
             "value": "IN",
-            "label": "Indie"
+            "label": "Indická republika"
         },
         {
             "value": "IO",
-            "label": "Britské indickooceánské území"
+            "label": "Britské území v Indickém oceánu"
         },
         {
             "value": "IQ",
-            "label": "Irák"
+            "label": "Irácká republika"
         },
         {
             "value": "IR",
-            "label": "Írán"
+            "label": "Íránská islámská republika"
         },
         {
             "value": "IS",
-            "label": "Island"
+            "label": "Islandská republika"
         },
         {
             "value": "IT",
-            "label": "Itálie"
+            "label": "Italská republika"
         },
         {
             "value": "JE",
-            "label": "Jersey"
+            "label": "Bailiwick Jersey"
         },
         {
             "value": "JM",
@@ -450,7 +450,7 @@
         },
         {
             "value": "JO",
-            "label": "Jordánsko"
+            "label": "Jordánské hášimovské království"
         },
         {
             "value": "JP",
@@ -458,27 +458,27 @@
         },
         {
             "value": "KE",
-            "label": "Keňa"
+            "label": "Keňská republika"
         },
         {
             "value": "KG",
-            "label": "Kyrgyzstán"
+            "label": "Kyrgyzská republika"
         },
         {
             "value": "KH",
-            "label": "Kambodža"
+            "label": "Kambodžské království"
         },
         {
             "value": "KI",
-            "label": "Kiribati"
+            "label": "Republika Kiribati"
         },
         {
             "value": "KM",
-            "label": "Komory"
+            "label": "Komorský svaz"
         },
         {
             "value": "KN",
-            "label": "Svatý Kryštof a Nevis"
+            "label": "Federace Svatý Kryštof a Nevis"
         },
         {
             "value": "KP",
@@ -490,7 +490,7 @@
         },
         {
             "value": "KW",
-            "label": "Kuvajt"
+            "label": "Kuvajtský stát"
         },
         {
             "value": "KY",
@@ -498,15 +498,15 @@
         },
         {
             "value": "KZ",
-            "label": "Kazachstán"
+            "label": "Republika Kazachstán"
         },
         {
             "value": "LA",
-            "label": "Laos"
+            "label": "Laoská lidově demokratická republika"
         },
         {
             "value": "LB",
-            "label": "Libanon"
+            "label": "Libanonská republika"
         },
         {
             "value": "LC",
@@ -514,47 +514,47 @@
         },
         {
             "value": "LI",
-            "label": "Lichtenštejnsko"
+            "label": "Lichtenštejnské knížectví"
         },
         {
             "value": "LK",
-            "label": "Šrí Lanka"
+            "label": "Šrílanská demokratická socialistická republika"
         },
         {
             "value": "LR",
-            "label": "Libérie"
+            "label": "Liberijská republika"
         },
         {
             "value": "LS",
-            "label": "Lesotho"
+            "label": "Lesothské království"
         },
         {
             "value": "LT",
-            "label": "Litva"
+            "label": "Litevská republika"
         },
         {
             "value": "LU",
-            "label": "Lucembursko"
+            "label": "Lucemburské velkovévodství"
         },
         {
             "value": "LV",
-            "label": "Lotyšsko"
+            "label": "Lotyšská republika"
         },
         {
             "value": "LY",
-            "label": "Libye"
+            "label": "Libyjský stát"
         },
         {
             "value": "MA",
-            "label": "Maroko"
+            "label": "Marocké království"
         },
         {
             "value": "MC",
-            "label": "Monako"
+            "label": "Monacké knížectví"
         },
         {
             "value": "MD",
-            "label": "Moldavsko"
+            "label": "Moldavská republika"
         },
         {
             "value": "ME",
@@ -562,27 +562,27 @@
         },
         {
             "value": "MF",
-            "label": "Svatý Martin (FR)"
+            "label": "Společenství Svatý Martin"
         },
         {
             "value": "MG",
-            "label": "Madagaskar"
+            "label": "Madagaskarská republika"
         },
         {
             "value": "MH",
-            "label": "Marshallovy ostrovy"
+            "label": "Republika Marshallovy ostrovy"
         },
         {
             "value": "MK",
-            "label": "Severní Makedonie"
+            "label": "Republika Severní Makedonie"
         },
         {
             "value": "ML",
-            "label": "Mali"
+            "label": "Republika Mali"
         },
         {
             "value": "MM",
-            "label": "Myanmar"
+            "label": "Republika Myanmarský svaz"
         },
         {
             "value": "MN",
@@ -590,11 +590,11 @@
         },
         {
             "value": "MO",
-            "label": "Macao"
+            "label": "Zvláštní administrativní oblast Čínské lidové republiky Macao"
         },
         {
             "value": "MP",
-            "label": "Severní Mariany"
+            "label": "Společenství Severní Mariany"
         },
         {
             "value": "MQ",
@@ -602,7 +602,7 @@
         },
         {
             "value": "MR",
-            "label": "Mauritánie"
+            "label": "Mauritánská islámská republika"
         },
         {
             "value": "MS",
@@ -610,23 +610,23 @@
         },
         {
             "value": "MT",
-            "label": "Malta"
+            "label": "Maltská republika"
         },
         {
             "value": "MU",
-            "label": "Mauricius"
+            "label": "Mauricijská republika"
         },
         {
             "value": "MV",
-            "label": "Maledivy"
+            "label": "Maledivská republika"
         },
         {
             "value": "MW",
-            "label": "Malawi"
+            "label": "Malawiská republika"
         },
         {
             "value": "MX",
-            "label": "Mexiko"
+            "label": "Spojené státy mexické"
         },
         {
             "value": "MY",
@@ -634,7 +634,7 @@
         },
         {
             "value": "MZ",
-            "label": "Mosambik"
+            "label": "Mosambická republika"
         },
         {
             "value": "NC",
@@ -642,19 +642,19 @@
         },
         {
             "value": "NE",
-            "label": "Niger"
+            "label": "Nigerská republika"
         },
         {
             "value": "NF",
-            "label": "Norfolk"
+            "label": "Území Norfolk"
         },
         {
             "value": "NG",
-            "label": "Nigérie"
+            "label": "Nigerijská federativní republika"
         },
         {
             "value": "NI",
-            "label": "Nikaragua"
+            "label": "Nikaragujská republika"
         },
         {
             "value": "NL",
@@ -662,15 +662,15 @@
         },
         {
             "value": "NO",
-            "label": "Norsko"
+            "label": "Norské království"
         },
         {
             "value": "NP",
-            "label": "Nepál"
+            "label": "Nepálská federativní demokratická republika"
         },
         {
             "value": "NR",
-            "label": "Nauru"
+            "label": "Republika Nauru"
         },
         {
             "value": "NU",
@@ -682,15 +682,15 @@
         },
         {
             "value": "OM",
-            "label": "Omán"
+            "label": "Sultanát Omán"
         },
         {
             "value": "PA",
-            "label": "Panama"
+            "label": "Panamská republika"
         },
         {
             "value": "PE",
-            "label": "Peru"
+            "label": "Peruánská republika"
         },
         {
             "value": "PF",
@@ -698,55 +698,55 @@
         },
         {
             "value": "PG",
-            "label": "Papua Nová Guinea"
+            "label": "Nezávislý stát Papua Nová Guinea"
         },
         {
             "value": "PH",
-            "label": "Filipíny"
+            "label": "Filipínská republika"
         },
         {
             "value": "PK",
-            "label": "Pákistán"
+            "label": "Pákistánská islámská republika"
         },
         {
             "value": "PL",
-            "label": "Polsko"
+            "label": "Polská republika"
         },
         {
             "value": "PM",
-            "label": "Saint Pierre a Miquelon"
+            "label": "Územní společenství Saint Pierre a Miquelon"
         },
         {
             "value": "PN",
-            "label": "Pitcairn"
+            "label": "Pitcairnovy ostrovy"
         },
         {
             "value": "PR",
-            "label": "Portoriko"
+            "label": "Portorické společenství"
         },
         {
             "value": "PS",
-            "label": "Palestina"
+            "label": "Palestinská autonomní území"
         },
         {
             "value": "PT",
-            "label": "Portugalsko"
+            "label": "Portugalská republika"
         },
         {
             "value": "PW",
-            "label": "Palau"
+            "label": "Republika Palau"
         },
         {
             "value": "PY",
-            "label": "Paraguay"
+            "label": "Paraguayská republika"
         },
         {
             "value": "QA",
-            "label": "Katar"
+            "label": "Stát Katar"
         },
         {
             "value": "RE",
-            "label": "Réunion"
+            "label": "Region Réunion"
         },
         {
             "value": "RO",
@@ -754,19 +754,19 @@
         },
         {
             "value": "RS",
-            "label": "Srbsko"
+            "label": "Srbská republika"
         },
         {
             "value": "RU",
-            "label": "Rusko"
+            "label": "Ruská federace"
         },
         {
             "value": "RW",
-            "label": "Rwanda"
+            "label": "Rwandská republika"
         },
         {
             "value": "SA",
-            "label": "Saúdská Arábie"
+            "label": "Království Saúdská Arábie"
         },
         {
             "value": "SB",
@@ -774,27 +774,27 @@
         },
         {
             "value": "SC",
-            "label": "Seychely"
+            "label": "Seychelská republika"
         },
         {
             "value": "SD",
-            "label": "Súdán"
+            "label": "Súdánská republika"
         },
         {
             "value": "SE",
-            "label": "Švédsko"
+            "label": "Švédské království"
         },
         {
             "value": "SG",
-            "label": "Singapur"
+            "label": "Singapurská republika"
         },
         {
             "value": "SH",
-            "label": "Svatá Helena"
+            "label": "Svatá Helena, Ascension a Tristan da Cunha"
         },
         {
             "value": "SI",
-            "label": "Slovinsko"
+            "label": "Slovinská republika"
         },
         {
             "value": "SJ",
@@ -802,39 +802,39 @@
         },
         {
             "value": "SK",
-            "label": "Slovensko"
+            "label": "Slovenská republika"
         },
         {
             "value": "SL",
-            "label": "Sierra Leone"
+            "label": "Republika Sierra Leone"
         },
         {
             "value": "SM",
-            "label": "San Marino"
+            "label": "Republika San Marino"
         },
         {
             "value": "SN",
-            "label": "Senegal"
+            "label": "Senegalská republika"
         },
         {
             "value": "SO",
-            "label": "Somálsko"
+            "label": "Somálská federativní republika"
         },
         {
             "value": "SR",
-            "label": "Surinam"
+            "label": "Surinamská republika"
         },
         {
             "value": "SS",
-            "label": "Jižní Súdán"
+            "label": "Jihosúdánská republika"
         },
         {
             "value": "ST",
-            "label": "Svatý Tomáš a Princův ostrov"
+            "label": "Demokratická republika Svatý Tomáš a Princův ostrov"
         },
         {
             "value": "SV",
-            "label": "Salvador"
+            "label": "Salvadorská republika"
         },
         {
             "value": "SX",
@@ -842,19 +842,19 @@
         },
         {
             "value": "SY",
-            "label": "Sýrie"
+            "label": "Syrská arabská republika"
         },
         {
             "value": "SZ",
-            "label": "Svazijsko"
+            "label": "Svazijské království"
         },
         {
             "value": "TC",
-            "label": "Turks a Caicos"
+            "label": "Ostrovy Turks a Caicos"
         },
         {
             "value": "TD",
-            "label": "Čad"
+            "label": "Čadská republika"
         },
         {
             "value": "TF",
@@ -862,15 +862,15 @@
         },
         {
             "value": "TG",
-            "label": "Togo"
+            "label": "Tožská republika"
         },
         {
             "value": "TH",
-            "label": "Thajsko"
+            "label": "Thajské království"
         },
         {
             "value": "TJ",
-            "label": "Tádžikistán"
+            "label": "Republika Tádžikistán"
         },
         {
             "value": "TK",
@@ -878,7 +878,7 @@
         },
         {
             "value": "TL",
-            "label": "Východní Timor"
+            "label": "Demokratická republika Východní Timor"
         },
         {
             "value": "TM",
@@ -886,19 +886,19 @@
         },
         {
             "value": "TN",
-            "label": "Tunisko"
+            "label": "Tuniská republika"
         },
         {
             "value": "TO",
-            "label": "Tonga"
+            "label": "Království Tonga"
         },
         {
             "value": "TR",
-            "label": "Turecko"
+            "label": "Turecká republika"
         },
         {
             "value": "TT",
-            "label": "Trinidad a Tobago"
+            "label": "Republika Trinidad a Tobago"
         },
         {
             "value": "TV",
@@ -910,7 +910,7 @@
         },
         {
             "value": "TZ",
-            "label": "Tanzanie"
+            "label": "Tanzanská sjednocená republika"
         },
         {
             "value": "UA",
@@ -918,7 +918,7 @@
         },
         {
             "value": "UG",
-            "label": "Uganda"
+            "label": "Ugandská republika"
         },
         {
             "value": "UM",
@@ -926,19 +926,19 @@
         },
         {
             "value": "US",
-            "label": "Spojené státy"
+            "label": "Spojené státy americké"
         },
         {
             "value": "UY",
-            "label": "Uruguay"
+            "label": "Uruguayská východní republika"
         },
         {
             "value": "UZ",
-            "label": "Uzbekistán"
+            "label": "Republika Uzbekistán"
         },
         {
             "value": "VA",
-            "label": "Vatikán"
+            "label": "Vatikánský městský stát"
         },
         {
             "value": "VC",
@@ -946,7 +946,7 @@
         },
         {
             "value": "VE",
-            "label": "Venezuela"
+            "label": "Bolívarovská republika Venezuela"
         },
         {
             "value": "VG",
@@ -958,43 +958,43 @@
         },
         {
             "value": "VN",
-            "label": "Vietnam"
+            "label": "Vietnamská socialistická republika"
         },
         {
             "value": "VU",
-            "label": "Vanuatu"
+            "label": "Republika Vanuatu"
         },
         {
             "value": "WF",
-            "label": "Wallis a Futuna"
+            "label": "Teritorium Wallisovy ostrovy a Futuna"
         },
         {
             "value": "WS",
-            "label": "Samoa"
+            "label": "Nezávislý stát Samoa"
         },
         {
             "value": "XK",
-            "label": "Kosovo"
+            "label": "Kosovská republika"
         },
         {
             "value": "YE",
-            "label": "Jemen"
+            "label": "Jemenská republika"
         },
         {
             "value": "YT",
-            "label": "Mayotte"
+            "label": "Departement Mayotte"
         },
         {
             "value": "ZA",
-            "label": "Jižní Afrika"
+            "label": "Jihoafrická republika"
         },
         {
             "value": "ZM",
-            "label": "Zambie"
+            "label": "Zambijská republika"
         },
         {
             "value": "ZW",
-            "label": "Zimbabwe"
+            "label": "Zimbabwská republika"
         }
     ],
     "sex": [

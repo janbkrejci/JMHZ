@@ -32,8 +32,8 @@ def extract_enums():
         # Skip first row (header)
         df = df.iloc[1:]
         
-        # Select first 2 columns
-        df = df.iloc[:, :2]
+        # Select column 0 (Value) and column 2 (Label)
+        df = df.iloc[:, [0, 2]]
         df.columns = ['value', 'label']
         
         # Clean data
