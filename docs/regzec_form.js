@@ -34,11 +34,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const buttonsConfig = [
             // Old buttons moved to left
             { "action": "custom-import", "label": "Načíst data", "variant": "default", "position": "left" }, // Changed to custom-import
-            { "action": "export-data", "label": "Uložit data (Export)", "variant": "neutral", "position": "left" },
+            { "action": "export-data", "label": "Uložit data (Export)", "variant": "default", "position": "left" },
 
             // New buttons on right
-            { "action": "check-data", "label": "Zkontroluj data", "variant": "neutral", "position": "right", "disabled": false },
-            { "action": "save", "label": "Ulož dotazník", "variant": "primary", "position": "right", "disabled": true }
+            { "action": "check-data", "label": "Zkontrolovat data", "variant": "primary", "position": "right", "disabled": false },
+            { "action": "save", "label": "Uložit dotazník", "variant": "success", "position": "right", "hidden": true }
         ];
 
         formEl.setAttribute('fields', JSON.stringify(fields));
@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         formEl.addEventListener('form-changed', (e) => {
-            // When form changes, disable Save and re-enable Check
-            updateButtonState(formEl, 'save', { disabled: true });
-            updateButtonState(formEl, 'check-data', { disabled: false });
+            // When form changes, hide Save and show Check
+            updateButtonState(formEl, 'save', { hidden: true });
+            updateButtonState(formEl, 'check-data', { hidden: false });
         });
 
         // Wait for custom element to upgrade then run
@@ -98,9 +98,9 @@ function validateForm(event, formEl) {
     }
 
     if (!hasErrors) {
-        // No errors -> Enable Save, Disable Check
-        updateButtonState(formEl, 'check-data', { disabled: true });
-        updateButtonState(formEl, 'save', { disabled: false });
+        // No errors -> Show Save, Hide Check
+        updateButtonState(formEl, 'check-data', { hidden: true });
+        updateButtonState(formEl, 'save', { hidden: false });
     } else {
         console.log("Form has errors, cannot enable save.");
     }
