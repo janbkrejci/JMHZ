@@ -1383,6 +1383,38 @@
             "label": "Krajská pobočka ve Zlíně"
         }
     ],
+    "poradi_deti": [
+        {
+            "value": "1",
+            "label": "první"
+        },
+        {
+            "value": "2",
+            "label": "druhé"
+        },
+        {
+            "value": "3",
+            "label": "třetí a další"
+        },
+        {
+            "value": "N",
+            "label": "neuplatněno"
+        }
+    ],
+    "specifikace_ciz_nositele": [
+        {
+            "value": "P",
+            "label": "poslední"
+        },
+        {
+            "value": "S",
+            "label": "současný"
+        },
+        {
+            "value": "N",
+            "label": "není"
+        }
+    ],
     "bool": [
         {
             "value": "A",

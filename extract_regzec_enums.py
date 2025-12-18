@@ -10,6 +10,7 @@ import json
 import os
 
 EXCEL_FILE = 'regzec.xlsx'
+EXCEL_FILE_2 = 'jmhz datová věta.xlsx'
 OUTPUT_FILE = 'docs/regzec_enums.json'
 
 def extract_enums():
@@ -325,6 +326,62 @@ def extract_enums():
         
     except Exception as e:
         print(f"Error extracting CIS krajských poboček ÚP ČR: {e}")
+
+    # 13. Child Order (CIS Pořadí dítěte) - From EXCEL_FILE_2
+    try:
+        print("Extracting 'poradi_deti' from CIS Pořadí dítěte...")
+        if os.path.exists(EXCEL_FILE_2):
+            df = pd.read_excel(EXCEL_FILE_2, sheet_name='CIS Pořadí dítěte', header=None)
+            
+            # Skip first row (header)
+            df = df.iloc[1:]
+            
+            # Select first 2 columns
+            df = df.iloc[:, :2]
+            df.columns = ['value', 'label']
+            
+            # Clean data
+            df['value'] = df['value'].astype(str).str.strip()
+            df['label'] = df['label'].astype(str).str.strip()
+            
+            # Filter valid
+            df = df[df['value'] != 'nan']
+            
+            enums['poradi_deti'] = df.to_dict('records')
+            print(f"Extracted {len(enums['poradi_deti'])} poradi_deti entries.")
+        else:
+            print(f"Warning: {EXCEL_FILE_2} not found, skipping poradi_deti.")
+            
+    except Exception as e:
+        print(f"Error extracting CIS Pořadí dítěte: {e}")
+
+    # 14. Foreign Carrier Spec (CIS Specifikace cizozemského no) - From EXCEL_FILE_2
+    try:
+        print("Extracting 'specifikace_ciz_nositele' from CIS Specifikace cizozemského no...")
+        if os.path.exists(EXCEL_FILE_2):
+            df = pd.read_excel(EXCEL_FILE_2, sheet_name='CIS Specifikace cizozemského no', header=None)
+            
+            # Skip first row (header)
+            df = df.iloc[1:]
+            
+            # Select first 2 columns
+            df = df.iloc[:, :2]
+            df.columns = ['value', 'label']
+            
+            # Clean data
+            df['value'] = df['value'].astype(str).str.strip()
+            df['label'] = df['label'].astype(str).str.strip()
+            
+            # Filter valid
+            df = df[df['value'] != 'nan']
+            
+            enums['specifikace_ciz_nositele'] = df.to_dict('records')
+            print(f"Extracted {len(enums['specifikace_ciz_nositele'])} specifikace_ciz_nositele entries.")
+        else:
+            print(f"Warning: {EXCEL_FILE_2} not found, skipping specifikace_ciz_nositele.")
+
+    except Exception as e:
+        print(f"Error extracting CIS Specifikace cizozemského no: {e}")
 
     # 4. Bool (Static)
     enums['bool'] = [

@@ -25,7 +25,7 @@
             "original_path": "employee.intro.introtext",
             "widget": "markdown",
             "width": 12,
-            "content": "# Jednotné hlášení\n\nTento formulář slouží k získání údajů o zaměstnanci, nutných pro jednotné hlášení.\n\n## Jak pracovat s formulářem?\n\nPracovně si můžete ukládat rozepsaný formulář pomocí tlačítka ```Uložit data (Export)``` vlevo dole na obrazovce.\n\nTakto uložená data do formuláře můžete kdykoli znovu načíst a pokračovat v práci.\n\nMáte-li pocit, že máte formulář vyplněn kompletně a připraven k odevzdání, použijte tlačítko ```Zkontrolovat data```.\n\nPokud data projdou základní validací, což ještě neznamená, že systém sociální správy si je takto vezme, můžete formulář uložit pomocí tlačítka ```Ulož dotazník``` a výsledný soubor poslat e-mailem do mzdové účtárny.",
+            "content": "# Jednotné hlášení\n\nTento formulář slouží k získání údajů o zaměstnanci, povinných pro jednotné hlášení.\n\n## Jak pracovat s formulářem?\n\nPracovně si můžete ukládat rozepsaný formulář pomocí tlačítka ```Uložit data (Export)``` vlevo dole na obrazovce.\n\nTakto uložená data do formuláře můžete kdykoli znovu načíst a pokračovat v práci.\n\nMáte-li pocit, že máte formulář vyplněn kompletně a připraven k odevzdání, použijte tlačítko ```Zkontrolovat data```.\n\nPokud data projdou základní validací, což ještě neznamená, že systém sociální správy si je takto vezme, můžete formulář uložit pomocí tlačítka ```Ulož dotazník``` a výsledný soubor poslat e-mailem do mzdové účtárny.\n\n## Důležité upozornění\n\n**Odesláním vyplněného formuláře do mzdové účtárny dáváte najevo, že chápete závaznost tohoto dokumentu a přijímáte všechny důsledky uvedení neúplných nebo nepravdivých informací.**",
             "children": []
           },
           {
@@ -220,13 +220,14 @@
             "mandatory": "PP",
             "p": "Státní občanství (10067) = CZ",
             "n": "Státní občanství (10067) <> CZ",
-            "z": ""
+            "z": "",
+            "placeholder": "Pokud bylo přiděleno"
           },
           {
             "key": "vcp",
             "skip": false,
             "new_only": true,
-            "description": "VČP (pokud FÚ přídělil)",
+            "description": "VČP (vlastní č. pojištěnce od FÚ)",
             "default_value": "",
             "order": 40,
             "original_path": "employee.client.vcp",
@@ -243,7 +244,8 @@
             "mandatory": "N",
             "p": "",
             "n": "",
-            "z": ""
+            "z": "",
+            "placeholder": "Pokud bylo přiděleno"
           },
           {
             "key": "ikmpsv",
@@ -266,7 +268,8 @@
             "mandatory": "N",
             "p": "",
             "n": "",
-            "z": ""
+            "z": "",
+            "placeholder": "Pokud bylo přiděleno"
           },
           {
             "key": "birth",
@@ -1304,7 +1307,8 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": ""
+            "manual_parent": "",
+            "_collapsed": true
           },
           {
             "key": "education",
@@ -1351,6 +1355,30 @@
                 "label": "Přiložte doklad(y), jinak se má za to, že jste bez vzdělání",
                 "id": "999104",
                 "children": []
+              }
+            ],
+            "_collapsed": true
+          },
+          {
+            "key": "bankaccount",
+            "description": "Bankovní účet pro výplatu mzdy",
+            "order": 150,
+            "skip": false,
+            "new_only": false,
+            "original_path": "employee.client.bankaccount",
+            "children": [
+              {
+                "key": "number",
+                "description": "Číslo",
+                "order": 10,
+                "skip": false,
+                "new_only": false,
+                "original_path": "employee.client.bankaccount.number",
+                "widget": "input",
+                "width": 12,
+                "id": "999106",
+                "placeholder": "Číslo účtu / kód banky",
+                "mandatory": "P"
               }
             ]
           }
@@ -1550,7 +1578,8 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": ""
+        "manual_parent": "",
+        "_collapsed": true
       },
       {
         "key": "forinreg",
@@ -1694,7 +1723,7 @@
             "width": 12,
             "ciselnik": "",
             "manual_parent": "employee.forinreg",
-            "_collapsed": true,
+            "_collapsed": false,
             "children": [
               {
                 "key": "cur",
@@ -1710,10 +1739,10 @@
                 "specificke_povinnosti": "A1-OST  je-li druh  činnosti „N“, pro A6, A7  povinný",
                 "logicke_kontroly": "Číselník C_SCIP\n\nKontrola, že u akce A6 musí být vyplněna hodnota \"P\" a u akce A7 hodnota \"S\"",
                 "vysvetlivky": "Vyplní se pouze v případě, že zaměstnanec byl účasten nemocenského pojištění v cizině a zaměstnavatel je jeho prvním zaměstnavatelem po skončení pojištění nebo je v době nástupu do zaměstnání účasten pojištění v cizině.\n\nU akce A6 se vyplňuje hodnota \"P\" (poslední) a akce A7 hodnota \"S\" (současný).",
-                "widget": "input",
+                "widget": "selection",
                 "width": 6,
                 "manual_parent": "",
-                "ciselnik": "",
+                "ciselnik": "specifikace_ciz_nositele",
                 "mandatory": "PP",
                 "p": "Druh činnosti (10239) = N",
                 "n": "Druh činnosti (10239) <> N",
@@ -1933,7 +1962,8 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": ""
+        "manual_parent": "",
+        "_collapsed": false
       },
       {
         "key": "pens",
@@ -2083,7 +2113,8 @@
             "widget": "input",
             "width": 12,
             "id": "999100",
-            "children": []
+            "children": [],
+            "placeholder": "Pokud bylo přiděleno"
           }
         ],
         "original_path": "employee.insh",
@@ -2930,8 +2961,7 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": false
+        "manual_parent": ""
       },
       {
         "key": "job@relat",
@@ -3336,7 +3366,6 @@
     "widget": "input",
     "width": 12,
     "ciselnik": "",
-    "manual_parent": "",
-    "_collapsed": false
+    "manual_parent": ""
   }
 ]

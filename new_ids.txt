@@ -4,3 +4,4 @@ employee.intro.common_attachments 999102
 employee.client.proofid.idscan 999103
 employee.client.education.edu_attach 999104
 mployee.nocitizen.work_perm_scan 999105
+employee.client.bankaccount.number 999106
