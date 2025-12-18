@@ -30,6 +30,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         // 2. Transform Data
         const { layout, fields, values } = buildMetadata(structure, enums);
 
+        // --- Custom Logic: Default Citizenship (10067) = CZ ---
+        if (!values['10067']) {
+            values['10067'] = 'CZ';
+        }
+
+        // --- Custom Logic: Rodné číslo (10057) mandatory if Citizenship (10067) is CZ ---
+        // Initial state: User requested it to be mandatory initially.
+        if (fields['10057']) {
+            fields['10057'].required = true;
+
+            // Check initial value if present (e.g. from default or loaded data)
+            const initialCitizenship = values['10067'];
+            if (initialCitizenship && initialCitizenship !== 'CZ') {
+                fields['10057'].required = false;
+            }
+        }
+
         // 3. Initialize Form
         const buttonsConfig = [
             // Old buttons moved to left
@@ -64,6 +81,38 @@ document.addEventListener('DOMContentLoaded', async () => {
             // When form changes, hide Save and show Check
             updateButtonState(formEl, 'save', { hidden: true });
             updateButtonState(formEl, 'check-data', { hidden: false });
+
+            // --- Custom Logic: Rodné číslo (10057) vs Citizenship (10067) ---
+            try {
+                // We need to access current form data. 
+                // Assuming ts-form exposes .formData or we can use internal tracking.
+                // Since this is a custom script for a specific form, we rely on the component behavior.
+                // Use formEl.formData if available
+                const currentData = formEl.formData || {};
+                const citizenship = currentData['10067'];
+
+                // Logic: Mandatory if CZ. User said "Initially mandatory".
+                // If citizenship is selected and NOT CZ -> Optional.
+                // If CZ or Empty (initially) -> Mandatory.
+
+                const isRequired = (!citizenship || citizenship === 'CZ');
+
+                // We need to update the field config.
+                // Reading attribute is slow but reliable source of truth for config.
+                const currentFields = JSON.parse(formEl.getAttribute('fields') || '{}');
+
+                if (currentFields['10057']) {
+                    if (currentFields['10057'].required !== isRequired) {
+                        console.log(`Updating BNO (10057) requirement to ${isRequired} (Citizenship: ${citizenship})`);
+                        currentFields['10057'].required = isRequired;
+                        formEl.setAttribute('fields', JSON.stringify(currentFields));
+                        // Note: Changing 'fields' attribute triggers re-render in ts-form. 
+                        // This might cause loss of focus if not handled carefully in ts-form.
+                    }
+                }
+            } catch (err) {
+                console.error("Error in form-changed custom logic", err);
+            }
         });
 
         // Wait for custom element to upgrade then run
