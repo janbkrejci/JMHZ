@@ -368,6 +368,9 @@ class TSForm extends HTMLElement {
                 background: var(--sl-color-neutral-200);
                 margin-left: 1rem;
             }
+            .form-separator:empty::after {
+                margin-left: 0;
+            }
             
             /* Process Group Styles */
             .process-group {

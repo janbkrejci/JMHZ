@@ -1376,8 +1376,7 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": false
+        "manual_parent": ""
       },
       {
         "key": "relationships",
@@ -1396,18 +1395,21 @@
             "mandatory": "P",
             "id": "999107",
             "width": 3,
-            "children": [],
-            "order": 10
+            "order": 10,
+            "children": []
           },
           {
             "key": "other_provider",
             "description": "Jiná osoba vyživující vyživované osoby ve společně hospodařící domácnosti",
             "widget": "input",
             "width": 12,
+            "order": 20,
+            "_collapsed": true,
             "children": [
               {
                 "key": "provider",
                 "width": 12,
+                "order": 10,
                 "children": [
                   {
                     "key": "name",
@@ -1415,8 +1417,8 @@
                     "id": "999109",
                     "widget": "input",
                     "width": 3,
-                    "children": [],
-                    "order": 10
+                    "order": 10,
+                    "children": []
                   },
                   {
                     "key": "surname",
@@ -1424,8 +1426,8 @@
                     "id": "999110",
                     "widget": "input",
                     "width": 3,
-                    "children": [],
-                    "order": 20
+                    "order": 20,
+                    "children": []
                   },
                   {
                     "key": "birth_date",
@@ -1433,8 +1435,8 @@
                     "id": "999111",
                     "widget": "date",
                     "width": 3,
-                    "children": [],
-                    "order": 30
+                    "order": 30,
+                    "children": []
                   },
                   {
                     "key": "bno",
@@ -1442,334 +1444,345 @@
                     "id": "999112",
                     "widget": "input",
                     "width": 3,
-                    "children": [],
-                    "order": 40
+                    "order": 40,
+                    "children": []
                   }
-                ],
-                "order": 10
+                ]
               }
-            ],
-            "order": 20,
-            "_collapsed": true
+            ]
           },
           {
             "key": "dependents",
             "description": "Vyživované osoby",
             "widget": "input",
             "width": 12,
+            "order": 30,
             "children": [
               {
-                "key": "dependents_group",
-                "width": 12,
-                "children": [
-                  {
-                    "key": "dep1_name",
-                    "description": "Jméno",
-                    "id": "999113",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 10
-                  },
-                  {
-                    "key": "dep1_surname",
-                    "description": "Příjmení",
-                    "id": "999114",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 20
-                  },
-                  {
-                    "key": "dep1_birth",
-                    "description": "Datum narození",
-                    "id": "999115",
-                    "widget": "date",
-                    "width": 3,
-                    "children": [],
-                    "order": 30
-                  },
-                  {
-                    "key": "dep1_bno",
-                    "description": "Rodné číslo",
-                    "id": "999116",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 40
-                  },
-                  {
-                    "key": "dep1_ztp",
-                    "description": "Průkaz ZTP/P",
-                    "id": "999117",
-                    "widget": "selection",
-                    "ciselnik": "bool",
-                    "width": 3,
-                    "children": [],
-                    "order": 50
-                  },
-                  {
-                    "key": "dep1_order",
-                    "description": "Pořadí pro určení výše zvýhodnění",
-                    "id": "999118",
-                    "widget": "selection",
-                    "ciselnik": "poradi_deti",
-                    "width": 3,
-                    "children": [],
-                    "order": 60
-                  },
-                  {
-                    "key": "separator1",
-                    "description": "",
-                    "order": 61,
-                    "skip": false,
-                    "new_only": false,
-                    "original_path": "employee.relationships.dependents.dependents_group.separator1",
-                    "widget": "markdown",
-                    "width": 12,
-                    "content": "\n\n----"
-                  },
-                  {
-                    "key": "dep2_name",
-                    "description": "Jméno",
-                    "id": "999119",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 70
-                  },
-                  {
-                    "key": "dep2_surname",
-                    "description": "Příjmení",
-                    "id": "999120",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 80
-                  },
-                  {
-                    "key": "dep2_birth",
-                    "description": "Datum narození",
-                    "id": "999121",
-                    "widget": "date",
-                    "width": 3,
-                    "children": [],
-                    "order": 90
-                  },
-                  {
-                    "key": "dep2_bno",
-                    "description": "Rodné číslo",
-                    "id": "999122",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 100
-                  },
-                  {
-                    "key": "dep2_ztp",
-                    "description": "Průkaz ZTP/P",
-                    "id": "999123",
-                    "widget": "selection",
-                    "ciselnik": "bool",
-                    "width": 6,
-                    "children": [],
-                    "order": 110
-                  },
-                  {
-                    "key": "dep2_order",
-                    "description": "Pořadí pro určení výše zvýhodnění",
-                    "id": "999124",
-                    "widget": "selection",
-                    "ciselnik": "poradi_deti",
-                    "width": 6,
-                    "children": [],
-                    "order": 120
-                  },
-                  {
-                    "key": "separator_2",
-                    "description": "Nový uzel",
-                    "order": 121,
-                    "skip": false,
-                    "new_only": false,
-                    "original_path": "employee.relationships.dependents.dependents_group.separator_2",
-                    "widget": "markdown",
-                    "width": 12,
-                    "content": "\n\n----"
-                  },
-                  {
-                    "key": "dep3_name",
-                    "description": "Jméno",
-                    "id": "999125",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 130
-                  },
-                  {
-                    "key": "dep3_surname",
-                    "description": "Příjmení",
-                    "id": "999126",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 140
-                  },
-                  {
-                    "key": "dep3_birth",
-                    "description": "Datum narození",
-                    "id": "999127",
-                    "widget": "date",
-                    "width": 3,
-                    "children": [],
-                    "order": 150
-                  },
-                  {
-                    "key": "dep3_bno",
-                    "description": "Rodné číslo",
-                    "id": "999128",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 160
-                  },
-                  {
-                    "key": "dep3_ztp",
-                    "description": "Průkaz ZTP/P",
-                    "id": "999129",
-                    "widget": "selection",
-                    "ciselnik": "bool",
-                    "width": 6,
-                    "children": [],
-                    "order": 170
-                  },
-                  {
-                    "key": "dep3_order",
-                    "description": "Pořadí pro určení výše daň. zvýhodnění",
-                    "id": "999130",
-                    "widget": "selection",
-                    "ciselnik": "poradi_deti",
-                    "width": 6,
-                    "children": [],
-                    "order": 180
-                  },
-                  {
-                    "key": "dep4_name",
-                    "description": "Jméno",
-                    "id": "999131",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 190
-                  },
-                  {
-                    "key": "dep4_surname",
-                    "description": "Příjmení",
-                    "id": "999132",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 200
-                  },
-                  {
-                    "key": "dep4_birth",
-                    "description": "Datum narození",
-                    "id": "999133",
-                    "widget": "date",
-                    "width": 3,
-                    "children": [],
-                    "order": 210
-                  },
-                  {
-                    "key": "dep4_bno",
-                    "description": "Rodné číslo",
-                    "id": "999134",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 220
-                  },
-                  {
-                    "key": "dep4_ztp",
-                    "description": "Průkaz ZTP/P",
-                    "id": "999135",
-                    "widget": "selection",
-                    "ciselnik": "bool",
-                    "width": 6,
-                    "children": [],
-                    "order": 230
-                  },
-                  {
-                    "key": "dep4_order",
-                    "description": "Pořadí pro určení výše daň. zvýhodnění",
-                    "id": "999136",
-                    "widget": "selection",
-                    "ciselnik": "poradi_deti",
-                    "width": 6,
-                    "children": [],
-                    "order": 240
-                  },
-                  {
-                    "key": "dep5_name",
-                    "description": "Jméno",
-                    "id": "999137",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 250
-                  },
-                  {
-                    "key": "dep5_surname",
-                    "description": "Příjmení",
-                    "id": "999138",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 260
-                  },
-                  {
-                    "key": "dep5_birth",
-                    "description": "Datum narození",
-                    "id": "999139",
-                    "widget": "date",
-                    "width": 3,
-                    "children": [],
-                    "order": 270
-                  },
-                  {
-                    "key": "dep5_bno",
-                    "description": "Rodné číslo",
-                    "id": "999140",
-                    "widget": "input",
-                    "width": 3,
-                    "children": [],
-                    "order": 280
-                  },
-                  {
-                    "key": "dep5_ztp",
-                    "description": "Průkaz ZTP/P",
-                    "id": "999141",
-                    "widget": "selection",
-                    "ciselnik": "bool",
-                    "width": 6,
-                    "children": [],
-                    "order": 290
-                  },
-                  {
-                    "key": "dep5_order",
-                    "description": "Pořadí pro určení výše daň. zvýhodnění",
-                    "id": "999142",
-                    "widget": "selection",
-                    "ciselnik": "poradi_deti",
-                    "width": 6,
-                    "children": [],
-                    "order": 300
-                  }
-                ],
+                "key": "dep1_name",
+                "description": "Jméno",
+                "id": "999113",
+                "widget": "input",
+                "width": 3,
                 "order": 10,
-                "_collapsed": false
+                "children": []
+              },
+              {
+                "key": "dep1_surname",
+                "description": "Příjmení",
+                "id": "999114",
+                "widget": "input",
+                "width": 3,
+                "order": 20,
+                "children": []
+              },
+              {
+                "key": "dep1_birth",
+                "description": "Datum narození",
+                "id": "999115",
+                "widget": "date",
+                "width": 3,
+                "order": 30,
+                "children": []
+              },
+              {
+                "key": "dep1_bno",
+                "description": "Rodné číslo",
+                "id": "999116",
+                "widget": "input",
+                "width": 3,
+                "order": 40,
+                "children": []
+              },
+              {
+                "key": "dep1_ztp",
+                "description": "Průkaz ZTP/P",
+                "id": "999117",
+                "widget": "selection",
+                "ciselnik": "bool",
+                "width": 3,
+                "order": 50,
+                "children": []
+              },
+              {
+                "key": "dep1_order",
+                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "id": "999118",
+                "widget": "selection",
+                "ciselnik": "poradi_deti",
+                "width": 6,
+                "order": 60,
+                "children": []
+              },
+              {
+                "key": "separator1",
+                "description": "",
+                "order": 70,
+                "skip": false,
+                "new_only": false,
+                "original_path": "employee.relationships.dependents.dependents_group.separator1",
+                "widget": "separator",
+                "width": 12,
+                "content": "\n\n----",
+                "children": []
+              },
+              {
+                "key": "dep2_name",
+                "description": "Jméno",
+                "id": "999119",
+                "widget": "input",
+                "width": 3,
+                "order": 80,
+                "children": []
+              },
+              {
+                "key": "dep2_surname",
+                "description": "Příjmení",
+                "id": "999120",
+                "widget": "input",
+                "width": 3,
+                "order": 90,
+                "children": []
+              },
+              {
+                "key": "dep2_birth",
+                "description": "Datum narození",
+                "id": "999121",
+                "widget": "date",
+                "width": 3,
+                "order": 100,
+                "children": []
+              },
+              {
+                "key": "dep2_bno",
+                "description": "Rodné číslo",
+                "id": "999122",
+                "widget": "input",
+                "width": 3,
+                "order": 110,
+                "children": []
+              },
+              {
+                "key": "dep2_ztp",
+                "description": "Průkaz ZTP/P",
+                "id": "999123",
+                "widget": "selection",
+                "ciselnik": "bool",
+                "width": 3,
+                "order": 120,
+                "children": []
+              },
+              {
+                "key": "dep2_order",
+                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "id": "999124",
+                "widget": "selection",
+                "ciselnik": "poradi_deti",
+                "width": 6,
+                "order": 130,
+                "children": []
+              },
+              {
+                "key": "separator_2",
+                "description": "",
+                "order": 140,
+                "skip": false,
+                "new_only": false,
+                "original_path": "employee.relationships.dependents.dependents_group.separator_2",
+                "widget": "separator",
+                "width": 12,
+                "content": "\n\n----",
+                "children": []
+              },
+              {
+                "key": "dep3_name",
+                "description": "Jméno",
+                "id": "999125",
+                "widget": "input",
+                "width": 3,
+                "order": 150,
+                "children": []
+              },
+              {
+                "key": "dep3_surname",
+                "description": "Příjmení",
+                "id": "999126",
+                "widget": "input",
+                "width": 3,
+                "order": 160,
+                "children": []
+              },
+              {
+                "key": "dep3_birth",
+                "description": "Datum narození",
+                "id": "999127",
+                "widget": "date",
+                "width": 3,
+                "order": 170,
+                "children": []
+              },
+              {
+                "key": "dep3_bno",
+                "description": "Rodné číslo",
+                "id": "999128",
+                "widget": "input",
+                "width": 3,
+                "order": 180,
+                "children": []
+              },
+              {
+                "key": "dep3_ztp",
+                "description": "Průkaz ZTP/P",
+                "id": "999129",
+                "widget": "selection",
+                "ciselnik": "bool",
+                "width": 3,
+                "order": 190,
+                "children": []
+              },
+              {
+                "key": "dep3_order",
+                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "id": "999130",
+                "widget": "selection",
+                "ciselnik": "poradi_deti",
+                "width": 6,
+                "order": 200,
+                "children": []
+              },
+              {
+                "key": "separator_3",
+                "description": "",
+                "order": 210,
+                "skip": false,
+                "new_only": false,
+                "original_path": "employee.relationships.dependents.separator_3",
+                "widget": "separator",
+                "width": 12
+              },
+              {
+                "key": "dep4_name",
+                "description": "Jméno",
+                "id": "999131",
+                "widget": "input",
+                "width": 3,
+                "order": 220,
+                "children": []
+              },
+              {
+                "key": "dep4_surname",
+                "description": "Příjmení",
+                "id": "999132",
+                "widget": "input",
+                "width": 3,
+                "order": 230,
+                "children": []
+              },
+              {
+                "key": "dep4_birth",
+                "description": "Datum narození",
+                "id": "999133",
+                "widget": "date",
+                "width": 3,
+                "order": 240,
+                "children": []
+              },
+              {
+                "key": "dep4_bno",
+                "description": "Rodné číslo",
+                "id": "999134",
+                "widget": "input",
+                "width": 3,
+                "order": 250,
+                "children": []
+              },
+              {
+                "key": "dep4_ztp",
+                "description": "Průkaz ZTP/P",
+                "id": "999135",
+                "widget": "selection",
+                "ciselnik": "bool",
+                "width": 3,
+                "order": 260,
+                "children": []
+              },
+              {
+                "key": "dep4_order",
+                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "id": "999136",
+                "widget": "selection",
+                "ciselnik": "poradi_deti",
+                "width": 6,
+                "order": 270,
+                "children": []
+              },
+              {
+                "key": "separator_4",
+                "description": "",
+                "order": 280,
+                "skip": false,
+                "new_only": false,
+                "original_path": "employee.relationships.dependents.separator_4",
+                "widget": "separator",
+                "width": 12
+              },
+              {
+                "key": "dep5_name",
+                "description": "Jméno",
+                "id": "999137",
+                "widget": "input",
+                "width": 3,
+                "order": 290,
+                "children": []
+              },
+              {
+                "key": "dep5_surname",
+                "description": "Příjmení",
+                "id": "999138",
+                "widget": "input",
+                "width": 3,
+                "order": 300,
+                "children": []
+              },
+              {
+                "key": "dep5_birth",
+                "description": "Datum narození",
+                "id": "999139",
+                "widget": "date",
+                "width": 3,
+                "order": 310,
+                "children": []
+              },
+              {
+                "key": "dep5_bno",
+                "description": "Rodné číslo",
+                "id": "999140",
+                "widget": "input",
+                "width": 3,
+                "order": 320,
+                "children": []
+              },
+              {
+                "key": "dep5_ztp",
+                "description": "Průkaz ZTP/P",
+                "id": "999141",
+                "widget": "selection",
+                "ciselnik": "bool",
+                "width": 3,
+                "order": 330,
+                "children": []
+              },
+              {
+                "key": "dep5_order",
+                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "id": "999142",
+                "widget": "selection",
+                "ciselnik": "poradi_deti",
+                "width": 6,
+                "order": 340,
+                "children": []
               }
-            ],
-            "order": 30
+            ]
           }
         ]
       },
@@ -1779,6 +1792,7 @@
         "order": 40,
         "skip": false,
         "new_only": true,
+        "_collapsed": false,
         "children": [
           {
             "key": "has_executions",
@@ -1789,47 +1803,39 @@
             "ciselnik": "bool",
             "mandatory": "P",
             "width": 3,
-            "children": [],
-            "order": 10
+            "order": 10,
+            "children": []
           },
           {
             "description": "Informace o nařízených srážkách",
             "widget": "input",
             "width": 12,
+            "order": 20,
+            "key": "executions_details",
             "children": [
               {
-                "key": "details_group",
+                "key": "details",
+                "description": "Instituce, které srážky nařídily, datum a č. rozhodnutí",
+                "id": "999144",
+                "widget": "textarea",
+                "rows": 4,
                 "width": 12,
-                "children": [
-                  {
-                    "key": "details",
-                    "description": "Instituce, které srážky nařídily, datum a č. rozhodnutí",
-                    "id": "999144",
-                    "widget": "textarea",
-                    "rows": 4,
-                    "width": 12,
-                    "children": [],
-                    "order": 10
-                  },
-                  {
-                    "key": "documents",
-                    "description": "Rozhodnutí o exekuci - dokumenty",
-                    "id": "999145",
-                    "widget": "file",
-                    "multiple": true,
-                    "width": 12,
-                    "children": [],
-                    "order": 20
-                  }
-                ],
-                "order": 10
+                "order": 10,
+                "children": []
+              },
+              {
+                "key": "documents",
+                "description": "Rozhodnutí o exekuci - dokumenty",
+                "id": "999145",
+                "widget": "file",
+                "multiple": true,
+                "width": 12,
+                "order": 20,
+                "children": []
               }
-            ],
-            "order": 20,
-            "key": "executions_details"
+            ]
           }
-        ],
-        "_collapsed": false
+        ]
       },
       {
         "key": "pens",
@@ -1936,8 +1942,7 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": true
+        "manual_parent": ""
       },
       {
         "key": "previous_employment",
@@ -1945,6 +1950,7 @@
         "order": 60,
         "skip": false,
         "new_only": true,
+        "_collapsed": false,
         "children": [
           {
             "key": "confirmation",
@@ -1954,11 +1960,10 @@
             "multiple": true,
             "mandatory": "",
             "width": 12,
-            "children": [],
-            "order": 10
+            "order": 10,
+            "children": []
           }
-        ],
-        "_collapsed": false
+        ]
       },
       {
         "key": "insh",
@@ -2009,8 +2014,7 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": false
+        "manual_parent": ""
       },
       {
         "key": "fact",
@@ -2132,8 +2136,7 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": false
+        "manual_parent": ""
       },
       {
         "key": "nocitizen",
@@ -2323,8 +2326,7 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": true
+        "manual_parent": ""
       },
       {
         "key": "act",
@@ -2730,8 +2732,7 @@
         "widget": "input",
         "width": 12,
         "ciselnik": "",
-        "manual_parent": "",
-        "_collapsed": true
+        "manual_parent": ""
       },
       {
         "key": "attachs",

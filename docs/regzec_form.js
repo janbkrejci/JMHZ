@@ -443,6 +443,16 @@ function createFieldItem(node, fieldsAccumulator, enums, valuesAccumulator) {
         config.width = '12';
     }
 
+    // Handle Separator
+    if (node.widget === 'separator') {
+        // Special case: return immediately, do not add to fieldsAccumulator
+        return {
+            type: 'separator',
+            label: node.description || node.label,
+            width: 12
+        };
+    }
+
     // Handle File
     if (node.widget === 'file') {
         config.type = 'file';

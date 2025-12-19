@@ -631,6 +631,9 @@ Please report this to https://github.com/markedjs/marked.`,i){let r="<p>An error
                 background: var(--sl-color-neutral-200);
                 margin-left: 1rem;
             }
+            .form-separator:empty::after {
+                margin-left: 0;
+            }
             
             /* Process Group Styles */
             .process-group {
