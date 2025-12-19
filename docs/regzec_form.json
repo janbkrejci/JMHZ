@@ -1383,7 +1383,7 @@
         "description": "Vztahy",
         "order": 30,
         "skip": false,
-        "new_only": true,
+        "new_only": false,
         "original_path": "employee.relationships",
         "_collapsed": false,
         "children": [
@@ -1506,7 +1506,7 @@
               },
               {
                 "key": "dep1_order",
-                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "description": "Pořadí pro určení výše daň. zvýhodnění (pro děti)",
                 "id": "999118",
                 "widget": "selection",
                 "ciselnik": "poradi_deti",
@@ -1574,7 +1574,7 @@
               },
               {
                 "key": "dep2_order",
-                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "description": "Pořadí pro určení výše daň. zvýhodnění (pro děti)",
                 "id": "999124",
                 "widget": "selection",
                 "ciselnik": "poradi_deti",
@@ -1642,7 +1642,7 @@
               },
               {
                 "key": "dep3_order",
-                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "description": "Pořadí pro určení výše daň. zvýhodnění (pro děti)",
                 "id": "999130",
                 "widget": "selection",
                 "ciselnik": "poradi_deti",
@@ -1708,7 +1708,7 @@
               },
               {
                 "key": "dep4_order",
-                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "description": "Pořadí pro určení výše daň. zvýhodnění (pro děti)",
                 "id": "999136",
                 "widget": "selection",
                 "ciselnik": "poradi_deti",
@@ -1774,7 +1774,7 @@
               },
               {
                 "key": "dep5_order",
-                "description": "Pořadí pro určení výše daň. zvýhodnění",
+                "description": "Pořadí pro určení výše daň. zvýhodnění (pro děti)",
                 "id": "999142",
                 "widget": "selection",
                 "ciselnik": "poradi_deti",
@@ -1787,63 +1787,12 @@
         ]
       },
       {
-        "key": "executions",
-        "description": "Exekuce",
-        "order": 40,
-        "skip": false,
-        "new_only": true,
-        "_collapsed": false,
-        "children": [
-          {
-            "key": "has_executions",
-            "label": "Ke dni vzniku pracovního poměru mám nařízeny exekuční srážky?",
-            "description": "Mám nařízeny exekuční srážky?",
-            "id": "999143",
-            "widget": "selection",
-            "ciselnik": "bool",
-            "mandatory": "P",
-            "width": 3,
-            "order": 10,
-            "children": []
-          },
-          {
-            "description": "Informace o nařízených srážkách",
-            "widget": "input",
-            "width": 12,
-            "order": 20,
-            "key": "executions_details",
-            "children": [
-              {
-                "key": "details",
-                "description": "Instituce, které srážky nařídily, datum a č. rozhodnutí",
-                "id": "999144",
-                "widget": "textarea",
-                "rows": 4,
-                "width": 12,
-                "order": 10,
-                "children": []
-              },
-              {
-                "key": "documents",
-                "description": "Rozhodnutí o exekuci - dokumenty",
-                "id": "999145",
-                "widget": "file",
-                "multiple": true,
-                "width": 12,
-                "order": 20,
-                "children": []
-              }
-            ]
-          }
-        ]
-      },
-      {
         "key": "pens",
         "skip": false,
         "new_only": true,
         "description": "Starobní důchod",
         "default_value": "",
-        "order": 50,
+        "order": 40,
         "children": [
           {
             "key": "typ",
@@ -1947,7 +1896,7 @@
       {
         "key": "previous_employment",
         "description": "Předchozí zaměstnání",
-        "order": 60,
+        "order": 50,
         "skip": false,
         "new_only": true,
         "_collapsed": false,
@@ -1971,7 +1920,7 @@
         "new_only": true,
         "description": "Zdravotní pojištění v ČR",
         "default_value": "",
-        "order": 70,
+        "order": 60,
         "children": [
           {
             "key": "cnr",
@@ -2022,7 +1971,7 @@
         "new_only": true,
         "description": "Zdravotní omezení",
         "default_value": "",
-        "order": 80,
+        "order": 70,
         "children": [
           {
             "key": "ztp",
@@ -2137,6 +2086,57 @@
         "width": 12,
         "ciselnik": "",
         "manual_parent": ""
+      },
+      {
+        "key": "executions",
+        "description": "Exekuce",
+        "order": 80,
+        "skip": false,
+        "new_only": true,
+        "_collapsed": false,
+        "children": [
+          {
+            "key": "has_executions",
+            "label": "Ke dni vzniku pracovního poměru mám nařízeny exekuční srážky?",
+            "description": "Mám nařízeny exekuční srážky?",
+            "id": "999143",
+            "widget": "selection",
+            "ciselnik": "bool",
+            "mandatory": "P",
+            "width": 3,
+            "order": 10,
+            "children": []
+          },
+          {
+            "description": "Informace o nařízených srážkách",
+            "widget": "input",
+            "width": 12,
+            "order": 20,
+            "key": "executions_details",
+            "children": [
+              {
+                "key": "details",
+                "description": "Instituce, které srážky nařídily, datum a č. rozhodnutí",
+                "id": "999144",
+                "widget": "textarea",
+                "rows": 4,
+                "width": 12,
+                "order": 10,
+                "children": []
+              },
+              {
+                "key": "documents",
+                "description": "Rozhodnutí o exekuci - dokumenty",
+                "id": "999145",
+                "widget": "file",
+                "multiple": true,
+                "width": 12,
+                "order": 20,
+                "children": []
+              }
+            ]
+          }
+        ]
       },
       {
         "key": "nocitizen",
