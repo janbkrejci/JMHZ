@@ -1351,13 +1351,13 @@
                 "widget": "file",
                 "width": 12,
                 "multiple": true,
-                "mandatory": "P",
+                "mandatory": "",
                 "label": "Přiložte doklad(y), jinak se má za to, že jste bez vzdělání",
                 "id": "999104",
                 "children": []
               }
             ],
-            "_collapsed": true
+            "_collapsed": false
           },
           {
             "key": "bankaccount",

@@ -82,6 +82,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             updateButtonState(formEl, 'save', { hidden: true });
             updateButtonState(formEl, 'check-data', { hidden: false });
 
+
+
             // --- Custom Logic: Rodné číslo (10057) vs Citizenship (10067) ---
             try {
                 // We need to access current form data. 
@@ -129,30 +131,64 @@ document.addEventListener('DOMContentLoaded', async () => {
 // --- Action Functions ---
 
 function validateForm(event, formEl) {
-    console.log('validateForm called', event);
+    console.log('validateForm called');
 
-    // Check if errors attribute is empty
-    const errorsAttr = formEl.getAttribute('errors');
-    let hasErrors = false;
+    // 1. Get current data and config
+    // Use formEl.formData or internal state if exposed. 
+    // If formData is not directly exposed as a property by ts-form properly (it might be), 
+    // we can try to get it. Previous code used event.detail.formData for submit, but here we trigger validation.
+    // If check-data is a submit action, event.detail.formData should be present.
 
-    if (errorsAttr) {
-        try {
-            const errors = JSON.parse(errorsAttr);
-            if (errors && Object.keys(errors).length > 0) {
-                hasErrors = true;
+    const formData = event.detail.formData || formEl.formData || {};
+    const fieldsConfig = JSON.parse(formEl.getAttribute('fields') || '{}');
+    let errors = {};
+
+    // 2. Check Required Fields
+    Object.keys(fieldsConfig).forEach(fieldId => {
+        const field = fieldsConfig[fieldId];
+        if (field.required) {
+            const value = formData[fieldId];
+            // Check for empty value (null, undefined, empty string, empty array)
+            if (value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0)) {
+                errors[fieldId] = "Toto pole je povinné";
             }
-        } catch (e) {
-            console.error("Error parsing errors attribute", e);
         }
-    }
+    });
 
-    if (!hasErrors) {
+    // 3. Conditional Validation
+    errors = validateConditionalRules(formData, errors);
+
+    // 4. Update Errors Attribute
+    // If errors object is empty, set to null or empty object string
+    const hasErrors = Object.keys(errors).length > 0;
+
+    if (hasErrors) {
+        console.log("Validation failed:", errors);
+        formEl.setAttribute('errors', JSON.stringify(errors));
+
+        // Show Check, Hide Save (just in case)
+        updateButtonState(formEl, 'check-data', { hidden: false });
+        updateButtonState(formEl, 'save', { hidden: true });
+
+        // Optional: Scroll to first error? ts-form might handle rendering errors.
+    } else {
+        console.log("Validation passed");
+        formEl.setAttribute('errors', '{}');
+
         // No errors -> Show Save, Hide Check
         updateButtonState(formEl, 'check-data', { hidden: true });
         updateButtonState(formEl, 'save', { hidden: false });
-    } else {
-        console.log("Form has errors, cannot enable save.");
     }
+}
+
+function validateConditionalRules(formData, errors) {
+    // Placeholder for future conditional logic
+    // Example:
+    // if (formData['someField'] === 'X' && !formData['otherField']) {
+    //     errors['otherField'] = "Must be filled if someField is X";
+    // }
+
+    return errors;
 }
 
 async function saveForm(event, formEl) {
