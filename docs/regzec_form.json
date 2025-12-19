@@ -14,7 +14,7 @@
         "skip": false,
         "new_only": false,
         "original_path": "employee.intro",
-        "_collapsed": false,
+        "_collapsed": true,
         "children": [
           {
             "key": "introtext",
@@ -173,8 +173,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "bno",
@@ -220,8 +219,7 @@
             "mandatory": "PP",
             "p": "Státní občanství (10067) = CZ",
             "n": "Státní občanství (10067) <> CZ",
-            "z": "",
-            "placeholder": "Pokud bylo přiděleno"
+            "z": ""
           },
           {
             "key": "vcp",
@@ -244,8 +242,7 @@
             "mandatory": "N",
             "p": "",
             "n": "",
-            "z": "",
-            "placeholder": "Pokud bylo přiděleno"
+            "z": ""
           },
           {
             "key": "ikmpsv",
@@ -268,8 +265,7 @@
             "mandatory": "N",
             "p": "",
             "n": "",
-            "z": "",
-            "placeholder": "Pokud bylo přiděleno"
+            "z": ""
           },
           {
             "key": "birth",
@@ -376,8 +372,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "stat",
@@ -438,8 +433,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "adr",
@@ -615,8 +609,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "fdr",
@@ -769,8 +762,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "cdr",
@@ -946,8 +938,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "rdr",
@@ -1100,8 +1091,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "taxidrezid",
@@ -1116,7 +1106,7 @@
                 "skip": false,
                 "new_only": false,
                 "description": "Stát",
-                "default_value": "",
+                "default_value": "CZ",
                 "order": 10,
                 "original_path": "employee.client.taxidrezid.stat",
                 "id": "10068",
@@ -1185,8 +1175,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "proofid",
@@ -1307,8 +1296,7 @@
             "widget": "input",
             "width": 12,
             "ciselnik": "",
-            "manual_parent": "",
-            "_collapsed": true
+            "manual_parent": ""
           },
           {
             "key": "education",
@@ -1317,6 +1305,7 @@
             "skip": false,
             "new_only": false,
             "original_path": "employee.client.education",
+            "_collapsed": false,
             "children": [
               {
                 "key": "highedu",
@@ -1356,8 +1345,7 @@
                 "id": "999104",
                 "children": []
               }
-            ],
-            "_collapsed": false
+            ]
           },
           {
             "key": "bankaccount",
@@ -1378,7 +1366,8 @@
                 "width": 12,
                 "id": "999106",
                 "placeholder": "Číslo účtu / kód banky",
-                "mandatory": "P"
+                "mandatory": "P",
+                "children": []
               }
             ]
           }
@@ -1391,12 +1380,768 @@
         "_collapsed": false
       },
       {
+        "key": "relationships",
+        "description": "Vztahy",
+        "order": 30,
+        "skip": false,
+        "new_only": true,
+        "original_path": "employee.relationships",
+        "_collapsed": false,
+        "children": [
+          {
+            "key": "rodinny_stav",
+            "description": "Rodinný stav",
+            "widget": "selection",
+            "ciselnik": "rodinny_stav",
+            "mandatory": "P",
+            "id": "999107",
+            "width": 3,
+            "children": [],
+            "order": 10
+          },
+          {
+            "key": "other_provider",
+            "description": "Jiná osoba vyživující vyživované osoby ve společně hospodařící domácnosti",
+            "widget": "input",
+            "width": 12,
+            "children": [
+              {
+                "key": "provider",
+                "width": 12,
+                "children": [
+                  {
+                    "key": "name",
+                    "description": "Jméno",
+                    "id": "999109",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 10
+                  },
+                  {
+                    "key": "surname",
+                    "description": "Příjmení",
+                    "id": "999110",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 20
+                  },
+                  {
+                    "key": "birth_date",
+                    "description": "Datum narození",
+                    "id": "999111",
+                    "widget": "date",
+                    "width": 3,
+                    "children": [],
+                    "order": 30
+                  },
+                  {
+                    "key": "bno",
+                    "description": "Rodné číslo",
+                    "id": "999112",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 40
+                  }
+                ],
+                "order": 10
+              }
+            ],
+            "order": 20,
+            "_collapsed": true
+          },
+          {
+            "key": "dependents",
+            "description": "Vyživované osoby",
+            "widget": "input",
+            "width": 12,
+            "children": [
+              {
+                "key": "dependents_group",
+                "width": 12,
+                "children": [
+                  {
+                    "key": "dep1_name",
+                    "description": "Jméno",
+                    "id": "999113",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 10
+                  },
+                  {
+                    "key": "dep1_surname",
+                    "description": "Příjmení",
+                    "id": "999114",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 20
+                  },
+                  {
+                    "key": "dep1_birth",
+                    "description": "Datum narození",
+                    "id": "999115",
+                    "widget": "date",
+                    "width": 3,
+                    "children": [],
+                    "order": 30
+                  },
+                  {
+                    "key": "dep1_bno",
+                    "description": "Rodné číslo",
+                    "id": "999116",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 40
+                  },
+                  {
+                    "key": "dep1_ztp",
+                    "description": "Průkaz ZTP/P",
+                    "id": "999117",
+                    "widget": "selection",
+                    "ciselnik": "bool",
+                    "width": 3,
+                    "children": [],
+                    "order": 50
+                  },
+                  {
+                    "key": "dep1_order",
+                    "description": "Pořadí pro určení výše zvýhodnění",
+                    "id": "999118",
+                    "widget": "selection",
+                    "ciselnik": "poradi_deti",
+                    "width": 3,
+                    "children": [],
+                    "order": 60
+                  },
+                  {
+                    "key": "separator1",
+                    "description": "",
+                    "order": 61,
+                    "skip": false,
+                    "new_only": false,
+                    "original_path": "employee.relationships.dependents.dependents_group.separator1",
+                    "widget": "markdown",
+                    "width": 12,
+                    "content": "\n\n----"
+                  },
+                  {
+                    "key": "dep2_name",
+                    "description": "Jméno",
+                    "id": "999119",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 70
+                  },
+                  {
+                    "key": "dep2_surname",
+                    "description": "Příjmení",
+                    "id": "999120",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 80
+                  },
+                  {
+                    "key": "dep2_birth",
+                    "description": "Datum narození",
+                    "id": "999121",
+                    "widget": "date",
+                    "width": 3,
+                    "children": [],
+                    "order": 90
+                  },
+                  {
+                    "key": "dep2_bno",
+                    "description": "Rodné číslo",
+                    "id": "999122",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 100
+                  },
+                  {
+                    "key": "dep2_ztp",
+                    "description": "Průkaz ZTP/P",
+                    "id": "999123",
+                    "widget": "selection",
+                    "ciselnik": "bool",
+                    "width": 6,
+                    "children": [],
+                    "order": 110
+                  },
+                  {
+                    "key": "dep2_order",
+                    "description": "Pořadí pro určení výše zvýhodnění",
+                    "id": "999124",
+                    "widget": "selection",
+                    "ciselnik": "poradi_deti",
+                    "width": 6,
+                    "children": [],
+                    "order": 120
+                  },
+                  {
+                    "key": "separator_2",
+                    "description": "Nový uzel",
+                    "order": 121,
+                    "skip": false,
+                    "new_only": false,
+                    "original_path": "employee.relationships.dependents.dependents_group.separator_2",
+                    "widget": "markdown",
+                    "width": 12,
+                    "content": "\n\n----"
+                  },
+                  {
+                    "key": "dep3_name",
+                    "description": "Jméno",
+                    "id": "999125",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 130
+                  },
+                  {
+                    "key": "dep3_surname",
+                    "description": "Příjmení",
+                    "id": "999126",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 140
+                  },
+                  {
+                    "key": "dep3_birth",
+                    "description": "Datum narození",
+                    "id": "999127",
+                    "widget": "date",
+                    "width": 3,
+                    "children": [],
+                    "order": 150
+                  },
+                  {
+                    "key": "dep3_bno",
+                    "description": "Rodné číslo",
+                    "id": "999128",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 160
+                  },
+                  {
+                    "key": "dep3_ztp",
+                    "description": "Průkaz ZTP/P",
+                    "id": "999129",
+                    "widget": "selection",
+                    "ciselnik": "bool",
+                    "width": 6,
+                    "children": [],
+                    "order": 170
+                  },
+                  {
+                    "key": "dep3_order",
+                    "description": "Pořadí pro určení výše daň. zvýhodnění",
+                    "id": "999130",
+                    "widget": "selection",
+                    "ciselnik": "poradi_deti",
+                    "width": 6,
+                    "children": [],
+                    "order": 180
+                  },
+                  {
+                    "key": "dep4_name",
+                    "description": "Jméno",
+                    "id": "999131",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 190
+                  },
+                  {
+                    "key": "dep4_surname",
+                    "description": "Příjmení",
+                    "id": "999132",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 200
+                  },
+                  {
+                    "key": "dep4_birth",
+                    "description": "Datum narození",
+                    "id": "999133",
+                    "widget": "date",
+                    "width": 3,
+                    "children": [],
+                    "order": 210
+                  },
+                  {
+                    "key": "dep4_bno",
+                    "description": "Rodné číslo",
+                    "id": "999134",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 220
+                  },
+                  {
+                    "key": "dep4_ztp",
+                    "description": "Průkaz ZTP/P",
+                    "id": "999135",
+                    "widget": "selection",
+                    "ciselnik": "bool",
+                    "width": 6,
+                    "children": [],
+                    "order": 230
+                  },
+                  {
+                    "key": "dep4_order",
+                    "description": "Pořadí pro určení výše daň. zvýhodnění",
+                    "id": "999136",
+                    "widget": "selection",
+                    "ciselnik": "poradi_deti",
+                    "width": 6,
+                    "children": [],
+                    "order": 240
+                  },
+                  {
+                    "key": "dep5_name",
+                    "description": "Jméno",
+                    "id": "999137",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 250
+                  },
+                  {
+                    "key": "dep5_surname",
+                    "description": "Příjmení",
+                    "id": "999138",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 260
+                  },
+                  {
+                    "key": "dep5_birth",
+                    "description": "Datum narození",
+                    "id": "999139",
+                    "widget": "date",
+                    "width": 3,
+                    "children": [],
+                    "order": 270
+                  },
+                  {
+                    "key": "dep5_bno",
+                    "description": "Rodné číslo",
+                    "id": "999140",
+                    "widget": "input",
+                    "width": 3,
+                    "children": [],
+                    "order": 280
+                  },
+                  {
+                    "key": "dep5_ztp",
+                    "description": "Průkaz ZTP/P",
+                    "id": "999141",
+                    "widget": "selection",
+                    "ciselnik": "bool",
+                    "width": 6,
+                    "children": [],
+                    "order": 290
+                  },
+                  {
+                    "key": "dep5_order",
+                    "description": "Pořadí pro určení výše daň. zvýhodnění",
+                    "id": "999142",
+                    "widget": "selection",
+                    "ciselnik": "poradi_deti",
+                    "width": 6,
+                    "children": [],
+                    "order": 300
+                  }
+                ],
+                "order": 10,
+                "_collapsed": false
+              }
+            ],
+            "order": 30
+          }
+        ]
+      },
+      {
+        "key": "executions",
+        "description": "Exekuce",
+        "order": 40,
+        "skip": false,
+        "new_only": true,
+        "children": [
+          {
+            "key": "has_executions",
+            "label": "Ke dni vzniku pracovního poměru mám nařízeny exekuční srážky?",
+            "description": "Mám nařízeny exekuční srážky?",
+            "id": "999143",
+            "widget": "selection",
+            "ciselnik": "bool",
+            "mandatory": "P",
+            "width": 3,
+            "children": [],
+            "order": 10
+          },
+          {
+            "description": "Informace o nařízených srážkách",
+            "widget": "input",
+            "width": 12,
+            "children": [
+              {
+                "key": "details_group",
+                "width": 12,
+                "children": [
+                  {
+                    "key": "details",
+                    "description": "Instituce, které srážky nařídily, datum a č. rozhodnutí",
+                    "id": "999144",
+                    "widget": "textarea",
+                    "rows": 4,
+                    "width": 12,
+                    "children": [],
+                    "order": 10
+                  },
+                  {
+                    "key": "documents",
+                    "description": "Rozhodnutí o exekuci - dokumenty",
+                    "id": "999145",
+                    "widget": "file",
+                    "multiple": true,
+                    "width": 12,
+                    "children": [],
+                    "order": 20
+                  }
+                ],
+                "order": 10
+              }
+            ],
+            "order": 20,
+            "key": "executions_details"
+          }
+        ],
+        "_collapsed": false
+      },
+      {
+        "key": "pens",
+        "skip": false,
+        "new_only": true,
+        "description": "Starobní důchod",
+        "default_value": "",
+        "order": 50,
+        "children": [
+          {
+            "key": "typ",
+            "skip": false,
+            "new_only": false,
+            "description": "Druh pobíraného důchodu",
+            "default_value": "",
+            "order": 10,
+            "original_path": "employee.pens.typ",
+            "id": "10113",
+            "dat_typ": "A,N",
+            "delka": "1",
+            "specificke_povinnosti": "",
+            "logicke_kontroly": "Číselník C_DUCH . Je-li uveden, musí být též Datum od",
+            "vysvetlivky": "Týká se jen starobního a důchodu invalidního 1., 2. a 3. stupně, nepobírá-li zaměstnanec důchod (popř.je plátcem důchodu ČSSZ), nevyplňuje se.",
+            "widget": "selection",
+            "width": 6,
+            "manual_parent": "",
+            "ciselnik": "druh_duchodu",
+            "mandatory": "PP",
+            "p": "Vyplněn Důchod pobírán od (10114)",
+            "n": "",
+            "z": "Není vyplněn Důchod pobírán od (10114)"
+          },
+          {
+            "key": "tak",
+            "skip": false,
+            "new_only": false,
+            "description": "Důchod pobírán od",
+            "default_value": "",
+            "order": 20,
+            "original_path": "employee.pens.tak",
+            "id": "10114",
+            "dat_typ": "D",
+            "delka": "10",
+            "specificke_povinnosti": "",
+            "logicke_kontroly": "Nesmí být > Datum vyplnění",
+            "vysvetlivky": "Je-li uvedeno, musí být uveden Druh důchodu",
+            "widget": "date",
+            "width": 6,
+            "manual_parent": "",
+            "ciselnik": "",
+            "mandatory": "PP",
+            "p": "Vyplněn Druh důchodu (10113)",
+            "n": "",
+            "z": "Není vyplněn Druh důchodu (10113)"
+          },
+          {
+            "key": "early",
+            "skip": false,
+            "new_only": false,
+            "description": "Poživatel předčasného starobního důchodu",
+            "default_value": "",
+            "order": 30,
+            "original_path": "employee.pens.early",
+            "id": "10115",
+            "dat_typ": "L",
+            "delka": "1",
+            "specificke_povinnosti": "",
+            "logicke_kontroly": "„A“ nebo „N“",
+            "vysvetlivky": "",
+            "widget": "selection",
+            "width": 6,
+            "manual_parent": "",
+            "ciselnik": "bool",
+            "mandatory": "P",
+            "p": "",
+            "n": "",
+            "z": ""
+          },
+          {
+            "key": "reducedage",
+            "skip": false,
+            "new_only": false,
+            "description": "Poživatel starobního důchodu se sníženým důchodovým věkem",
+            "default_value": "",
+            "order": 40,
+            "original_path": "employee.pens.reducedage",
+            "id": "10504",
+            "dat_typ": "L",
+            "delka": "1",
+            "specificke_povinnosti": "",
+            "logicke_kontroly": "„A“ nebo „N“",
+            "vysvetlivky": "",
+            "widget": "selection",
+            "width": 6,
+            "manual_parent": "",
+            "ciselnik": "bool",
+            "mandatory": "P",
+            "p": "",
+            "n": "",
+            "z": ""
+          }
+        ],
+        "original_path": "employee.pens",
+        "widget": "input",
+        "width": 12,
+        "ciselnik": "",
+        "manual_parent": "",
+        "_collapsed": true
+      },
+      {
+        "key": "previous_employment",
+        "description": "Předchozí zaměstnání",
+        "order": 60,
+        "skip": false,
+        "new_only": true,
+        "children": [
+          {
+            "key": "confirmation",
+            "description": "Potvrzení o zaměstnání od předchozího zaměstnavatele nebo potvrzení od úřadu práce",
+            "id": "999146",
+            "widget": "file",
+            "multiple": true,
+            "mandatory": "",
+            "width": 12,
+            "children": [],
+            "order": 10
+          }
+        ],
+        "_collapsed": false
+      },
+      {
+        "key": "insh",
+        "skip": false,
+        "new_only": true,
+        "description": "Zdravotní pojištění v ČR",
+        "default_value": "",
+        "order": 70,
+        "children": [
+          {
+            "key": "cnr",
+            "skip": false,
+            "new_only": false,
+            "description": "Kód pojišťovny",
+            "default_value": "",
+            "order": 10,
+            "original_path": "employee.insh.cnr",
+            "id": "10102",
+            "dat_typ": "N",
+            "delka": "3",
+            "specificke_povinnosti": "",
+            "logicke_kontroly": "Číselník C_ZPOJ",
+            "vysvetlivky": "",
+            "widget": "selection",
+            "width": 9,
+            "manual_parent": "",
+            "ciselnik": "zdravotni_pojistovny",
+            "mandatory": "P",
+            "p": "",
+            "n": "",
+            "z": ""
+          },
+          {
+            "key": "health_id",
+            "description": "Identifikační číslo pojištěnce",
+            "order": 20,
+            "skip": false,
+            "new_only": false,
+            "original_path": "employee.insh.health_id",
+            "widget": "input",
+            "width": 3,
+            "id": "999100",
+            "placeholder": "Pokud bylo přiděleno",
+            "children": []
+          }
+        ],
+        "original_path": "employee.insh",
+        "widget": "input",
+        "width": 12,
+        "ciselnik": "",
+        "manual_parent": "",
+        "_collapsed": false
+      },
+      {
+        "key": "fact",
+        "skip": false,
+        "new_only": true,
+        "description": "Zdravotní omezení",
+        "default_value": "",
+        "order": 80,
+        "children": [
+          {
+            "key": "ztp",
+            "skip": false,
+            "new_only": false,
+            "description": "Držitel karty ZTP/P",
+            "default_value": "",
+            "order": 10,
+            "original_path": "employee.fact.ztp",
+            "id": "10090",
+            "dat_typ": "L",
+            "delka": "1",
+            "specificke_povinnosti": "A1-OST, A1-SPEC je povinný pokud je vyplněn 10085",
+            "logicke_kontroly": "„A“ nebo „N“",
+            "vysvetlivky": "",
+            "widget": "selection",
+            "width": 3,
+            "manual_parent": "",
+            "ciselnik": "bool",
+            "mandatory": "PP",
+            "p": "Vyplněn Typ zdravotního omezení (10085)",
+            "n": "Není vyplněn Typ zdravotního omezení (10085)",
+            "z": ""
+          },
+          {
+            "key": "healtrest",
+            "skip": false,
+            "new_only": false,
+            "description": "",
+            "default_value": "",
+            "order": 20,
+            "children": [
+              {
+                "key": "fro",
+                "skip": false,
+                "new_only": false,
+                "description": "Zdravotní omezení přiznané od",
+                "default_value": "",
+                "order": 10,
+                "original_path": "employee.fact.healtrest.fro",
+                "id": "10086",
+                "dat_typ": "D",
+                "delka": "10",
+                "specificke_povinnosti": "A1-OST, A1-SPEC je povinný pokud má zaměstnanec typ zdravotní omezení",
+                "logicke_kontroly": "Zdravotní omezení přiznané od < Zdravotní omezení přiznané do. Musí být vyplněné pokud je uvedený \"typ zdravotního omezení\". Datum od musí být menší než datum vyplnění formuláře.",
+                "vysvetlivky": "",
+                "widget": "date",
+                "width": 3,
+                "manual_parent": "",
+                "ciselnik": "",
+                "mandatory": "PP",
+                "p": "Vyplněn Typ zdravotního omezení (10085)",
+                "n": "",
+                "z": "Není vyplněn Typ zdravotního omezení (10085)"
+              },
+              {
+                "key": "to",
+                "skip": false,
+                "new_only": false,
+                "description": "Zdravotní omezení přiznané do",
+                "default_value": "",
+                "order": 20,
+                "original_path": "employee.fact.healtrest.to",
+                "id": "10087",
+                "dat_typ": "D",
+                "delka": "10",
+                "specificke_povinnosti": "",
+                "logicke_kontroly": "Nemůže být vyplněné pokud není uvedené \"Zdravotní omezení přiznané od\". Datum do musí být větší než datum od.",
+                "vysvetlivky": "",
+                "widget": "date",
+                "width": 3,
+                "manual_parent": "",
+                "ciselnik": "",
+                "mandatory": "PP",
+                "p": "",
+                "n": "Vyplněn Typ zdravotního omezení (10085)",
+                "z": "Není vyplněn Typ zdravotního omezení (10085)"
+              },
+              {
+                "key": "type",
+                "skip": false,
+                "new_only": false,
+                "description": "Typ zdravotního omezení",
+                "default_value": "",
+                "order": 30,
+                "original_path": "employee.fact.healtrest.type",
+                "id": "10085",
+                "dat_typ": "N",
+                "delka": "1",
+                "specificke_povinnosti": "A1-OST, A1-SPEC je povinný pokud má zaměstnanec  zdravotní omezení",
+                "logicke_kontroly": "Číselník Zdravotní omezení",
+                "vysvetlivky": "CIS Zdravotní omezení",
+                "widget": "selection",
+                "width": 3,
+                "manual_parent": "",
+                "ciselnik": "zdravotni_omezeni",
+                "mandatory": "N",
+                "p": "",
+                "n": "",
+                "z": ""
+              }
+            ],
+            "original_path": "employee.fact.healtrest",
+            "widget": "input",
+            "width": 12,
+            "ciselnik": "",
+            "manual_parent": ""
+          }
+        ],
+        "original_path": "employee.fact",
+        "widget": "input",
+        "width": 12,
+        "ciselnik": "",
+        "manual_parent": "",
+        "_collapsed": false
+      },
+      {
         "key": "nocitizen",
         "skip": false,
         "new_only": true,
         "description": "Cizinec",
         "default_value": "",
-        "order": 30,
+        "order": 90,
         "children": [
           {
             "key": "freeacc",
@@ -1582,12 +2327,35 @@
         "_collapsed": true
       },
       {
+        "key": "act",
+        "skip": true,
+        "new_only": false,
+        "description": "Číslo akce – určuje charakter požadované operace",
+        "default_value": "",
+        "order": 100,
+        "original_path": "employee.act",
+        "id": "10008",
+        "dat_typ": "N",
+        "delka": "1-2",
+        "specificke_povinnosti": "",
+        "logicke_kontroly": "číselník C_AKCE",
+        "vysvetlivky": "Připravuje se nová verze číselníku ČSSZ",
+        "widget": "input",
+        "width": 12,
+        "manual_parent": "",
+        "ciselnik": "",
+        "mandatory": "P",
+        "p": "",
+        "n": "",
+        "z": ""
+      },
+      {
         "key": "forinreg",
         "skip": false,
         "new_only": true,
         "description": "Cizí právní předpisy",
         "default_value": "",
-        "order": 40,
+        "order": 110,
         "children": [
           {
             "key": "juris",
@@ -1963,310 +2731,7 @@
         "width": 12,
         "ciselnik": "",
         "manual_parent": "",
-        "_collapsed": false
-      },
-      {
-        "key": "pens",
-        "skip": false,
-        "new_only": true,
-        "description": "Starobní důchod",
-        "default_value": "",
-        "order": 50,
-        "children": [
-          {
-            "key": "typ",
-            "skip": false,
-            "new_only": false,
-            "description": "Druh pobíraného důchodu",
-            "default_value": "",
-            "order": 10,
-            "original_path": "employee.pens.typ",
-            "id": "10113",
-            "dat_typ": "A,N",
-            "delka": "1",
-            "specificke_povinnosti": "",
-            "logicke_kontroly": "Číselník C_DUCH . Je-li uveden, musí být též Datum od",
-            "vysvetlivky": "Týká se jen starobního a důchodu invalidního 1., 2. a 3. stupně, nepobírá-li zaměstnanec důchod (popř.je plátcem důchodu ČSSZ), nevyplňuje se.",
-            "widget": "selection",
-            "width": 6,
-            "manual_parent": "",
-            "ciselnik": "druh_duchodu",
-            "mandatory": "PP",
-            "p": "Vyplněn Důchod pobírán od (10114)",
-            "n": "",
-            "z": "Není vyplněn Důchod pobírán od (10114)"
-          },
-          {
-            "key": "tak",
-            "skip": false,
-            "new_only": false,
-            "description": "Důchod pobírán od",
-            "default_value": "",
-            "order": 20,
-            "original_path": "employee.pens.tak",
-            "id": "10114",
-            "dat_typ": "D",
-            "delka": "10",
-            "specificke_povinnosti": "",
-            "logicke_kontroly": "Nesmí být > Datum vyplnění",
-            "vysvetlivky": "Je-li uvedeno, musí být uveden Druh důchodu",
-            "widget": "date",
-            "width": 6,
-            "manual_parent": "",
-            "ciselnik": "",
-            "mandatory": "PP",
-            "p": "Vyplněn Druh důchodu (10113)",
-            "n": "",
-            "z": "Není vyplněn Druh důchodu (10113)"
-          },
-          {
-            "key": "early",
-            "skip": false,
-            "new_only": false,
-            "description": "Poživatel předčasného starobního důchodu",
-            "default_value": "",
-            "order": 30,
-            "original_path": "employee.pens.early",
-            "id": "10115",
-            "dat_typ": "L",
-            "delka": "1",
-            "specificke_povinnosti": "",
-            "logicke_kontroly": "„A“ nebo „N“",
-            "vysvetlivky": "",
-            "widget": "selection",
-            "width": 6,
-            "manual_parent": "",
-            "ciselnik": "bool",
-            "mandatory": "P",
-            "p": "",
-            "n": "",
-            "z": ""
-          },
-          {
-            "key": "reducedage",
-            "skip": false,
-            "new_only": false,
-            "description": "Poživatel starobního důchodu se sníženým důchodovým věkem",
-            "default_value": "",
-            "order": 40,
-            "original_path": "employee.pens.reducedage",
-            "id": "10504",
-            "dat_typ": "L",
-            "delka": "1",
-            "specificke_povinnosti": "",
-            "logicke_kontroly": "„A“ nebo „N“",
-            "vysvetlivky": "",
-            "widget": "selection",
-            "width": 6,
-            "manual_parent": "",
-            "ciselnik": "bool",
-            "mandatory": "P",
-            "p": "",
-            "n": "",
-            "z": ""
-          }
-        ],
-        "original_path": "employee.pens",
-        "widget": "input",
-        "width": 12,
-        "ciselnik": "",
-        "manual_parent": ""
-      },
-      {
-        "key": "insh",
-        "skip": false,
-        "new_only": true,
-        "description": "Zdravotní pojištění v ČR",
-        "default_value": "",
-        "order": 60,
-        "children": [
-          {
-            "key": "cnr",
-            "skip": false,
-            "new_only": false,
-            "description": "Kód pojišťovny",
-            "default_value": "",
-            "order": 10,
-            "original_path": "employee.insh.cnr",
-            "id": "10102",
-            "dat_typ": "N",
-            "delka": "3",
-            "specificke_povinnosti": "",
-            "logicke_kontroly": "Číselník C_ZPOJ",
-            "vysvetlivky": "",
-            "widget": "selection",
-            "width": 12,
-            "manual_parent": "",
-            "ciselnik": "zdravotni_pojistovny",
-            "mandatory": "P",
-            "p": "",
-            "n": "",
-            "z": ""
-          },
-          {
-            "key": "health_id",
-            "description": "Identifikační číslo pojištěnce",
-            "order": 20,
-            "skip": false,
-            "new_only": false,
-            "original_path": "employee.insh.health_id",
-            "widget": "input",
-            "width": 12,
-            "id": "999100",
-            "children": [],
-            "placeholder": "Pokud bylo přiděleno"
-          }
-        ],
-        "original_path": "employee.insh",
-        "widget": "input",
-        "width": 12,
-        "ciselnik": "",
-        "manual_parent": ""
-      },
-      {
-        "key": "fact",
-        "skip": false,
-        "new_only": true,
-        "description": "Zdravotní omezení",
-        "default_value": "",
-        "order": 70,
-        "children": [
-          {
-            "key": "ztp",
-            "skip": false,
-            "new_only": false,
-            "description": "Držitel karty ZTP/P",
-            "default_value": "",
-            "order": 10,
-            "original_path": "employee.fact.ztp",
-            "id": "10090",
-            "dat_typ": "L",
-            "delka": "1",
-            "specificke_povinnosti": "A1-OST, A1-SPEC je povinný pokud je vyplněn 10085",
-            "logicke_kontroly": "„A“ nebo „N“",
-            "vysvetlivky": "",
-            "widget": "selection",
-            "width": 12,
-            "manual_parent": "",
-            "ciselnik": "bool",
-            "mandatory": "PP",
-            "p": "Vyplněn Typ zdravotního omezení (10085)",
-            "n": "Není vyplněn Typ zdravotního omezení (10085)",
-            "z": ""
-          },
-          {
-            "key": "healtrest",
-            "skip": false,
-            "new_only": false,
-            "description": "",
-            "default_value": "",
-            "order": 20,
-            "children": [
-              {
-                "key": "fro",
-                "skip": false,
-                "new_only": false,
-                "description": "Zdravotní omezení přiznané od",
-                "default_value": "",
-                "order": 10,
-                "original_path": "employee.fact.healtrest.fro",
-                "id": "10086",
-                "dat_typ": "D",
-                "delka": "10",
-                "specificke_povinnosti": "A1-OST, A1-SPEC je povinný pokud má zaměstnanec typ zdravotní omezení",
-                "logicke_kontroly": "Zdravotní omezení přiznané od < Zdravotní omezení přiznané do. Musí být vyplněné pokud je uvedený \"typ zdravotního omezení\". Datum od musí být menší než datum vyplnění formuláře.",
-                "vysvetlivky": "",
-                "widget": "date",
-                "width": 4,
-                "manual_parent": "",
-                "ciselnik": "",
-                "mandatory": "PP",
-                "p": "Vyplněn Typ zdravotního omezení (10085)",
-                "n": "",
-                "z": "Není vyplněn Typ zdravotního omezení (10085)"
-              },
-              {
-                "key": "to",
-                "skip": false,
-                "new_only": false,
-                "description": "Zdravotní omezení přiznané do",
-                "default_value": "",
-                "order": 20,
-                "original_path": "employee.fact.healtrest.to",
-                "id": "10087",
-                "dat_typ": "D",
-                "delka": "10",
-                "specificke_povinnosti": "",
-                "logicke_kontroly": "Nemůže být vyplněné pokud není uvedené \"Zdravotní omezení přiznané od\". Datum do musí být větší než datum od.",
-                "vysvetlivky": "",
-                "widget": "date",
-                "width": 4,
-                "manual_parent": "",
-                "ciselnik": "",
-                "mandatory": "PP",
-                "p": "",
-                "n": "Vyplněn Typ zdravotního omezení (10085)",
-                "z": "Není vyplněn Typ zdravotního omezení (10085)"
-              },
-              {
-                "key": "type",
-                "skip": false,
-                "new_only": false,
-                "description": "Typ zdravotního omezení",
-                "default_value": "",
-                "order": 30,
-                "original_path": "employee.fact.healtrest.type",
-                "id": "10085",
-                "dat_typ": "N",
-                "delka": "1",
-                "specificke_povinnosti": "A1-OST, A1-SPEC je povinný pokud má zaměstnanec  zdravotní omezení",
-                "logicke_kontroly": "Číselník Zdravotní omezení",
-                "vysvetlivky": "CIS Zdravotní omezení",
-                "widget": "selection",
-                "width": 4,
-                "manual_parent": "",
-                "ciselnik": "zdravotni_omezeni",
-                "mandatory": "N",
-                "p": "",
-                "n": "",
-                "z": ""
-              }
-            ],
-            "original_path": "employee.fact.healtrest",
-            "widget": "input",
-            "width": 12,
-            "ciselnik": "",
-            "manual_parent": ""
-          }
-        ],
-        "original_path": "employee.fact",
-        "widget": "input",
-        "width": 12,
-        "ciselnik": "",
-        "manual_parent": ""
-      },
-      {
-        "key": "act",
-        "skip": true,
-        "new_only": false,
-        "description": "Číslo akce – určuje charakter požadované operace",
-        "default_value": "",
-        "order": 80,
-        "original_path": "employee.act",
-        "id": "10008",
-        "dat_typ": "N",
-        "delka": "1-2",
-        "specificke_povinnosti": "",
-        "logicke_kontroly": "číselník C_AKCE",
-        "vysvetlivky": "Připravuje se nová verze číselníku ČSSZ",
-        "widget": "input",
-        "width": 12,
-        "manual_parent": "",
-        "ciselnik": "",
-        "mandatory": "P",
-        "p": "",
-        "n": "",
-        "z": ""
+        "_collapsed": true
       },
       {
         "key": "attachs",
@@ -2274,7 +2739,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 90,
+        "order": 120,
         "children": [
           {
             "key": "attach",
@@ -2373,7 +2838,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 100,
+        "order": 130,
         "children": [],
         "original_path": "employee.forin"
       },
@@ -2383,7 +2848,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 100,
+        "order": 140,
         "children": [],
         "original_path": "employee.inso"
       },
@@ -2393,7 +2858,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 110,
+        "order": 150,
         "children": [],
         "original_path": "employee.insp"
       },
@@ -2403,7 +2868,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 120,
+        "order": 160,
         "children": [
           {
             "key": "nam",
@@ -2464,7 +2929,7 @@
         "new_only": false,
         "description": "datum vyplnění (vyhotovení) dat. věty",
         "default_value": "",
-        "order": 130,
+        "order": 170,
         "original_path": "employee.dat",
         "id": "10005",
         "dat_typ": "D",
@@ -2487,7 +2952,7 @@
         "new_only": false,
         "description": "číslo okresu (org. jednotky ČSSZ)",
         "default_value": "",
-        "order": 140,
+        "order": 180,
         "original_path": "employee.dep",
         "id": "10004",
         "dat_typ": "N",
@@ -2510,7 +2975,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 150,
+        "order": 190,
         "children": [
           {
             "key": "cit",
@@ -2969,7 +3434,7 @@
         "new_only": false,
         "description": "postavení v zaměstnání",
         "default_value": "",
-        "order": 160,
+        "order": 200,
         "original_path": "employee.job@relat",
         "id": "10249",
         "dat_typ": "N",
@@ -2992,7 +3457,7 @@
         "new_only": false,
         "description": "pořadové číslo věty v podání",
         "default_value": "",
-        "order": 170,
+        "order": 210,
         "original_path": "employee.sqnr",
         "id": "Bez vazby",
         "dat_typ": "N",
@@ -3015,7 +3480,7 @@
         "new_only": false,
         "description": "",
         "default_value": "",
-        "order": 180,
+        "order": 220,
         "children": [
           {
             "key": "avgmonear",

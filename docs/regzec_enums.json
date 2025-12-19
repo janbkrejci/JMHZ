@@ -1424,5 +1424,31 @@
             "value": "N",
             "label": "NE"
         }
+    ],
+    "rodinny_stav": [
+        {
+            "value": "0",
+            "label": "Nezjištěn"
+        },
+        {
+            "value": "1",
+            "label": "Svobodný/á"
+        },
+        {
+            "value": "2",
+            "label": "Ženatý/Vdaná"
+        },
+        {
+            "value": "3",
+            "label": "Rozvedený/á"
+        },
+        {
+            "value": "4",
+            "label": "Vdovec/Vdova"
+        },
+        {
+            "value": "5",
+            "label": "Registrovaný partner"
+        }
     ]
 }

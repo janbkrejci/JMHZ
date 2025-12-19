@@ -390,6 +390,18 @@ def extract_enums():
     ]
     print(f"Added static 'bool' enum.")
 
+    # 5. Rodinny Stav (Static)
+    # 0=Nezjištěn, 1=Svobodný/á, 2=Ženatý/Vdaná, 3=Rozvedený/á, 4=Vdovec/Vdova, 5=Registrovaný partner
+    enums['rodinny_stav'] = [
+        {'value': '0', 'label': 'Nezjištěn'},
+        {'value': '1', 'label': 'Svobodný/á'},
+        {'value': '2', 'label': 'Ženatý/Vdaná'},
+        {'value': '3', 'label': 'Rozvedený/á'},
+        {'value': '4', 'label': 'Vdovec/Vdova'},
+        {'value': '5', 'label': 'Registrovaný partner'}
+    ]
+    print(f"Added static 'rodinny_stav' enum.")
+
     # Save to JSON
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(enums, f, indent=4, ensure_ascii=False)
