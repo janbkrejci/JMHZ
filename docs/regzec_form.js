@@ -50,12 +50,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         // 3. Initialize Form
         const buttonsConfig = [
             // Old buttons moved to left
-            { "action": "custom-import", "label": "Načíst data", "variant": "default", "position": "left" }, // Changed to custom-import
-            { "action": "export-data", "label": "Uložit data (Export)", "variant": "default", "position": "left" },
+            { "action": "import-data", "label": "Načíst rozpracovaná data", "variant": "default", "position": "left" },
+            { "action": "export-data", "label": "Uložit rozpracovaná data", "variant": "default", "position": "left" },
 
             // New buttons on right
             { "action": "check-data", "label": "Zkontrolovat data", "variant": "primary", "position": "right", "disabled": false },
-            { "action": "save", "label": "Uložit dotazník", "variant": "success", "position": "right", "hidden": true }
+            { "action": "save", "label": "Uložit dotazník k odeslání", "variant": "success", "position": "right", "hidden": true }
         ];
 
         formEl.setAttribute('fields', JSON.stringify(fields));
@@ -72,8 +72,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 validateForm(e, formEl);
             } else if (e.detail.action === 'save') {
                 saveForm(e, formEl);
-            } else if (e.detail.action === 'custom-import') {
-                importForm(formEl);
             }
         });
 
@@ -253,43 +251,6 @@ async function saveForm(event, formEl) {
         console.error('Save failed', e);
         alert('Save failed: ' + e.message);
     }
-}
-
-function importForm(formEl) {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'application/json';
-    input.onchange = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (re) => {
-            try {
-                const data = JSON.parse(re.target.result);
-
-                // Directly update form data and request render
-                // Accessing internal property of the custom element
-                if (formEl) {
-                    formEl.formData = data;
-                    if (typeof formEl.requestRender === 'function') {
-                        formEl.requestRender();
-                    } else {
-                        // Fallback if requestRender is not exposed
-                        console.warn('requestRender not found, trying to re-run or set values');
-                        // Just run again might works if formData is preserved? No.
-                        // But ts-form exposes requestRender in the source we saw.
-                        // Assuming it is callable.
-                    }
-                }
-
-            } catch (err) {
-                console.error('Import failed', err);
-                alert('Import failed: Invalid JSON');
-            }
-        };
-        reader.readAsText(file);
-    };
-    input.click();
 }
 
 function updateButtonState(formEl, actionName, updates) {
