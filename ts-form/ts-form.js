@@ -503,15 +503,33 @@ class TSForm extends HTMLElement {
 
             if (!action) return;
 
-            // Handle 'focus:FIELD_NAME'
+            // Handle 'focus:FIELD_NAME' or 'focus:nextField'
             if (action.startsWith('focus:')) {
-                const targetFieldName = action.split(':')[1];
-                const targetField = this.querySelector(`ts-form-field[field-name="${targetFieldName}"]`);
-                if (targetField && typeof targetField.setFocus === 'function') {
-                    // Slight delay to ensure previous event is finished (e.g. keyup)
-                    requestAnimationFrame(() => targetField.setFocus());
+                const targetName = action.split(':')[1];
+
+                if (targetName === 'next' || targetName === 'nextField') {
+                    // Focus next field
+                    const allFields = Array.from(this.querySelectorAll('ts-form-field'));
+                    const currentIndex = allFields.findIndex(f => f.getAttribute('field-name') === field);
+                    if (currentIndex >= 0) {
+                        let nextIndex = currentIndex + 1;
+                        if (nextIndex >= allFields.length) {
+                            nextIndex = 0; // Wrap around to first field
+                        }
+                        const nextField = allFields[nextIndex];
+                        if (nextField && typeof nextField.setFocus === 'function') {
+                            requestAnimationFrame(() => nextField.setFocus());
+                        }
+                    }
                 } else {
-                    console.warn(`Target field for focus not found: ${targetFieldName}`);
+                    // Focus specific field
+                    const targetField = this.querySelector(`ts-form-field[field-name="${targetName}"]`);
+                    if (targetField && typeof targetField.setFocus === 'function') {
+                        // Slight delay to ensure previous event is finished (e.g. keyup)
+                        requestAnimationFrame(() => targetField.setFocus());
+                    } else {
+                        console.warn(`Target field for focus not found: ${targetName}`);
+                    }
                 }
             }
             // Handle 'click:ACTION_NAME' or 'submit'

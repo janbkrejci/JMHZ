@@ -56,6 +56,12 @@ export class TSFormField extends HTMLElement {
         let config;
         try {
             config = JSON.parse(configStr);
+            // Apply width to host
+            if (config.width) {
+                this.style.width = config.width;
+            } else {
+                this.style.width = '100%';
+            }
         } catch (e) {
             console.error('Invalid config for field', fieldName, e);
             return;
@@ -90,6 +96,10 @@ export class TSFormField extends HTMLElement {
                 }
                 sl-icon[slot="prefix"] {
                     margin: 0 !important;
+                }
+                ts-form-field {
+                    display: block;
+                    width: 100%;
                 }
             `;
             this.appendChild(style);
@@ -1066,6 +1076,62 @@ export class TSFormField extends HTMLElement {
 
 
         field.addEventListener('sl-change', (e) => this.handleFieldChange(e, fieldName));
+        if (field) {
+            // Apply common properties: hidden, disabled, readonly, width
+            // Note: Some fields are wrappers (divs), so we need to handle that.
+            // But 'hidden' and 'width' should apply to the wrapper.
+            // 'disabled' and 'readonly' should apply to the input inside if wrapper, or the element itself.
+
+            // Width - Inner element always full width of host
+            field.style.width = '100%';
+
+            // Hidden
+            if (config.hidden) {
+                field.hidden = true;
+                field.style.display = 'none'; // Force hide
+            }
+
+            // Disabled
+            if (config.disabled) {
+                if ('disabled' in field) {
+                    field.disabled = true;
+                } else {
+                    // Try finding input inside wrapper
+                    const inner = field.querySelector('sl-input, sl-textarea, sl-select, sl-checkbox, sl-switch, sl-radio-group, sl-range, sl-button, sl-button-group, ts-combobox, ts-file-upload');
+                    if (inner) inner.disabled = true;
+                }
+            }
+
+            // Readonly
+            if (config.readonly) {
+                if ('readonly' in field) {
+                    field.readonly = true;
+                } else {
+                    // Try finding input inside wrapper
+                    const inner = field.querySelector('sl-input, sl-textarea');
+                    if (inner) inner.readonly = true;
+                }
+            }
+
+            // Hint
+            if (config.hint) {
+                field.helpText = config.hint;
+                // If wrapper, or element doesn't support helpText directly:
+                // We could append a help-text div.
+                // Shoelace components support `help-text` attribute or slot.
+                if (field.tagName.startsWith('SL-')) {
+                    // Check if it supports help-text
+                    if (!['SL-CHECKBOX', 'SL-SWITCH', 'SL-RADIO-GROUP', 'SL-RANGE', 'SL-BUTTON', 'SL-BUTTON-GROUP'].includes(field.tagName)) {
+                        field.setAttribute('help-text', config.hint);
+                    } else if (field.tagName === 'SL-RADIO-GROUP') {
+                        // Radio group supports help-text? Yes.
+                        field.setAttribute('help-text', config.hint);
+                    }
+                }
+            }
+
+        }
+
         return field;
     }
 
