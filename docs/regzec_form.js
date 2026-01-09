@@ -51,11 +51,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         const buttonsConfig = [
             // Old buttons moved to left
             { "action": "import-data", "label": "Načíst rozpracovaná data", "variant": "default", "position": "left" },
-            { "action": "export-data", "label": "Uložit rozpracovaná data", "variant": "default", "position": "left" },
+            {
+                "action": "export-data",
+                "label": "Uložit rozpracovaná data",
+                "variant": "default",
+                "position": "left",
+                "confirmation": {
+                    "title": "Upozornění",
+                    "text": "Pozor, soubor, který teď ukládáte, není určen k odevzdání. Pro odevzdání použijte nejprve tlačítko Zkontrolovat před odevzdáním.",
+                    "buttons": [
+                        { "action": "cancel", "label": "Zrušit", "variant": "neutral" },
+                        { "action": "confirm", "label": "Rozumím, uložit pracovní soubor", "variant": "warning", "confirm": true }
+                    ]
+                }
+            },
 
             // New buttons on right
-            { "action": "check-data", "label": "Zkontrolovat data", "variant": "primary", "position": "right", "disabled": false },
-            { "action": "save", "label": "Uložit dotazník k odeslání", "variant": "success", "position": "right", "hidden": true }
+            { "action": "check-data", "label": "Zkontrolovat data před odevzdáním", "variant": "primary", "position": "right", "disabled": false },
+            { "action": "save", "label": "Uložit dotazník k odevzdání", "variant": "success", "position": "right", "hidden": true }
         ];
 
         formEl.setAttribute('fields', JSON.stringify(fields));

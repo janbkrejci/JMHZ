@@ -1201,24 +1201,47 @@ export class TSFormField extends HTMLElement {
 
     formatNumber(value, roundTo) {
         if (value === undefined || value === null || value === '') return '';
-        // Remove existing spaces to parse
-        let num = parseFloat(value.toString().replace(/\s/g, '').replace(',', '.'));
-        if (isNaN(num)) return value;
+
+        // Clean input
+        let cleanVal = value.toString().replace(/\s/g, '').replace(',', '.');
+
+        // Check valid number format (allow unlimited length)
+        if (!/^-?\d*\.?\d*$/.test(cleanVal)) return value;
 
         if (roundTo !== undefined && roundTo !== null && roundTo !== '') {
+            let num = parseFloat(cleanVal);
+            if (isNaN(num)) return value;
+
             num = this.roundNumber(num, roundTo);
+
+            // Format rounded number with correct decimals
+            let options = {};
+            if (roundTo && roundTo < 1) {
+                const decimals = -Math.floor(Math.log10(parseFloat(roundTo)));
+                options = { minimumFractionDigits: decimals, maximumFractionDigits: decimals };
+            }
+            return num.toLocaleString('cs-CZ', options);
         }
 
-        // Format with spaces (cs-CZ locale uses spaces for thousands)
-        // Ensure we display correct number of decimal places if rounding to decimal
-        let options = {};
-        if (roundTo && roundTo < 1) {
-            // e.g. 0.01 -> 2 decimals
-            const decimals = -Math.floor(Math.log10(parseFloat(roundTo)));
-            options = { minimumFractionDigits: decimals, maximumFractionDigits: decimals };
+        // Unlimited precision formatting (no rounding)
+        const parts = cleanVal.split('.');
+        let integerPart = parts[0];
+        const decimalPart = parts[1];
+
+        // Normalization for cases like ".5" -> "0.5" or empty/sign-only integer
+        if (integerPart === '' || integerPart === '-') {
+            if (integerPart === '-') integerPart = '-0';
+            else integerPart = '0';
         }
 
-        return num.toLocaleString('cs-CZ', options);
+        // Separate sign to strictly format the number part
+        const sign = integerPart.startsWith('-') ? '-' : '';
+        const absInt = integerPart.startsWith('-') ? integerPart.substring(1) : integerPart;
+
+        // Apply thousands separator (space for cs-CZ)
+        const formattedInt = absInt.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+        return `${sign}${formattedInt}${decimalPart !== undefined ? ',' + decimalPart : ''}`;
     }
 
     formatDate(isoDate) {

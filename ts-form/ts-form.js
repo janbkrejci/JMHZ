@@ -9,8 +9,6 @@ class TSForm extends HTMLElement {
         this.validationErrors = {};
         this.lastAction = null;
         this.buttons = {};
-        this.buttons = {};
-        this.buttons = {};
         this.isInitialized = false;
 
         // Global fix for layout shift: Force scrollbar to be always visible
@@ -819,26 +817,17 @@ class TSForm extends HTMLElement {
                     }
                     button.addEventListener('click', () => {
                         this.lastAction = btn.action;
-                        if (btn.action === 'export-data') {
-                            this.exportFormData();
-                            return;
-                        }
-                        if (btn.action === 'import-data') {
-                            this.importFormData();
-                            return;
-                        }
-                        if (btn.confirmation) {
-                            this.showConfirmationDialog(btn.confirmation, () => {
-                                this.dispatchEvent(new CustomEvent('form-submit', {
-                                    detail: {
-                                        formData: this.getSubmissionData(),
-                                        action: btn.action
-                                    },
-                                    bubbles: true,
-                                    composed: true
-                                }));
-                            });
-                        } else {
+
+                        const executeAction = () => {
+                            if (btn.action === 'export-data') {
+                                this.exportFormData();
+                                return;
+                            }
+                            if (btn.action === 'import-data') {
+                                this.importFormData();
+                                return;
+                            }
+
                             this.dispatchEvent(new CustomEvent('form-submit', {
                                 detail: {
                                     formData: this.getSubmissionData(),
@@ -847,6 +836,12 @@ class TSForm extends HTMLElement {
                                 bubbles: true,
                                 composed: true
                             }));
+                        };
+
+                        if (btn.confirmation) {
+                            this.showConfirmationDialog(btn.confirmation, executeAction);
+                        } else {
+                            executeAction();
                         }
                     });
                     this.buttons[btn.action] = button;
