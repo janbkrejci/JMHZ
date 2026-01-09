@@ -1,5 +1,1460 @@
 [
   {
+    "state": [
+      {
+        "value": "AD",
+        "label": "Andorrské knížectví"
+      },
+      {
+        "value": "AE",
+        "label": "Stát Spojené arabské emiráty"
+      },
+      {
+        "value": "AF",
+        "label": "Afghánská islámská republika"
+      },
+      {
+        "value": "AG",
+        "label": "Antigua a Barbuda"
+      },
+      {
+        "value": "AI",
+        "label": "Anguilla"
+      },
+      {
+        "value": "AL",
+        "label": "Albánská republika"
+      },
+      {
+        "value": "AM",
+        "label": "Arménská republika"
+      },
+      {
+        "value": "AO",
+        "label": "Angolská republika"
+      },
+      {
+        "value": "AQ",
+        "label": "Antarktida"
+      },
+      {
+        "value": "AR",
+        "label": "Argentinská republika"
+      },
+      {
+        "value": "AS",
+        "label": "Území Americká Samoa"
+      },
+      {
+        "value": "AT",
+        "label": "Rakouská republika"
+      },
+      {
+        "value": "AU",
+        "label": "Australské společenství"
+      },
+      {
+        "value": "AW",
+        "label": "Aruba"
+      },
+      {
+        "value": "AX",
+        "label": "Provincie Alandy"
+      },
+      {
+        "value": "AZ",
+        "label": "Ázerbájdžánská republika"
+      },
+      {
+        "value": "BA",
+        "label": "Bosna a Hercegovina"
+      },
+      {
+        "value": "BB",
+        "label": "Barbados"
+      },
+      {
+        "value": "BD",
+        "label": "Bangladéšská lidová republika"
+      },
+      {
+        "value": "BE",
+        "label": "Belgické království"
+      },
+      {
+        "value": "BF",
+        "label": "Burkina Faso"
+      },
+      {
+        "value": "BG",
+        "label": "Bulharská republika"
+      },
+      {
+        "value": "BH",
+        "label": "Království Bahrajn"
+      },
+      {
+        "value": "BI",
+        "label": "Burundská republika"
+      },
+      {
+        "value": "BJ",
+        "label": "Beninská republika"
+      },
+      {
+        "value": "BL",
+        "label": "Společenství Svatý Bartoloměj"
+      },
+      {
+        "value": "BM",
+        "label": "Bermudy"
+      },
+      {
+        "value": "BN",
+        "label": "Stát Brunej Darussalam"
+      },
+      {
+        "value": "BO",
+        "label": "Mnohonárodní stát Bolívie"
+      },
+      {
+        "value": "BQ",
+        "label": "Bonaire, Svatý Eustach a Saba"
+      },
+      {
+        "value": "BR",
+        "label": "Brazilská federativní republika"
+      },
+      {
+        "value": "BS",
+        "label": "Bahamské společenství"
+      },
+      {
+        "value": "BT",
+        "label": "Bhútánské království"
+      },
+      {
+        "value": "BV",
+        "label": "Bouvetův ostrov"
+      },
+      {
+        "value": "BW",
+        "label": "Botswanská republika"
+      },
+      {
+        "value": "BY",
+        "label": "Běloruská republika"
+      },
+      {
+        "value": "BZ",
+        "label": "Belize"
+      },
+      {
+        "value": "CA",
+        "label": "Kanada"
+      },
+      {
+        "value": "CC",
+        "label": "Území Kokosové (Keelingovy) ostrovy"
+      },
+      {
+        "value": "CD",
+        "label": "Konžská demokratická republika"
+      },
+      {
+        "value": "CF",
+        "label": "Středoafrická republika"
+      },
+      {
+        "value": "CG",
+        "label": "Konžská republika"
+      },
+      {
+        "value": "CH",
+        "label": "Švýcarská konfederace"
+      },
+      {
+        "value": "CI",
+        "label": "Republika Pobřeží slonoviny"
+      },
+      {
+        "value": "CK",
+        "label": "Cookovy ostrovy"
+      },
+      {
+        "value": "CL",
+        "label": "Chilská republika"
+      },
+      {
+        "value": "CM",
+        "label": "Kamerunská republika"
+      },
+      {
+        "value": "CN",
+        "label": "Čínská lidová republika"
+      },
+      {
+        "value": "CO",
+        "label": "Kolumbijská republika"
+      },
+      {
+        "value": "CR",
+        "label": "Kostarická republika"
+      },
+      {
+        "value": "CU",
+        "label": "Kubánská republika"
+      },
+      {
+        "value": "CV",
+        "label": "Kapverdská republika"
+      },
+      {
+        "value": "CW",
+        "label": "Země Curaçao"
+      },
+      {
+        "value": "CX",
+        "label": "Území Vánoční ostrov"
+      },
+      {
+        "value": "CY",
+        "label": "Kyperská republika"
+      },
+      {
+        "value": "CZ",
+        "label": "Česká republika"
+      },
+      {
+        "value": "DE",
+        "label": "Spolková republika Německo"
+      },
+      {
+        "value": "DJ",
+        "label": "Džibutská republika"
+      },
+      {
+        "value": "DK",
+        "label": "Dánské království"
+      },
+      {
+        "value": "DM",
+        "label": "Dominické společenství"
+      },
+      {
+        "value": "DO",
+        "label": "Dominikánská republika"
+      },
+      {
+        "value": "DZ",
+        "label": "Alžírská demokratická a lidová republika"
+      },
+      {
+        "value": "EC",
+        "label": "Ekvádorská republika"
+      },
+      {
+        "value": "EE",
+        "label": "Estonská republika"
+      },
+      {
+        "value": "EG",
+        "label": "Egyptská arabská republika"
+      },
+      {
+        "value": "EH",
+        "label": "Saharská arabská demokratická republika"
+      },
+      {
+        "value": "ER",
+        "label": "Stát Eritrea"
+      },
+      {
+        "value": "ES",
+        "label": "Španělské království"
+      },
+      {
+        "value": "ET",
+        "label": "Etiopská federativní demokratická republika"
+      },
+      {
+        "value": "FI",
+        "label": "Finská republika"
+      },
+      {
+        "value": "FJ",
+        "label": "Fidžijská republika"
+      },
+      {
+        "value": "FK",
+        "label": "Falklandy (Malvíny)"
+      },
+      {
+        "value": "FM",
+        "label": "Federativní státy Mikronésie"
+      },
+      {
+        "value": "FO",
+        "label": "Faerské ostrovy"
+      },
+      {
+        "value": "FR",
+        "label": "Francouzská republika"
+      },
+      {
+        "value": "GA",
+        "label": "Gabonská republika"
+      },
+      {
+        "value": "GB",
+        "label": "Spojené království Velké Británie a Severního Irska"
+      },
+      {
+        "value": "GD",
+        "label": "Grenada"
+      },
+      {
+        "value": "GE",
+        "label": "Gruzie"
+      },
+      {
+        "value": "GF",
+        "label": "Francouzská Guyana"
+      },
+      {
+        "value": "GG",
+        "label": "Bailiwick Guernsey"
+      },
+      {
+        "value": "GH",
+        "label": "Ghanská republika"
+      },
+      {
+        "value": "GI",
+        "label": "Gibraltar"
+      },
+      {
+        "value": "GL",
+        "label": "Grónsko"
+      },
+      {
+        "value": "GM",
+        "label": "Gambijská republika"
+      },
+      {
+        "value": "GN",
+        "label": "Guinejská republika"
+      },
+      {
+        "value": "GP",
+        "label": "Region Guadeloupe"
+      },
+      {
+        "value": "GQ",
+        "label": "Republika Rovníková Guinea"
+      },
+      {
+        "value": "GR",
+        "label": "Řecká republika"
+      },
+      {
+        "value": "GS",
+        "label": "Jižní Georgie a Jižní Sandwichovy ostrovy"
+      },
+      {
+        "value": "GT",
+        "label": "Guatemalská republika"
+      },
+      {
+        "value": "GU",
+        "label": "Teritorium Guam"
+      },
+      {
+        "value": "GW",
+        "label": "Republika Guinea-Bissau"
+      },
+      {
+        "value": "GY",
+        "label": "Guyanská kooperativní republika"
+      },
+      {
+        "value": "HK",
+        "label": "Zvláštní administrativní oblast Čínské lidové republiky Hongkong"
+      },
+      {
+        "value": "HM",
+        "label": "Heardův ostrov a MacDonaldovy ostrovy"
+      },
+      {
+        "value": "HN",
+        "label": "Honduraská republika"
+      },
+      {
+        "value": "HR",
+        "label": "Chorvatská republika"
+      },
+      {
+        "value": "HT",
+        "label": "Republika Haiti"
+      },
+      {
+        "value": "HU",
+        "label": "Maďarsko"
+      },
+      {
+        "value": "ID",
+        "label": "Indonéská republika"
+      },
+      {
+        "value": "IE",
+        "label": "Irsko"
+      },
+      {
+        "value": "IL",
+        "label": "Stát Izrael"
+      },
+      {
+        "value": "IM",
+        "label": "Ostrov Man"
+      },
+      {
+        "value": "IN",
+        "label": "Indická republika"
+      },
+      {
+        "value": "IO",
+        "label": "Britské území v Indickém oceánu"
+      },
+      {
+        "value": "IQ",
+        "label": "Irácká republika"
+      },
+      {
+        "value": "IR",
+        "label": "Íránská islámská republika"
+      },
+      {
+        "value": "IS",
+        "label": "Islandská republika"
+      },
+      {
+        "value": "IT",
+        "label": "Italská republika"
+      },
+      {
+        "value": "JE",
+        "label": "Bailiwick Jersey"
+      },
+      {
+        "value": "JM",
+        "label": "Jamajka"
+      },
+      {
+        "value": "JO",
+        "label": "Jordánské hášimovské království"
+      },
+      {
+        "value": "JP",
+        "label": "Japonsko"
+      },
+      {
+        "value": "KE",
+        "label": "Keňská republika"
+      },
+      {
+        "value": "KG",
+        "label": "Kyrgyzská republika"
+      },
+      {
+        "value": "KH",
+        "label": "Kambodžské království"
+      },
+      {
+        "value": "KI",
+        "label": "Republika Kiribati"
+      },
+      {
+        "value": "KM",
+        "label": "Komorský svaz"
+      },
+      {
+        "value": "KN",
+        "label": "Federace Svatý Kryštof a Nevis"
+      },
+      {
+        "value": "KP",
+        "label": "Korejská lidově demokratická republika"
+      },
+      {
+        "value": "KR",
+        "label": "Korejská republika"
+      },
+      {
+        "value": "KW",
+        "label": "Kuvajtský stát"
+      },
+      {
+        "value": "KY",
+        "label": "Kajmanské ostrovy"
+      },
+      {
+        "value": "KZ",
+        "label": "Republika Kazachstán"
+      },
+      {
+        "value": "LA",
+        "label": "Laoská lidově demokratická republika"
+      },
+      {
+        "value": "LB",
+        "label": "Libanonská republika"
+      },
+      {
+        "value": "LC",
+        "label": "Svatá Lucie"
+      },
+      {
+        "value": "LI",
+        "label": "Lichtenštejnské knížectví"
+      },
+      {
+        "value": "LK",
+        "label": "Šrílanská demokratická socialistická republika"
+      },
+      {
+        "value": "LR",
+        "label": "Liberijská republika"
+      },
+      {
+        "value": "LS",
+        "label": "Lesothské království"
+      },
+      {
+        "value": "LT",
+        "label": "Litevská republika"
+      },
+      {
+        "value": "LU",
+        "label": "Lucemburské velkovévodství"
+      },
+      {
+        "value": "LV",
+        "label": "Lotyšská republika"
+      },
+      {
+        "value": "LY",
+        "label": "Libyjský stát"
+      },
+      {
+        "value": "MA",
+        "label": "Marocké království"
+      },
+      {
+        "value": "MC",
+        "label": "Monacké knížectví"
+      },
+      {
+        "value": "MD",
+        "label": "Moldavská republika"
+      },
+      {
+        "value": "ME",
+        "label": "Černá Hora"
+      },
+      {
+        "value": "MF",
+        "label": "Společenství Svatý Martin"
+      },
+      {
+        "value": "MG",
+        "label": "Madagaskarská republika"
+      },
+      {
+        "value": "MH",
+        "label": "Republika Marshallovy ostrovy"
+      },
+      {
+        "value": "MK",
+        "label": "Republika Severní Makedonie"
+      },
+      {
+        "value": "ML",
+        "label": "Republika Mali"
+      },
+      {
+        "value": "MM",
+        "label": "Republika Myanmarský svaz"
+      },
+      {
+        "value": "MN",
+        "label": "Mongolsko"
+      },
+      {
+        "value": "MO",
+        "label": "Zvláštní administrativní oblast Čínské lidové republiky Macao"
+      },
+      {
+        "value": "MP",
+        "label": "Společenství Severní Mariany"
+      },
+      {
+        "value": "MQ",
+        "label": "Martinik"
+      },
+      {
+        "value": "MR",
+        "label": "Mauritánská islámská republika"
+      },
+      {
+        "value": "MS",
+        "label": "Montserrat"
+      },
+      {
+        "value": "MT",
+        "label": "Maltská republika"
+      },
+      {
+        "value": "MU",
+        "label": "Mauricijská republika"
+      },
+      {
+        "value": "MV",
+        "label": "Maledivská republika"
+      },
+      {
+        "value": "MW",
+        "label": "Malawiská republika"
+      },
+      {
+        "value": "MX",
+        "label": "Spojené státy mexické"
+      },
+      {
+        "value": "MY",
+        "label": "Malajsie"
+      },
+      {
+        "value": "MZ",
+        "label": "Mosambická republika"
+      },
+      {
+        "value": "NC",
+        "label": "Nová Kaledonie"
+      },
+      {
+        "value": "NE",
+        "label": "Nigerská republika"
+      },
+      {
+        "value": "NF",
+        "label": "Území Norfolk"
+      },
+      {
+        "value": "NG",
+        "label": "Nigerijská federativní republika"
+      },
+      {
+        "value": "NI",
+        "label": "Nikaragujská republika"
+      },
+      {
+        "value": "NL",
+        "label": "Nizozemské království"
+      },
+      {
+        "value": "NO",
+        "label": "Norské království"
+      },
+      {
+        "value": "NP",
+        "label": "Nepálská federativní demokratická republika"
+      },
+      {
+        "value": "NR",
+        "label": "Republika Nauru"
+      },
+      {
+        "value": "NU",
+        "label": "Niue"
+      },
+      {
+        "value": "NZ",
+        "label": "Nový Zéland"
+      },
+      {
+        "value": "OM",
+        "label": "Sultanát Omán"
+      },
+      {
+        "value": "PA",
+        "label": "Panamská republika"
+      },
+      {
+        "value": "PE",
+        "label": "Peruánská republika"
+      },
+      {
+        "value": "PF",
+        "label": "Francouzská Polynésie"
+      },
+      {
+        "value": "PG",
+        "label": "Nezávislý stát Papua Nová Guinea"
+      },
+      {
+        "value": "PH",
+        "label": "Filipínská republika"
+      },
+      {
+        "value": "PK",
+        "label": "Pákistánská islámská republika"
+      },
+      {
+        "value": "PL",
+        "label": "Polská republika"
+      },
+      {
+        "value": "PM",
+        "label": "Územní společenství Saint Pierre a Miquelon"
+      },
+      {
+        "value": "PN",
+        "label": "Pitcairnovy ostrovy"
+      },
+      {
+        "value": "PR",
+        "label": "Portorické společenství"
+      },
+      {
+        "value": "PS",
+        "label": "Palestinská autonomní území"
+      },
+      {
+        "value": "PT",
+        "label": "Portugalská republika"
+      },
+      {
+        "value": "PW",
+        "label": "Republika Palau"
+      },
+      {
+        "value": "PY",
+        "label": "Paraguayská republika"
+      },
+      {
+        "value": "QA",
+        "label": "Stát Katar"
+      },
+      {
+        "value": "RE",
+        "label": "Region Réunion"
+      },
+      {
+        "value": "RO",
+        "label": "Rumunsko"
+      },
+      {
+        "value": "RS",
+        "label": "Srbská republika"
+      },
+      {
+        "value": "RU",
+        "label": "Ruská federace"
+      },
+      {
+        "value": "RW",
+        "label": "Rwandská republika"
+      },
+      {
+        "value": "SA",
+        "label": "Království Saúdská Arábie"
+      },
+      {
+        "value": "SB",
+        "label": "Šalomounovy ostrovy"
+      },
+      {
+        "value": "SC",
+        "label": "Seychelská republika"
+      },
+      {
+        "value": "SD",
+        "label": "Súdánská republika"
+      },
+      {
+        "value": "SE",
+        "label": "Švédské království"
+      },
+      {
+        "value": "SG",
+        "label": "Singapurská republika"
+      },
+      {
+        "value": "SH",
+        "label": "Svatá Helena, Ascension a Tristan da Cunha"
+      },
+      {
+        "value": "SI",
+        "label": "Slovinská republika"
+      },
+      {
+        "value": "SJ",
+        "label": "Špicberky a Jan Mayen"
+      },
+      {
+        "value": "SK",
+        "label": "Slovenská republika"
+      },
+      {
+        "value": "SL",
+        "label": "Republika Sierra Leone"
+      },
+      {
+        "value": "SM",
+        "label": "Republika San Marino"
+      },
+      {
+        "value": "SN",
+        "label": "Senegalská republika"
+      },
+      {
+        "value": "SO",
+        "label": "Somálská federativní republika"
+      },
+      {
+        "value": "SR",
+        "label": "Surinamská republika"
+      },
+      {
+        "value": "SS",
+        "label": "Jihosúdánská republika"
+      },
+      {
+        "value": "ST",
+        "label": "Demokratická republika Svatý Tomáš a Princův ostrov"
+      },
+      {
+        "value": "SV",
+        "label": "Salvadorská republika"
+      },
+      {
+        "value": "SX",
+        "label": "Svatý Martin (NL)"
+      },
+      {
+        "value": "SY",
+        "label": "Syrská arabská republika"
+      },
+      {
+        "value": "SZ",
+        "label": "Svazijské království"
+      },
+      {
+        "value": "TC",
+        "label": "Ostrovy Turks a Caicos"
+      },
+      {
+        "value": "TD",
+        "label": "Čadská republika"
+      },
+      {
+        "value": "TF",
+        "label": "Francouzská jižní a antarktická území"
+      },
+      {
+        "value": "TG",
+        "label": "Tožská republika"
+      },
+      {
+        "value": "TH",
+        "label": "Thajské království"
+      },
+      {
+        "value": "TJ",
+        "label": "Republika Tádžikistán"
+      },
+      {
+        "value": "TK",
+        "label": "Tokelau"
+      },
+      {
+        "value": "TL",
+        "label": "Demokratická republika Východní Timor"
+      },
+      {
+        "value": "TM",
+        "label": "Turkmenistán"
+      },
+      {
+        "value": "TN",
+        "label": "Tuniská republika"
+      },
+      {
+        "value": "TO",
+        "label": "Království Tonga"
+      },
+      {
+        "value": "TR",
+        "label": "Turecká republika"
+      },
+      {
+        "value": "TT",
+        "label": "Republika Trinidad a Tobago"
+      },
+      {
+        "value": "TV",
+        "label": "Tuvalu"
+      },
+      {
+        "value": "TW",
+        "label": "Tchaj-wan"
+      },
+      {
+        "value": "TZ",
+        "label": "Tanzanská sjednocená republika"
+      },
+      {
+        "value": "UA",
+        "label": "Ukrajina"
+      },
+      {
+        "value": "UG",
+        "label": "Ugandská republika"
+      },
+      {
+        "value": "UM",
+        "label": "Menší odlehlé ostrovy USA"
+      },
+      {
+        "value": "US",
+        "label": "Spojené státy americké"
+      },
+      {
+        "value": "UY",
+        "label": "Uruguayská východní republika"
+      },
+      {
+        "value": "UZ",
+        "label": "Republika Uzbekistán"
+      },
+      {
+        "value": "VA",
+        "label": "Vatikánský městský stát"
+      },
+      {
+        "value": "VC",
+        "label": "Svatý Vincenc a Grenadiny"
+      },
+      {
+        "value": "VE",
+        "label": "Bolívarovská republika Venezuela"
+      },
+      {
+        "value": "VG",
+        "label": "Britské Panenské ostrovy"
+      },
+      {
+        "value": "VI",
+        "label": "Americké Panenské ostrovy"
+      },
+      {
+        "value": "VN",
+        "label": "Vietnamská socialistická republika"
+      },
+      {
+        "value": "VU",
+        "label": "Republika Vanuatu"
+      },
+      {
+        "value": "WF",
+        "label": "Teritorium Wallisovy ostrovy a Futuna"
+      },
+      {
+        "value": "WS",
+        "label": "Nezávislý stát Samoa"
+      },
+      {
+        "value": "XK",
+        "label": "Kosovská republika"
+      },
+      {
+        "value": "YE",
+        "label": "Jemenská republika"
+      },
+      {
+        "value": "YT",
+        "label": "Departement Mayotte"
+      },
+      {
+        "value": "ZA",
+        "label": "Jihoafrická republika"
+      },
+      {
+        "value": "ZM",
+        "label": "Zambijská republika"
+      },
+      {
+        "value": "ZW",
+        "label": "Zimbabwská republika"
+      }
+    ],
+    "sex": [
+      {
+        "value": "M",
+        "label": "mužské"
+      },
+      {
+        "value": "Ž",
+        "label": "ženské"
+      }
+    ],
+    "sector": [
+      {
+        "value": "01",
+        "label": "Pracovní úrazy nemoci z povolání"
+      },
+      {
+        "value": "02",
+        "label": "Rodinné dávky"
+      },
+      {
+        "value": "03",
+        "label": "Vše"
+      },
+      {
+        "value": "04",
+        "label": "Důchody"
+      },
+      {
+        "value": "05",
+        "label": "Vymáhání a zápočty"
+      },
+      {
+        "value": "06",
+        "label": "Nemoc"
+      },
+      {
+        "value": "07",
+        "label": "Dávky v nezaměstnanosti"
+      },
+      {
+        "value": "08",
+        "label": "jiné"
+      }
+    ],
+    "tax_identification": [
+      {
+        "value": "D",
+        "label": "DIČ"
+      },
+      {
+        "value": "R",
+        "label": "RČ"
+      },
+      {
+        "value": "S",
+        "label": "Sociální pojištění"
+      },
+      {
+        "value": "J",
+        "label": "Jiné"
+      }
+    ],
+    "typ_dokladu": [
+      {
+        "value": "I",
+        "label": "Průkaz totožnosti"
+      },
+      {
+        "value": "P",
+        "label": "Pas"
+      },
+      {
+        "value": "O",
+        "label": "Ostatní"
+      }
+    ],
+    "zdravotni_pojistovny": [
+      {
+        "value": "111",
+        "label": "111 - Všeobecná zdravotní pojišťovna ČR"
+      },
+      {
+        "value": "201",
+        "label": "201 - Vojenská zdravotní pojišťovna ČR"
+      },
+      {
+        "value": "205",
+        "label": "205 - Česká průmyslová zdravotní pojišťovna"
+      },
+      {
+        "value": "207",
+        "label": "207 - Oborová zdravotní pojišťovna zaměstnanců bank, pojišťoven a stavebnictví"
+      },
+      {
+        "value": "209",
+        "label": "209 - Zaměstnanecká pojišťovna ŠKODA"
+      },
+      {
+        "value": "211",
+        "label": "211 - Zdravotní pojišťovna Ministerstva vnitra ČR"
+      },
+      {
+        "value": "213",
+        "label": "213 - Revírní bratrská pokladna, zdravotní pojišťovna"
+      },
+      {
+        "value": "300",
+        "label": "300 - Samoplátce"
+      },
+      {
+        "value": "999",
+        "label": "999 - Ostatní"
+      }
+    ],
+    "druh_duchodu": [
+      {
+        "value": "1",
+        "label": "starobní"
+      },
+      {
+        "value": "2",
+        "label": "invalidní 3. stupně"
+      },
+      {
+        "value": "8",
+        "label": "invalidní 1. nebo 2. stupně"
+      },
+      {
+        "value": "A",
+        "label": "cizí charakteru starobního"
+      },
+      {
+        "value": "B",
+        "label": "cizí charakteru invalidního 3. stupně"
+      },
+      {
+        "value": "C",
+        "label": "cizí charakteru invalidního 1. nebo 2. stupně"
+      }
+    ],
+    "vzdelani": [
+      {
+        "value": "A",
+        "label": "Bez vzdělání"
+      },
+      {
+        "value": "B",
+        "label": "Neúplné základní vzdělání"
+      },
+      {
+        "value": "C",
+        "label": "Základní vzdělání"
+      },
+      {
+        "value": "D",
+        "label": "Nižší střední vzdělání"
+      },
+      {
+        "value": "E",
+        "label": "Nižší střední odborné vzdělání"
+      },
+      {
+        "value": "H",
+        "label": "Střední odborné vzdělání s výučním listem"
+      },
+      {
+        "value": "J",
+        "label": "Střední nebo střední odborné vzdělání bez maturity i výučního listu"
+      },
+      {
+        "value": "K",
+        "label": "Úplné střední všeobecné vzdělání"
+      },
+      {
+        "value": "L",
+        "label": "Úplné střední odborné vzdělání s vyučením i maturitou"
+      },
+      {
+        "value": "M",
+        "label": "Úplné střední odborné vzdělání s maturitou (bez vyučení)"
+      },
+      {
+        "value": "N",
+        "label": "Vyšší odborné vzdělání"
+      },
+      {
+        "value": "P",
+        "label": "Vyšší odborné vzdělání v konzervatoři"
+      },
+      {
+        "value": "R",
+        "label": "Vysokoškolské bakalářské vzdělání"
+      },
+      {
+        "value": "T",
+        "label": "Vysokoškolské magisterské vzdělání"
+      },
+      {
+        "value": "V",
+        "label": "Vysokoškolské doktorské vzdělání"
+      }
+    ],
+    "zdravotni_omezeni": [
+      {
+        "value": "1",
+        "label": "III. stupeň invalidity"
+      },
+      {
+        "value": "2",
+        "label": "III. stupeň invalidity - schopnost výdělečné činnosti za zcela mimořádných podmínek (§39 odst. 4 písm. f zákona č. 155/1995 Sb.)"
+      },
+      {
+        "value": "3",
+        "label": "II. stupeň invalidity"
+      },
+      {
+        "value": "4",
+        "label": "I. stupeň invalidity"
+      },
+      {
+        "value": "5",
+        "label": "Přiznaný POUZE statut OZZ (osoba zdravotně znevýhodněná)"
+      }
+    ],
+    "druh_prac_opravneni": [
+      {
+        "value": "1",
+        "label": "povolení k zaměstnání"
+      },
+      {
+        "value": "2",
+        "label": "zaměstnanecká karta"
+      },
+      {
+        "value": "3",
+        "label": "karta vnitropodnikově převedeného zaměstnance"
+      },
+      {
+        "value": "4",
+        "label": "modrá karta"
+      }
+    ],
+    "duvod_volneho_pristupu": [
+      {
+        "value": "1",
+        "label": "§ 87 Občan EU/EHP a Švýcarska"
+      },
+      {
+        "value": "2",
+        "label": "§ 87 Občan Spojeného království Velké Británie a Severního Irska"
+      },
+      {
+        "value": "3",
+        "label": "§ 87 Rodinný příslušník občana EU/EHP nebo Švýcarska"
+      },
+      {
+        "value": "4",
+        "label": "§ 98 písm. a) Povolen trvalý pobyt - mimo ochranu Ukrajina"
+      },
+      {
+        "value": "5",
+        "label": "§ 98 písm. a) Povolen trvalý pobyt - dočasná ochrana Ukrajina"
+      },
+      {
+        "value": "6",
+        "label": "§ 98 písm. b) Rodinný přísluš. člena diplomat. mise"
+      },
+      {
+        "value": "7",
+        "label": "§ 98 písm. c) Udělen azyl nebo doplňková ochrana"
+      },
+      {
+        "value": "8",
+        "label": "§ 98 písm. d) Krátkodobá prac. činnost (do 7 dnů)"
+      },
+      {
+        "value": "9",
+        "label": "§ 98 písm. e) Mezinárodní smlouva"
+      },
+      {
+        "value": "10",
+        "label": "§ 98 písm. j) Příprava na budoucí povolání"
+      },
+      {
+        "value": "11",
+        "label": "§ 98 písm. l) Dlouhodobý pobyt - společ. soužití rodiny"
+      },
+      {
+        "value": "12",
+        "label": "§ 98 písm. m) Rezident jiného státu EU"
+      },
+      {
+        "value": "13",
+        "label": "§ 98 písm. n) Soustavná vzděl. nebo věd. činnost"
+      },
+      {
+        "value": "14",
+        "label": "§ 98 písm. o) Získané SŠ, VOŠ nebo VŠ vzdělání"
+      },
+      {
+        "value": "15",
+        "label": "§ 98 písm. p) Dlouhodobý pobyt za účelem ochrany"
+      },
+      {
+        "value": "16",
+        "label": "§ 98 písm. r) Duchovní církve registrované v ČR"
+      },
+      {
+        "value": "17",
+        "label": "§ 98 písm. s) Vnitropodnikově převedený zaměstnanec (z EU)"
+      },
+      {
+        "value": "18",
+        "label": "§ 98 písm. t) výkon práce v zájmu ČR"
+      },
+      {
+        "value": "19",
+        "label": "§ 98 písm. u): Občan státu nevyžadujícího pracovní oprávnění (whitelist)"
+      },
+      {
+        "value": "20",
+        "label": "§ 98 písm. v): Umělecká činnost"
+      },
+      {
+        "value": "21",
+        "label": "§ 98a Vyslání - zvyšování dovedností"
+      }
+    ],
+    "pobocky_uradu_prace": [
+      {
+        "value": "HMP",
+        "label": "Krajská pobočka pro hlavní město Prahu"
+      },
+      {
+        "value": "JMK",
+        "label": "Krajská pobočka v Brně"
+      },
+      {
+        "value": "JCK",
+        "label": "Krajská pobočka v Českých Budějovicích"
+      },
+      {
+        "value": "HKK",
+        "label": "Krajská pobočka v Hradci Králové"
+      },
+      {
+        "value": "VYK",
+        "label": "Krajská pobočka v Jihlavě"
+      },
+      {
+        "value": "KVK",
+        "label": "Krajská pobočka v Karlových Varech"
+      },
+      {
+        "value": "LBK",
+        "label": "Krajská pobočka v Liberci"
+      },
+      {
+        "value": "OLK",
+        "label": "Krajská pobočka v Olomouci"
+      },
+      {
+        "value": "MSK",
+        "label": "Krajská pobočka v Ostravě"
+      },
+      {
+        "value": "PAK",
+        "label": "Krajská pobočka v Pardubicích"
+      },
+      {
+        "value": "PMK",
+        "label": "Krajská pobočka v Plzni"
+      },
+      {
+        "value": "SCK",
+        "label": "Krajská pobočka v Příbrami"
+      },
+      {
+        "value": "ULK",
+        "label": "Krajská pobočka v Ústí nad Labem"
+      },
+      {
+        "value": "ZLK",
+        "label": "Krajská pobočka ve Zlíně"
+      }
+    ],
+    "poradi_deti": [
+      {
+        "value": "1",
+        "label": "první"
+      },
+      {
+        "value": "2",
+        "label": "druhé"
+      },
+      {
+        "value": "3",
+        "label": "třetí a další"
+      },
+      {
+        "value": "N",
+        "label": "neuplatněno"
+      }
+    ],
+    "specifikace_ciz_nositele": [
+      {
+        "value": "P",
+        "label": "poslední"
+      },
+      {
+        "value": "S",
+        "label": "současný"
+      },
+      {
+        "value": "N",
+        "label": "není"
+      }
+    ],
+    "bool": [
+      {
+        "value": "A",
+        "label": "ANO"
+      },
+      {
+        "value": "N",
+        "label": "NE"
+      }
+    ],
+    "rodinny_stav": [
+      {
+        "value": "0",
+        "label": "Nezjištěn"
+      },
+      {
+        "value": "1",
+        "label": "Svobodný/á"
+      },
+      {
+        "value": "2",
+        "label": "Ženatý/Vdaná"
+      },
+      {
+        "value": "3",
+        "label": "Rozvedený/á"
+      },
+      {
+        "value": "4",
+        "label": "Vdovec/Vdova"
+      },
+      {
+        "value": "5",
+        "label": "Registrovaný partner"
+      }
+    ],
+    "children": []
+  },
+  {
     "key": "employee",
     "skip": false,
     "new_only": false,
@@ -1320,12 +2775,38 @@
             "_collapsed": false,
             "children": [
               {
+                "key": "ispv_instruction",
+                "description": "Instrukce ISPV kód\n",
+                "order": 10,
+                "skip": false,
+                "new_only": false,
+                "original_path": "employee.client.education.ispv_instruction",
+                "widget": "markdown",
+                "width": 12,
+                "content": "**Čtěte pozorně:** do pole Kód vzdělání podle ISPV doplňte číslo, které zjistíte na <a target=\"_blank\" href=\"https://www.obory-vzdelani.cz/\">TOMTO ODKAZU</a>.\n\nOčekávaný formát je **0000.00000.00000000.00000.0000**",
+                "children": []
+              },
+              {
+                "key": "ispv_code",
+                "description": "Kód vzdělání podle ISPV",
+                "order": 20,
+                "skip": false,
+                "new_only": false,
+                "original_path": "employee.client.education.ispv_code",
+                "widget": "input",
+                "width": 6,
+                "id": "999147",
+                "placeholder": "Instrukce viz výše...",
+                "mandatory": "P",
+                "children": []
+              },
+              {
                 "key": "highedu",
                 "skip": false,
                 "new_only": false,
                 "description": "Vzdělání podle KKOV",
                 "default_value": "",
-                "order": 10,
+                "order": 30,
                 "original_path": "employee.fact.highedu",
                 "id": "10091",
                 "dat_typ": "A",
@@ -1334,7 +2815,7 @@
                 "logicke_kontroly": "Číselník  CIS Kategorie dosaženého vzdělání.",
                 "vysvetlivky": "CIS Kategorie dosaženého vzdělání",
                 "widget": "selection",
-                "width": 12,
+                "width": 6,
                 "manual_parent": "employee.client.education",
                 "ciselnik": "vzdelani",
                 "mandatory": "P",
@@ -1344,8 +2825,8 @@
               },
               {
                 "key": "edu_attach",
-                "description": "Kopie dokladu o nejvyšším dosaženém vzdělání",
-                "order": 20,
+                "description": "Kopie dokladu o nejvyšším dosaženém vzdělání *",
+                "order": 40,
                 "skip": false,
                 "new_only": false,
                 "original_path": "employee.client.education.edu_attach",
@@ -1353,7 +2834,7 @@
                 "width": 12,
                 "multiple": true,
                 "mandatory": "",
-                "label": "Přiložte doklad(y), jinak se má za to, že jste bez vzdělání",
+                "label": "POZOR! Sem přiložte doklad(y), jinak budete vykazováni jako Bez vzdělání.",
                 "id": "999104",
                 "children": []
               }
