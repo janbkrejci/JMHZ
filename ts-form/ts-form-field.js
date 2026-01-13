@@ -35,6 +35,15 @@ export class TSFormField extends HTMLElement {
         this.requestRender();
     }
 
+    get value() {
+        return this._value !== undefined ? this._value : this.getAttribute('value');
+    }
+
+    set value(val) {
+        this._value = val;
+        this.requestRender();
+    }
+
     requestRender() {
         if (this.renderPending) return;
         this.renderPending = true;
@@ -48,7 +57,7 @@ export class TSFormField extends HTMLElement {
         this.innerHTML = '';
         const fieldName = this.getAttribute('field-name');
         const configStr = this.getAttribute('config');
-        const value = this.getAttribute('value');
+        const value = this._value !== undefined ? this._value : this.getAttribute('value');
         const error = this.getAttribute('error');
 
         if (!fieldName || !configStr) return;
@@ -68,12 +77,14 @@ export class TSFormField extends HTMLElement {
         }
 
         let parsedValue = value;
-        try {
-            if (value && (value.startsWith('[') || value.startsWith('{') || value === 'true' || value === 'false')) {
-                parsedValue = JSON.parse(value);
+        if (typeof value === 'string') {
+            try {
+                if (value && (value.startsWith('[') || value.startsWith('{') || value === 'true' || value === 'false')) {
+                    parsedValue = JSON.parse(value);
+                }
+            } catch (e) {
+                // Keep as string if parse fails
             }
-        } catch (e) {
-            // Keep as string if parse fails
         }
 
         const field = this.createField(fieldName, config, parsedValue);

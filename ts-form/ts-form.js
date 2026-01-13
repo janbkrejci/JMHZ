@@ -713,9 +713,9 @@ class TSForm extends HTMLElement {
 
                                     const value = this.formData[col.field];
                                     if (value !== undefined && value !== null) {
-                                        if (typeof value === 'object') {
-                                            fieldElement.setAttribute('value', JSON.stringify(value));
-                                        } else {
+                                        fieldElement.value = value;
+
+                                        if (typeof value !== 'object' && typeof value !== 'function') {
                                             fieldElement.setAttribute('value', value);
                                         }
                                     }
