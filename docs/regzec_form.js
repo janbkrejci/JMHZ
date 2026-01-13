@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             },
 
             // New buttons on right
-            { "action": "check-data", "label": "Zkontrolovat data před odevzdáním", "variant": "primary", "position": "right", "disabled": false },
+            { "action": "check-data", "label": "Zkontrolovat data před odevzdáním", "variant": "primary", "position": "right", "disabled": false, "hidden": false },
             { "action": "save", "label": "Uložit dotazník k odevzdání", "variant": "success", "position": "right", "hidden": true }
         ];
 
