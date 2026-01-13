@@ -379,7 +379,11 @@ export class TSCombobox extends HTMLElement {
                 const item = document.createElement('div');
                 item.className = 'ts-combobox-item';
                 item.textContent = lbl;
-                item.addEventListener('click', () => this.handleSelect(val));
+                // Use mousedown to prevent blur from firing before selection
+                item.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    this.handleSelect(val);
+                });
 
                 dropdown.appendChild(item);
             });

@@ -459,6 +459,7 @@ export class TSFormField extends HTMLElement {
                 if (config.required) {
                     field.setAttribute('required', '');
                 }
+                field.addEventListener('sl-change', (e) => this.handleFieldChange(e, fieldName));
                 break;
             case 'file':
             case 'image':
