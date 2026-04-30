@@ -1323,7 +1323,7 @@
                 "key": "ispv_instruction",
                 "description": "Instrukce ISPV kód\n",
                 "order": 10,
-                "skip": true,
+                "skip": false,
                 "new_only": false,
                 "original_path": "employee.client.education.ispv_instruction",
                 "widget": "markdown",
@@ -1335,7 +1335,7 @@
                 "key": "ispv_code",
                 "description": "Kód vzdělání podle ISPV",
                 "order": 20,
-                "skip": true,
+                "skip": false,
                 "new_only": false,
                 "original_path": "employee.client.education.ispv_code",
                 "widget": "input",
@@ -1392,7 +1392,6 @@
             "skip": false,
             "new_only": true,
             "original_path": "employee.client.contacts",
-            "_collapsed": false,
             "children": [
               {
                 "key": "e-mail",
@@ -1403,8 +1402,7 @@
                 "original_path": "employee.client.bankaccount.e-mail",
                 "widget": "input",
                 "width": 6,
-                "id": "999148",
-                "children": []
+                "id": "999148"
               },
               {
                 "key": "number",
@@ -1420,7 +1418,8 @@
                 "mandatory": "P",
                 "children": []
               }
-            ]
+            ],
+            "_collapsed": false
           }
         ],
         "original_path": "employee.client",
@@ -1902,8 +1901,7 @@
             "original_path": "employee.pens.duchod_do",
             "widget": "date",
             "width": 4,
-            "id": "999149",
-            "children": []
+            "id": "999149"
           },
           {
             "key": "early",
@@ -2481,8 +2479,7 @@
             "width": 12,
             "multiple": true,
             "label": "Vložte přílohy",
-            "id": "999150",
-            "children": []
+            "id": "999150"
           },
           {
             "key": "inso",
