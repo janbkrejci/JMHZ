@@ -1,0 +1,200 @@
+{
+    "_comment": "Anglický překryv pro docs/regzec_form.json. Klíč uzlu = jeho 'id', a pokud ho nemá (záložky, skupiny, separátory, markdown), tečková cesta z 'key' od kořene. Chybějící klíč nebo prázdná hodnota = zobrazí se původní čeština.",
+
+    "nodes": {
+        "employee": { "description": "Personal questionnaire" },
+
+        "employee.intro": { "description": "Introduction" },
+        "employee.intro.introtext": {
+            "description": "introductory text",
+            "content": "# Welcome\n\nThis form collects the employee details required for the Czech unified employer report from 2026 onwards.\n\n## How to work with the form\n\nMake sure you go through all pages of the form (page switching is at the top).\n\nWhere required, attach the supporting documents as well (e.g. a copy of your highest education certificate).\n\nYou can save your work in progress at any time with the ```Save draft``` button at the bottom left of the screen. **A draft file is not meant to be handed over to your employer — it is only a backup for you, in case you need to interrupt filling in the form.**\n\nYou can load a draft saved this way back into the form at any time and carry on.\n\nOnce you believe the form is complete and ready to be handed over, use the ```Check data before submission``` button.\n\n*Note: required fields are marked with an asterisk at the end of their label. If you leave one empty, it is highlighted in red during the check. All required fields must be filled in, otherwise the form cannot be saved for submission.*\n\nIf the data passes the basic validation — which still does not guarantee that the social security system will accept it as is — you can save the form with the ```Save questionnaire for submission``` button and e-mail the resulting file to your manager, who will pass all questionnaires on to the payroll office together.\n\n## Important notice\n\n**By sending the completed form to your manager you confirm that you understand the binding nature of this document and accept all consequences of providing incomplete or untrue information. You also acknowledge that you are obliged to report any change of these details to your employer in writing without undue delay.**"
+        },
+        "999101": {
+            "description": "Message for the payroll office",
+            "placeholder": "Anything that did not fit elsewhere in the form..."
+        },
+        "999102": {
+            "description": "Other attachments",
+            "label": "Attach any other documents that did not fit elsewhere"
+        },
+        "employee.intro.intro_footer": {
+            "description": "Footer",
+            "content": "*Copyright (C) 2025 Tailor Services, s.r.o.* Support: janbkrejci@gmail.com"
+        },
+
+        "employee.client": { "description": "Personal details" },
+        "10054": { "description": "First name" },
+        "10053": { "description": "Surname" },
+        "10064": { "description": "Previous surname" },
+        "10055": { "description": "Academic title" },
+        "10057": { "description": "Birth number (rodné číslo)" },
+        "10058": { "description": "EČP (ČSSZ insured person number)" },
+        "10060": { "description": "VČP (own insured person number from the tax office)" },
+        "10051": { "description": "IK MPSV (personal identification number — OIČ)" },
+
+        "employee.client.birth": { "description": "Birth" },
+        "10056": { "description": "Date" },
+        "10066": { "description": "Place" },
+        "10065": { "description": "Country" },
+        "10063": { "description": "Surname at birth" },
+        "10067": { "description": "Citizenship" },
+        "10059": { "description": "Sex" },
+
+        "employee.client.adr": { "description": "Permanent residence" },
+        "10077": { "description": "Street" },
+        "10078": { "description": "House number" },
+        "10079": { "description": "Orientation number" },
+        "10082": { "description": "Postcode" },
+        "10080": { "description": "Town" },
+        "10083": { "description": "Country" },
+
+        "employee.client.fdr": { "description": "Residence in Czechia, if permanent residence is abroad" },
+        "10513": { "description": "Street" },
+        "10514": { "description": "House number" },
+        "10515": { "description": "Orientation number" },
+        "10517": { "description": "Postcode" },
+        "10516": { "description": "Town" },
+
+        "employee.client.cdr": { "description": "Contact address" },
+        "10506": { "description": "Street" },
+        "10507": { "description": "House number" },
+        "10508": { "description": "Orientation number" },
+        "10510": { "description": "Postcode" },
+        "10509": { "description": "Town" },
+        "10511": { "description": "Country" },
+
+        "employee.client.rdr": { "description": "Residence in the country where the employee is a tax resident (outside Czechia)" },
+        "10519": { "description": "Street" },
+        "10520": { "description": "House number" },
+        "10521": { "description": "Orientation number" },
+        "10522": { "description": "Postcode" },
+        "10523": { "description": "Town" },
+        "10524": { "description": "Country" },
+
+        "employee.client.taxidrezid": { "description": "Tax residency" },
+        "10068": { "description": "Country" },
+        "10061": { "description": "Type of tax identification outside Czechia" },
+        "10062": { "description": "Tax identifier outside Czechia" },
+
+        "employee.client.proofid": { "description": "Identity document (required if citizenship is not Czech)" },
+        "10069": { "description": "Document type" },
+        "10070": { "description": "Document number" },
+        "10071": { "description": "Authority that issued the document abroad" },
+        "10072": { "description": "Issuing country" },
+        "999103": { "description": "Copy of the document", "label": "Upload attachment(s)" },
+
+        "employee.client.education": { "description": "Highest education attained" },
+        "10091": { "description": "Education according to KKOV" },
+        "999104": {
+            "description": "Copy of the highest education certificate *",
+            "label": "IMPORTANT! Attach the certificate(s) here, otherwise you will be reported as having no education."
+        },
+
+        "employee.client.contacts": { "description": "Bank and contact details" },
+        "999148": { "description": "E-mail address" },
+        "999106": {
+            "description": "Bank account for salary payments",
+            "placeholder": "Account number / bank code"
+        },
+
+        "employee.relationships": { "description": "Relationships" },
+        "999107": { "description": "Marital status" },
+        "employee.relationships.other_provider": { "description": "Another person supporting the dependants in the jointly managed household" },
+        "999109": { "description": "First name" },
+        "999110": { "description": "Surname" },
+        "999111": { "description": "Date of birth" },
+        "999112": { "description": "Birth number" },
+
+        "employee.relationships.dependents": { "description": "Dependants" },
+        "999113": { "description": "First name" },
+        "999114": { "description": "Surname" },
+        "999115": { "description": "Date of birth" },
+        "999116": { "description": "Birth number" },
+        "999117": { "description": "ZTP/P card" },
+        "999118": { "description": "Order for determining the tax relief amount (for children)" },
+        "999119": { "description": "First name" },
+        "999120": { "description": "Surname" },
+        "999121": { "description": "Date of birth" },
+        "999122": { "description": "Birth number" },
+        "999123": { "description": "ZTP/P card" },
+        "999124": { "description": "Order for determining the tax relief amount (for children)" },
+        "999125": { "description": "First name" },
+        "999126": { "description": "Surname" },
+        "999127": { "description": "Date of birth" },
+        "999128": { "description": "Birth number" },
+        "999129": { "description": "ZTP/P card" },
+        "999130": { "description": "Order for determining the tax relief amount (for children)" },
+        "999131": { "description": "First name" },
+        "999132": { "description": "Surname" },
+        "999133": { "description": "Date of birth" },
+        "999134": { "description": "Birth number" },
+        "999135": { "description": "ZTP/P card" },
+        "999136": { "description": "Order for determining the tax relief amount (for children)" },
+        "999137": { "description": "First name" },
+        "999138": { "description": "Surname" },
+        "999139": { "description": "Date of birth" },
+        "999140": { "description": "Birth number" },
+        "999141": { "description": "ZTP/P card" },
+        "999142": { "description": "Order for determining the tax relief amount (for children)" },
+
+        "employee.pens": { "description": "Old-age pension" },
+        "10113": { "description": "Type of pension received" },
+        "10114": { "description": "Pension received from" },
+        "999149": { "description": "Pension received until" },
+        "10115": { "description": "Recipient of an early old-age pension" },
+        "10504": { "description": "Recipient of an old-age pension with a reduced retirement age" },
+
+        "employee.previous_employment": { "description": "Previous employment" },
+        "999146": { "description": "Certificate of employment from the previous employer, or a certificate from the labour office" },
+
+        "employee.insh": { "description": "Health insurance in Czechia" },
+        "10102": { "description": "Insurance company code" },
+        "999100": { "description": "Insured person identification number", "placeholder": "If one has been assigned" },
+
+        "employee.fact": { "description": "Health limitations" },
+        "10090": { "description": "ZTP/P card holder" },
+        "10086": { "description": "Health limitation granted from" },
+        "10087": { "description": "Health limitation granted until" },
+        "10085": { "description": "Type of health limitation" },
+
+        "employee.executions": { "description": "Debt enforcement" },
+        "999143": {
+            "description": "Do I have enforced wage deductions?",
+            "label": "As of the date the employment starts, do I have enforced wage deductions?"
+        },
+        "employee.executions.executions_details": { "description": "Details of the ordered deductions" },
+        "999144": { "description": "Institutions that ordered the deductions, date and decision number" },
+        "999145": { "description": "Enforcement decision — documents" },
+
+        "employee.nocitizen": { "description": "Foreign national" },
+        "10414": { "description": "Free access to the labour market" },
+        "10105": { "description": "Grounds for free access to the labour market" },
+        "10106": { "description": "Type of work authorisation" },
+        "10107": { "description": "Issued by the regional branch of the Czech Labour Office" },
+        "10109": { "description": "Authorisation valid from" },
+        "10110": { "description": "Authorisation valid until" },
+        "10108": { "description": "work authorisation identifier" },
+        "999105": { "description": "Copy of the work / residence permit", "label": "Add attachments" },
+
+        "employee.forinreg": { "description": "Foreign legislation" },
+        "10427": { "description": "Subject to foreign legislation?" },
+        "10428": { "description": "Country" },
+        "999150": { "description": "A1 form from a foreign country", "label": "Add attachments" },
+
+        "employee.forinreg.inso": { "description": "Foreign sickness insurance" },
+        "10103": { "description": "Name of the current sickness insurance authority (outside ČSSZ)" },
+        "10104": { "description": "Name of the previous sickness insurance authority (outside ČSSZ)" },
+
+        "employee.forinreg.forin": { "description": "Foreign social insurance" },
+        "10092": { "description": "Specification" },
+        "10100": { "description": "Foreign insurance number" },
+        "10093": { "description": "Name of the insurer" },
+        "10101": { "description": "Sector (purpose of the insurance)" },
+        "10094": { "description": "Street" },
+        "10095": { "description": "House number" },
+        "10096": { "description": "Orientation number" },
+        "10098": { "description": "Postcode" },
+        "10097": { "description": "Town" },
+        "10099": { "description": "Country" }
+    }
+}

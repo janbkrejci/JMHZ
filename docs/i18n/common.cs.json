@@ -1,0 +1,28 @@
+{
+    "index.title": "Personální formuláře",
+    "index.subtitle": "Formuláře pro jednotné měsíční hlášení zaměstnavatele (JMHZ).",
+    "index.available": "Dostupné formuláře",
+    "index.regzec.title": "Osobní dotazník nového zaměstnance",
+    "index.regzec.desc": "Údaje o nově nastupujícím zaměstnanci, povinné pro jednotné hlášení. Vyplňuje zaměstnanec, výsledný soubor odevzdá svému nadřízenému.",
+    "index.open": "Otevřít formulář",
+    "index.footer": "Copyright (C) 2025 Tailor Services, s.r.o. — podpora: janbkrejci@gmail.com",
+
+    "form.regzec.title": "Osobní dotazník nového zaměstnance",
+
+    "btn.importData": "Načíst rozpracovaná data",
+    "btn.exportData": "Uložit rozpracovaná data",
+    "btn.checkData": "Zkontrolovat data před odevzdáním",
+    "btn.save": "Uložit dotazník k odevzdání",
+
+    "confirm.export.title": "Upozornění",
+    "confirm.export.text": "Pozor, soubor, který teď ukládáte, není určen k odevzdání. Pro odevzdání použijte nejprve tlačítko Zkontrolovat data před odevzdáním.",
+    "confirm.export.cancel": "Zrušit",
+    "confirm.export.ok": "Rozumím, uložit pracovní soubor",
+
+    "validation.required": "Toto pole je povinné",
+
+    "field.selectPlaceholder": "Vyberte...",
+
+    "error.loadForm": "Formulář se nepodařilo načíst",
+    "error.save": "Uložení selhalo"
+}

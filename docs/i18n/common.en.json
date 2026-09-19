@@ -1,0 +1,28 @@
+{
+    "index.title": "Personnel Forms",
+    "index.subtitle": "Forms for the Czech employer's unified monthly report (JMHZ).",
+    "index.available": "Available forms",
+    "index.regzec.title": "New Employee Personal Questionnaire",
+    "index.regzec.desc": "Details about a newly joining employee, required for the unified report. Filled in by the employee; the resulting file is handed over to their manager.",
+    "index.open": "Open form",
+    "index.footer": "Copyright (C) 2025 Tailor Services, s.r.o. — support: janbkrejci@gmail.com",
+
+    "form.regzec.title": "New Employee Personal Questionnaire",
+
+    "btn.importData": "Load saved draft",
+    "btn.exportData": "Save draft",
+    "btn.checkData": "Check data before submission",
+    "btn.save": "Save questionnaire for submission",
+
+    "confirm.export.title": "Please note",
+    "confirm.export.text": "Careful — the file you are about to save is not meant for submission. To submit, first use the Check data before submission button.",
+    "confirm.export.cancel": "Cancel",
+    "confirm.export.ok": "Understood, save the draft file",
+
+    "validation.required": "This field is required",
+
+    "field.selectPlaceholder": "Select...",
+
+    "error.loadForm": "The form could not be loaded",
+    "error.save": "Saving failed"
+}

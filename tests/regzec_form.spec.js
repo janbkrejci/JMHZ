@@ -8,6 +8,22 @@ const scenarios = require('./test_scenarios.json');
 // File Fields to handle specially during validation
 const fileFields = ['999102', '999103', '999104', '999146', '999145', '999105'];
 
+const FORM_URL = 'http://localhost:8000/docs/new_regzec_form.html';
+
+// Button labels are localized, so target the action instead of the text.
+// regzec_form.js tags every ts-form button with data-action.
+function actionButton(page, action) {
+    return page.locator(`sl-button[data-action="${action}"]`);
+}
+
+// The form is built only after the localization dictionaries have loaded, so
+// <ts-form> being present says nothing about the tabs and buttons existing yet.
+async function waitForFormReady(page) {
+    await expect(page.locator('ts-form')).toBeVisible();
+    await expect(page.locator('sl-tab').first()).toBeVisible();
+    await expect(actionButton(page, 'check-data')).toBeAttached();
+}
+
 async function fillForm(page, data) {
     const tabs = page.locator('sl-tab:not([disabled])');
     const tabCount = await tabs.count();
@@ -67,10 +83,10 @@ function streamToString(stream) {
 }
 
 async function runTestFlow(page, scenarioData, testInfo) {
-    await page.goto('http://localhost:8000/docs/new_regzec_form.html');
-    await expect(page.locator('ts-form')).toBeVisible();
+    await page.goto(FORM_URL);
+    await waitForFormReady(page);
 
-    const checkBtn = page.locator('sl-button', { hasText: 'Zkontrolovat data' });
+    const checkBtn = actionButton(page, 'check-data');
 
     // 1. Fill Form
     console.log(`[${scenarioData['999101'] || 'Unknown'}] Filling form... Keys in dataset: ${Object.keys(scenarioData).length}`);
@@ -90,7 +106,7 @@ async function runTestFlow(page, scenarioData, testInfo) {
     }
 
     // 3. Save 1
-    const saveBtn = page.locator('sl-button', { hasText: 'Uložit dotazník' });
+    const saveBtn = actionButton(page, 'save');
     await expect(saveBtn).toBeVisible({ timeout: 5000 });
 
     const downloadPromise1 = page.waitForEvent('download');
@@ -113,15 +129,13 @@ async function runTestFlow(page, scenarioData, testInfo) {
     console.log("Save 1 successful.");
 
     // 4. Reload (Open Empty)
-    await page.goto('http://localhost:8000/docs/new_regzec_form.html');
-    await expect(page.locator('ts-form')).toBeVisible();
+    await page.goto(FORM_URL);
+    await waitForFormReady(page);
 
     // 5. Import Data
     console.log("Importing data...");
-    // Trigger file chooser via "Načíst data" button
-    // The button likely triggers an input. If ts-form handles it, it might create a hidden input.
-    // We can try waiting for filechooser when clicking the button.
-    const importBtn = page.locator('sl-button[label="Načíst data"]').or(page.locator('sl-button', { hasText: 'Načíst data' })).first();
+    // ts-form opens a file chooser itself for the import-data action.
+    const importBtn = actionButton(page, 'import-data');
 
     const fileChooserPromise = page.waitForEvent('filechooser');
     await importBtn.click();
@@ -205,4 +219,147 @@ test.describe('RegZec Form Scenarios', () => {
             await runTestFlow(page, scenario.data, testInfo);
         });
     }
+});
+
+// --- Localization ---
+
+async function setField(page, fieldName, value) {
+    await page.locator(`ts-form-field[field-name="${fieldName}"]`).first().evaluate((el, val) => {
+        if ('value' in el) el.value = val;
+        el.dispatchEvent(new CustomEvent('field-change', {
+            detail: { field: el.getAttribute('field-name'), value: val },
+            bubbles: true
+        }));
+    }, value);
+}
+
+function fieldLabel(page, fieldName) {
+    return page.locator('ts-form').evaluate((form, name) => {
+        return JSON.parse(form.getAttribute('fields') || '{}')[name]?.label;
+    }, fieldName);
+}
+
+function formData(page) {
+    return page.locator('ts-form').evaluate(form => form.formData);
+}
+
+async function switchLanguage(page, code) {
+    await page.locator(`#lang-switcher button[data-lang="${code}"]`).click();
+    await expect(page.locator(`#lang-switcher button[data-lang="${code}"]`)).toHaveAttribute('aria-pressed', 'true');
+    await page.waitForTimeout(500); // ts-form re-renders on the next animation frame
+}
+
+test.describe('Localization', () => {
+    test.setTimeout(90000);
+
+    test('defaults to Czech', async ({ page }) => {
+        await page.goto(FORM_URL);
+        await waitForFormReady(page);
+
+        await expect(page.locator('header h1')).toHaveText('Osobní dotazník nového zaměstnance');
+        await expect(page.locator('sl-tab').first()).toHaveText('Úvod');
+        await expect(actionButton(page, 'check-data')).toHaveText('Zkontrolovat data před odevzdáním');
+        expect(await fieldLabel(page, '10054')).toBe('Jméno');
+    });
+
+    test('switching language keeps entered data', async ({ page }) => {
+        await page.goto(FORM_URL);
+        await waitForFormReady(page);
+
+        // Fill on the "Osobní údaje" tab.
+        await page.locator('sl-tab', { hasText: 'Osobní údaje' }).click();
+        await page.waitForTimeout(800);
+
+        await setField(page, '10054', 'Jan');
+        await setField(page, '10053', 'Novák');
+        await setField(page, '10069', 'P'); // combobox: typ dokladu
+
+        await switchLanguage(page, 'en');
+
+        // Labels, tabs and buttons are now English...
+        await expect(page.locator('header h1')).toHaveText('New Employee Personal Questionnaire');
+        await expect(page.locator('sl-tab').first()).toHaveText('Introduction');
+        await expect(actionButton(page, 'check-data')).toHaveText('Check data before submission');
+        expect(await fieldLabel(page, '10054')).toBe('First name');
+
+        // ...but the entered data survived.
+        let data = await formData(page);
+        expect(data['10054']).toBe('Jan');
+        expect(data['10053']).toBe('Novák');
+        expect(data['10069']).toBe('P');
+
+        // The active tab is kept across the re-render.
+        await expect(page.locator('sl-tab[active]')).toHaveText('Personal details');
+
+        // And back again.
+        await switchLanguage(page, 'cs');
+        expect(await fieldLabel(page, '10054')).toBe('Jméno');
+
+        data = await formData(page);
+        expect(data['10054']).toBe('Jan');
+        expect(data['10053']).toBe('Novák');
+        expect(data['10069']).toBe('P');
+    });
+
+    test('code list options are translated', async ({ page }) => {
+        await page.goto(FORM_URL);
+        await waitForFormReady(page);
+
+        const options = () => page.locator('ts-form').evaluate(form => {
+            const fields = JSON.parse(form.getAttribute('fields') || '{}');
+            const byValue = {};
+            (fields['10069'].options || []).forEach(o => { byValue[o.value] = o.label; });
+            const states = {};
+            (fields['10067'].options || []).forEach(o => { states[o.value] = o.label; });
+            return { doc: byValue, state: states['CZ'] };
+        });
+
+        const cs = await options();
+        expect(cs.doc['P']).toBe('Pas');
+        expect(cs.state).toBeTruthy();
+
+        await switchLanguage(page, 'en');
+
+        const en = await options();
+        expect(en.doc['P']).toBe('Passport');
+        // Countries come from Intl.DisplayNames, not from a hand-maintained list.
+        expect(en.state).toMatch(/Czech/i);
+    });
+
+    test('hidden ISPV education field is not rendered', async ({ page }) => {
+        await page.goto(FORM_URL);
+        await waitForFormReady(page);
+
+        const fieldIds = await page.locator('ts-form').evaluate(form => {
+            return Object.keys(JSON.parse(form.getAttribute('fields') || '{}'));
+        });
+
+        expect(fieldIds).not.toContain('999147');
+        await expect(page.locator('ts-form-field[field-name="999147"]')).toHaveCount(0);
+    });
+});
+
+test.describe('Index page', () => {
+    const INDEX_URL = 'http://localhost:8000/docs/index.html';
+
+    test('lists the questionnaire and switches language', async ({ page }) => {
+        await page.goto(INDEX_URL);
+
+        await expect(page.locator('header h1')).toHaveText('Personální formuláře');
+        await expect(page.locator('h3')).toHaveText('Osobní dotazník nového zaměstnance');
+
+        const link = page.locator('main a');
+        await expect(link).toHaveText('Otevřít formulář');
+        await expect(link).toHaveAttribute('href', /new_regzec_form\.html/);
+
+        await page.locator('#lang-switcher button[data-lang="en"]').click();
+        await expect(page.locator('header h1')).toHaveText('Personnel Forms');
+        await expect(page.locator('h3')).toHaveText('New Employee Personal Questionnaire');
+        await expect(link).toHaveText('Open form');
+
+        // The link carries the chosen language over to the form.
+        await expect(link).toHaveAttribute('href', /lang=en/);
+        await link.click();
+        await expect(page.locator('header h1')).toHaveText('New Employee Personal Questionnaire');
+    });
 });

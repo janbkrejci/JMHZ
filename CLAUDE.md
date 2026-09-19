@@ -13,15 +13,17 @@ Formulář běží celý v prohlížeči. Žádný backend — data se importuj�
 ```bash
 # Lokální server (nutný pro testy i ruční zkoušení — fetch() nefunguje z file://)
 python3 -m http.server 8000
-# → http://localhost:8000/docs/regzec_form.html      (režim „Doplnění údajů")
-# → http://localhost:8000/docs/new_regzec_form.html  (režim „Nový zaměstnanec")
+# → http://localhost:8000/docs/index.html            (rozcestník „Personální formuláře")
+# → http://localhost:8000/docs/new_regzec_form.html  (osobní dotazník nového zaměstnance)
+# → http://localhost:8000/docs/new_regzec_form.html?lang=en   (vynucená angličtina)
 # → http://localhost:8000/regzec_structure.html      (editor struktury formuláře)
 
 # Playwright testy (vyžadují běžící server na :8000)
+npm install && npx playwright install    # jednorázově: závislosti + prohlížeče
 npx playwright test
 npx playwright test --project=chromium                     # jeden prohlížeč
 npx playwright test -g "Set 1"                             # jeden scénář
-npx playwright test --project=chromium -g "Non-Default"    # jeden test
+npx playwright test --project=chromium -g "Localization"   # jen lokalizační testy
 
 # Regenerace dat z Excelu (skripty mají uv shebang, dependencies inline)
 ./extract_regzec_structure.py   # regzec.xlsx → regzec_structure.json
@@ -33,6 +35,7 @@ npx playwright test --project=chromium -g "Non-Default"    # jeden test
 # Pomocné skripty (pozor na pracovní adresář!)
 python3 list_all_ids.py                       # z rootu: výpis všech ID + popisů
 python3 tests/check_ids.py docs/regzec_form.json  # kontrola duplicit/chybějících ID
+python3 tests/check_i18n.py                   # z rootu: pokrytí překladů (chybějící i osiřelé klíče)
 (cd tests && python3 create_scenarios.py)     # z tests/: regeneruje tests/test_scenarios.json
 python3 tests/generate_full_data.py           # z rootu: vypíše full data na stdout
 python3 tests/verify_match_ignore_files.py    # z rootu: porovná full_data.json s test-results výstupem
@@ -94,29 +97,58 @@ Atributy uzlu, které řídí chování:
 
 Uzel založený v editoru dostane ID až ručně přes „+ Assign ID". Bez ID se jako klíč pole použije `original_path`, resp. `key` — to rozbije testy i export, takže **vždy přiřaď ID**.
 
-## Dva režimy formuláře
+Po každé změně struktury spusť `python3 tests/check_i18n.py` — nové nebo přejmenované pole potřebuje i záznam v `docs/i18n/regzec.en.json`.
 
-`docs/regzec_form.html` a `docs/new_regzec_form.html` jsou **bajt po bajtu identické**. Režim se odvozuje výhradně z názvu souboru:
+## Stránky
 
-```js
-const SHOW_NEW_ONLY_FIELDS = window.location.pathname.includes('new_regzec_form');
-```
+- `docs/index.html` — rozcestník „Personální formuláře". Odkazuje na formuláře a předává do odkazu zvolený jazyk (`?lang=`).
+- `docs/new_regzec_form.html` — jediný formulář: osobní dotazník nového zaměstnance.
 
-Změna v jednom HTML se musí propsat do druhého.
+Dřívější `docs/regzec_form.html` (režim „doplnění údajů" pro zaměstnance už evidované při startu JMHZ) byl zrušen. `SHOW_NEW_ONLY_FIELDS` je proto natvrdo `true` — příznak `new_only` v datech zůstává pro případný další formulář nad stejnou strukturou.
+
+## Lokalizace
+
+Čeština je výchozí jazyk **a zároveň zdroj pravdy**: popisky zůstávají v `docs/regzec_form.json` a `docs/regzec_enums.json`. Ostatní jazyky jsou překryvné slovníky v `docs/i18n/`, sdílené všemi formuláři:
+
+| Soubor | Obsah |
+|---|---|
+| `i18n.js` | runtime (`window.TSI18n`) — výběr jazyka, načítání slovníků, přepínač, překlad statického HTML |
+| `i18n.css` | vzhled přepínače |
+| `common.<lang>.json` | texty UI společné pro všechny formuláře: tlačítka, hlášky, názvy stránek |
+| `enums.<lang>.json` | číselníky: `{ "<ciselnik>": { "<value>": "<label>" } }` |
+| `regzec.<lang>.json` | konkrétní formulář: `{ "nodes": { "<klíč uzlu>": { description, placeholder, label, content } } }` |
+
+**Klíč uzlu** = `id` položky, a pokud uzel ID nemá (záložky, skupiny, separátory, markdown), tečková cesta složená z `key` od kořene (`employee.client.adr`). Stejné pravidlo implementuje `TSI18n.nodeKey()` i `regzec_form.js`. `original_path` se jako klíč **nepoužívá** — u uzlů přidaných ručně v editoru bývá prázdný nebo zastaralý.
+
+Chybějící klíč nebo prázdná hodnota = tiše se použije česká předloha, takže neúplný překlad stránku nerozbije. Proto existuje `tests/check_i18n.py`, který mezery vypíše.
+
+`enums.cs.json` ani `regzec.cs.json` neexistují a runtime si pro ně ani nechodí — v češtině by jen duplikovaly definici formuláře. Soubor `common.cs.json` naopak potřeba je: texty UI (tlačítka, hlášky) nikde jinde nejsou.
+
+Číselník `state` (249 zemí) se nepřekládá ručně — kódy ISO 3166-1 alpha-2 překládá `Intl.DisplayNames` v `i18n.js`, s českým názvem jako fallbackem.
+
+Volba jazyka: `?lang=` → dřívější volba v `localStorage` → **čeština**. Jazyk prohlížeče se záměrně neuplatňuje.
+
+**Přepnutí jazyka nesmí ztratit data.** Funguje to proto, že `ts-form` při re-renderu dělá `this.formData = { ...valuesConfig, ...this.formData }` — živá data přebíjejí atribut `values`. `applyForm()` tedy jen přepočítá `fields`/`layout`/`buttons`/`errors` a nesahá na hodnoty; `File` objekty přežijí taky, protože se předávají jako vlastnost (`fieldElement.value = value`), ne přes JSON atribut. Aktivní záložka se zachová přes atribut `active-tab`.
+
+Hlášky validace se v `app.errorKeys` drží jako **klíče**, ne hotové texty — jinak by po přepnutí jazyka zůstaly v původním jazyce.
+
+Název ukládaného souboru zůstává vždy český (`EXPORT_FILE_PREFIX`) — soubor putuje do české mzdové účtárny bez ohledu na jazyk vyplnění.
 
 ## `docs/regzec_form.js` — aplikační vrstva
 
 Jediný ručně psaný aplikační kód. Odpovídá za:
 
-- `buildMetadata()` / `flattenNode()` / `packRows()` / `convertRowToFr()` — překlad stromu na ts-form `layout` + `fields` + `values`.
-- **Tlačítkový workflow:** „Zkontrolovat data před odevzdáním" (`check-data`) spustí `validateForm()`. Při chybách se nastaví atribut `errors` a zůstane vidět Zkontrolovat. Při úspěchu se Zkontrolovat skryje a odkryje se „Uložit dotazník k odevzdání" (`save`). Jakákoli změna ve formuláři (`form-changed`) tlačítka vrátí zpět — odevzdat nelze bez čerstvé kontroly.
-- **Vlastní byznys pravidla** (nejsou v JSON stromu, jsou hardcoded na ID):
+- `applyForm()` — jediné místo, které plní atributy komponenty. Volá se při startu a znovu při každé změně jazyka.
+- `buildMetadata()` / `flattenNode()` / `packRows()` / `convertRowToFr()` — překlad stromu na ts-form `layout` + `fields` + `values`, po cestě se skládá klíč uzlu pro slovník a volá `translate()`.
+- **Tlačítkový workflow:** „Zkontrolovat data před odevzdáním" (`check-data`) spustí `validateForm()`. Při chybách se nastaví atribut `errors` a zůstane vidět Zkontrolovat. Při úspěchu se Zkontrolovat skryje a odkryje se „Uložit dotazník k odevzdání" (`save`). Jakákoli změna ve formuláři (`form-changed`) tlačítka vrátí zpět — odevzdat nelze bez čerstvé kontroly. Stav viditelnosti žije v `app.buttonState`, aby ho `buildButtons()` udržel i přes rebuild.
+- **Vlastní byznys pravidla** (nejsou v JSON stromu, jsou hardcoded na ID v konstantě `FIELD`):
   - `10067` (státní občanství) se defaultně nastaví na `CZ`
-  - `10057` (rodné číslo) je povinné, pokud `10067` je `CZ` nebo prázdné; jinak nepovinné. Přepočítává se v `form-changed`.
-  - `validateConditionalRules()` je záměrně prázdný hook pro další podmíněná pravidla.
+  - `10057` (rodné číslo) je povinné, pokud `10067` je `CZ` nebo prázdné; jinak nepovinné. Přepočítává se v `form-changed` přes `syncConditionalRequired()`.
+  - `validateConditionalRules()` je záměrně prázdný hook pro další podmíněná pravidla. Zapisuje se do něj **klíč hlášky**, ne text.
 - `saveForm()` — serializace `File` objektů do base64 (`_is_file: true`) a stažení jako `yyyy-mm-dd Osobní dotazník Příjmení Jméno.json` (příjmení = `10053`, jméno = `10054`).
+- `tagButtons()` — doplní tlačítkům `data-action`, aby na ně šlo cílit nezávisle na jazyce popisku (ts-form sám žádný takový atribut nenastavuje). Drží se aktuální přes `MutationObserver`, protože re-render tlačítka vytváří znovu.
 
-Import/export rozpracovaných dat (`import-data` / `export-data`) řeší ts-form sám, jen se konfiguruje v `buttonsConfig`.
+Import/export rozpracovaných dat (`import-data` / `export-data`) řeší ts-form sám, jen se konfiguruje v `buildButtons()`.
 
 ## ts-form — vendorovaná komponenta
 
@@ -132,7 +164,14 @@ Externí závislosti přes CDN: Shoelace 2.12.0 (UI prvky, `sl-*`) a Tailwind CD
 
 ## Testy
 
-`tests/regzec_form.spec.js` jede proti `http://localhost:8000/docs/new_regzec_form.html` (vždy režim „Nový zaměstnanec", tedy všechna pole). Pro každý scénář z `tests/test_scenarios.json`:
+`tests/regzec_form.spec.js` jede proti `http://localhost:8000/docs/new_regzec_form.html` a má tři skupiny: `RegZec Form Scenarios` (round-trip), `Localization` a `Index page`.
+
+Dvě pravidla, na kterých testy stojí:
+
+- **Tlačítka se hledají přes `sl-button[data-action="…"]`**, ne podle textu — popisky jsou lokalizované. Pomocník `actionButton(page, action)`.
+- **Po každé navigaci volej `waitForFormReady(page)`.** `<ts-form>` je v HTML od začátku, takže `toBeVisible()` projde dřív, než se načtou slovníky a vykreslí záložky. Bez tohoto čekání `fillForm()` najde nula záložek a test spadne až na validaci, což vypadá jako chyba formuláře.
+
+Round-trip scénář z `tests/test_scenarios.json`:
 
 1. projde všechny záložky a vyplní pole podle `field-name` (= ID),
 2. Zkontrolovat → Uložit → stáhne JSON #1,
@@ -146,9 +185,11 @@ Scénáře pokrývají tři režimy vyplnění: `non_default` (hodnoty jiné ne�
 
 Stažené výstupy končí v `test-results/downloads/<projekt>/` (gitignorováno).
 
+Skupina `Localization` hlídá to, co se snadno rozbije: výchozí češtinu, zachování vyplněných dat i aktivní záložky při přepnutí jazyka, překlad číselníků (včetně zemí přes `Intl.DisplayNames`) a to, že skryté ISPV pole `999147` se opravdu nevykresluje.
+
 ## Ostatní soubory
 
-- `docs/regzec_form (s ISPV vzděláním).json` — záloha varianty, kde jsou pole `ispv_code` a `ispv_instruction` viditelná (v aktuální verzi mají `skip: true`). Jediný rozdíl oproti `docs/regzec_form.json`.
+- `docs/regzec_form (s ISPV vzděláním).json` — záloha varianty, kde jsou pole `ispv_code` (`999147`, dlouhý kód vzdělání v konkrétní škole, formát `0000.00000.00000000.00000.0000`) a `ispv_instruction` viditelná. V ostrém `docs/regzec_form.json` mají `skip: true`, což je jediný rozdíl mezi soubory.
 - `regzec_structure.json` — meziprodukt extrakce, přepisuje se skriptem; nemá ruční úpravy.
 - `Všeobecné zásady pro vyplňování…pdf` — oficiální ČSSZ metodika, referenční.
 

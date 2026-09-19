@@ -1,0 +1,154 @@
+{
+    "_comment": "Anglické popisky číselníků. Klíč = název číselníku v docs/*_enums.json, uvnitř value -> label. Chybějící položka se zobrazí česky. Číselník 'state' se nepřekládá ručně — kódy ISO 3166-1 alpha-2 překládá Intl.DisplayNames v i18n.js.",
+
+    "bool": {
+        "A": "YES",
+        "N": "NO"
+    },
+
+    "sex": {
+        "M": "male",
+        "Ž": "female"
+    },
+
+    "rodinny_stav": {
+        "0": "Not stated",
+        "1": "Single",
+        "2": "Married",
+        "3": "Divorced",
+        "4": "Widowed",
+        "5": "Registered partner"
+    },
+
+    "vzdelani": {
+        "A": "No education",
+        "B": "Incomplete primary education",
+        "C": "Primary education",
+        "D": "Lower secondary education",
+        "E": "Lower secondary vocational education",
+        "H": "Secondary vocational education with apprenticeship certificate",
+        "J": "Secondary or secondary vocational education without school-leaving exam or apprenticeship certificate",
+        "K": "Complete secondary general education",
+        "L": "Complete secondary vocational education with both apprenticeship certificate and school-leaving exam",
+        "M": "Complete secondary vocational education with school-leaving exam (no apprenticeship)",
+        "N": "Tertiary professional education",
+        "P": "Tertiary professional education at a conservatoire",
+        "R": "University education — bachelor's degree",
+        "T": "University education — master's degree",
+        "V": "University education — doctoral degree"
+    },
+
+    "druh_duchodu": {
+        "1": "old-age",
+        "2": "disability, level 3",
+        "8": "disability, level 1 or 2",
+        "A": "foreign, old-age type",
+        "B": "foreign, disability level 3 type",
+        "C": "foreign, disability level 1 or 2 type"
+    },
+
+    "zdravotni_omezeni": {
+        "1": "Disability level III",
+        "2": "Disability level III — able to work only under wholly exceptional conditions (Section 39(4)(f) of Act No. 155/1995 Coll.)",
+        "3": "Disability level II",
+        "4": "Disability level I",
+        "5": "Status of health-disadvantaged person (OZZ) only"
+    },
+
+    "typ_dokladu": {
+        "I": "Identity card",
+        "P": "Passport",
+        "O": "Other"
+    },
+
+    "tax_identification": {
+        "D": "Tax identification number (TIN)",
+        "R": "Birth number",
+        "S": "Social security number",
+        "J": "Other"
+    },
+
+    "poradi_deti": {
+        "1": "first",
+        "2": "second",
+        "3": "third and further",
+        "N": "not claimed"
+    },
+
+    "specifikace_ciz_nositele": {
+        "P": "previous",
+        "S": "current",
+        "N": "none"
+    },
+
+    "sector": {
+        "01": "Accidents at work and occupational diseases",
+        "02": "Family benefits",
+        "03": "All",
+        "04": "Pensions",
+        "05": "Recovery and crediting",
+        "06": "Sickness",
+        "07": "Unemployment benefits",
+        "08": "other"
+    },
+
+    "druh_prac_opravneni": {
+        "1": "work permit",
+        "2": "employee card",
+        "3": "intra-company transferee card",
+        "4": "blue card"
+    },
+
+    "duvod_volneho_pristupu": {
+        "1": "Section 87 — EU/EEA or Swiss national",
+        "2": "Section 87 — National of the United Kingdom of Great Britain and Northern Ireland",
+        "3": "Section 87 — Family member of an EU/EEA or Swiss national",
+        "4": "Section 98(a) — Permanent residence granted, outside Ukraine temporary protection",
+        "5": "Section 98(a) — Permanent residence granted, Ukraine temporary protection",
+        "6": "Section 98(b) — Family member of a diplomatic mission member",
+        "7": "Section 98(c) — Asylum or subsidiary protection granted",
+        "8": "Section 98(d) — Short-term work (up to 7 days)",
+        "9": "Section 98(e) — International treaty",
+        "10": "Section 98(j) — Preparation for a future occupation",
+        "11": "Section 98(l) — Long-term residence for family reunification",
+        "12": "Section 98(m) — Long-term resident of another EU state",
+        "13": "Section 98(n) — Continuous study or research activity",
+        "14": "Section 98(o) — Secondary, tertiary professional or university education obtained in Czechia",
+        "15": "Section 98(p) — Long-term residence for the purpose of protection",
+        "16": "Section 98(r) — Clergy of a church registered in Czechia",
+        "17": "Section 98(s) — Intra-company transferee (from the EU)",
+        "18": "Section 98(t) — Work in the interest of the Czech Republic",
+        "19": "Section 98(u) — National of a state not requiring a work permit (whitelist)",
+        "20": "Section 98(v) — Artistic activity",
+        "21": "Section 98a — Posting for skills development"
+    },
+
+    "pobocky_uradu_prace": {
+        "HMP": "Regional branch for the Capital City of Prague",
+        "JMK": "Regional branch in Brno",
+        "JCK": "Regional branch in České Budějovice",
+        "HKK": "Regional branch in Hradec Králové",
+        "VYK": "Regional branch in Jihlava",
+        "KVK": "Regional branch in Karlovy Vary",
+        "LBK": "Regional branch in Liberec",
+        "OLK": "Regional branch in Olomouc",
+        "MSK": "Regional branch in Ostrava",
+        "PAK": "Regional branch in Pardubice",
+        "PMK": "Regional branch in Plzeň",
+        "SCK": "Regional branch in Příbram",
+        "ULK": "Regional branch in Ústí nad Labem",
+        "ZLK": "Regional branch in Zlín"
+    },
+
+    "zdravotni_pojistovny": {
+        "111": "111 - General Health Insurance Company of the Czech Republic (VZP)",
+        "201": "201 - Military Health Insurance Company of the Czech Republic",
+        "205": "205 - Czech Industrial Health Insurance Company",
+        "207": "207 - Sectoral Health Insurance Company of Banking, Insurance and Construction Employees",
+        "209": "209 - ŠKODA Employee Health Insurance Company",
+        "211": "211 - Health Insurance Company of the Ministry of the Interior of the Czech Republic",
+        "213": "213 - Revírní bratrská pokladna Health Insurance Company",
+        "300": "300 - Self-payer",
+        "999": "999 - Other"
+    }
+}

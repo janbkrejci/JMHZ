@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="cs" data-i18n-title="index.title">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personální formuláře</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Shared localization -->
+    <link rel="stylesheet" href="./i18n/i18n.css" />
+    <script src="./i18n/i18n.js"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-gray-200">
+        <div class="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center gap-4">
+            <h1 class="text-xl font-bold text-gray-800" data-i18n="index.title">Personální formuláře</h1>
+            <div id="lang-switcher"></div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl w-full mx-auto px-6 py-8">
+        <p class="text-gray-600 mb-8" data-i18n="index.subtitle">
+            Formuláře pro jednotné měsíční hlášení zaměstnavatele (JMHZ).
+        </p>
+
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3" data-i18n="index.available">
+            Dostupné formuláře
+        </h2>
+
+        <ul class="space-y-4">
+            <li class="bg-white rounded-lg border border-gray-200 p-5">
+                <h3 class="text-lg font-semibold text-gray-900 mb-1" data-i18n="index.regzec.title">
+                    Osobní dotazník nového zaměstnance
+                </h3>
+                <p class="text-sm text-gray-600 mb-4" data-i18n="index.regzec.desc">
+                    Údaje o nově nastupujícím zaměstnanci, povinné pro jednotné hlášení. Vyplňuje zaměstnanec,
+                    výsledný soubor odevzdá svému nadřízenému.
+                </p>
+                <a href="./new_regzec_form.html"
+                    class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded"
+                    data-i18n="index.open">Otevřít formulář</a>
+            </li>
+        </ul>
+    </main>
+
+    <footer class="max-w-3xl w-full mx-auto px-6 py-6 text-xs text-gray-500" data-i18n="index.footer">
+        Copyright (C) 2025 Tailor Services, s.r.o. — podpora: janbkrejci@gmail.com
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.TSI18n.init({ base: './i18n' });
+            window.TSI18n.mountSwitcher(document.getElementById('lang-switcher'));
+
+            // Odkazy si nesou zvolený jazyk, aby formulář navázal i bez localStorage.
+            const syncLinks = () => {
+                document.querySelectorAll('main a[href]').forEach(a => {
+                    const url = new URL(a.getAttribute('href'), window.location.href);
+                    url.searchParams.set('lang', window.TSI18n.lang);
+                    a.setAttribute('href', url.pathname + url.search);
+                });
+            };
+
+            syncLinks();
+            window.TSI18n.onChange(syncLinks);
+        });
+    </script>
+
+</body>
+
+</html>

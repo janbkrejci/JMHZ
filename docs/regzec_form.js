@@ -1,21 +1,52 @@
 // --- Configuration ---
-// dynamic mode detection based on filename
-const SHOW_NEW_ONLY_FIELDS = window.location.pathname.includes('new_regzec_form');
+
+// Zůstal jediný formulář — osobní dotazník nového zaměstnance. Dřívější varianta
+// „doplnění údajů“ sloužila zaměstnancům, kteří už byli v evidenci při startu JMHZ,
+// a byla zrušena. Uzly označené `new_only` se proto zobrazují vždy; příznak v datech
+// zůstává pro případ dalšího formuláře nad stejnou strukturou.
+const SHOW_NEW_ONLY_FIELDS = true;
+
+// Název ukládaného souboru je vždy český — soubor putuje do české mzdové účtárny
+// bez ohledu na to, v jakém jazyce si zaměstnanec formulář vyplnil.
+const EXPORT_FILE_PREFIX = 'Osobní dotazník';
+const EXPORT_FALLBACK_SURNAME = 'Prijmeni';
+const EXPORT_FALLBACK_NAME = 'Jmeno';
+
+// ID položek, na která se váže vlastní logika mimo definici formuláře.
+const FIELD = {
+    SURNAME: '10053',
+    NAME: '10054',
+    BIRTH_NUMBER: '10057',
+    CITIZENSHIP: '10067'
+};
+
+const app = {
+    formEl: null,
+    structure: null,
+    enums: null,
+    // fieldId -> klíč hlášky ve společném slovníku (ne hotový text, aby šel přeložit)
+    errorKeys: {},
+    buttonState: {
+        'check-data': { hidden: false },
+        'save': { hidden: true }
+    }
+};
+
+function t(key, fallback) {
+    return window.TSI18n ? window.TSI18n.t(key, fallback) : fallback;
+}
 
 // --- Main Logic ---
 document.addEventListener('DOMContentLoaded', async () => {
 
     const formEl = document.getElementById('employeeForm');
-    const modeBadge = document.getElementById('mode-badge');
-
-    if (SHOW_NEW_ONLY_FIELDS && modeBadge) {
-        modeBadge.textContent = "Nový zaměstnanec";
-        modeBadge.className = "font-mono bg-green-100 text-green-800 px-2 py-1 rounded";
-    }
+    app.formEl = formEl;
 
     try {
-        // 1. Fetch Structure and Enums
-        // Note: paths are relative to the HTML file location
+        // 1. Jazyk, struktura a číselníky
+        await window.TSI18n.init({ base: './i18n', form: 'regzec' });
+        window.TSI18n.mountSwitcher(document.getElementById('lang-switcher'));
+
         const [structureResp, enumsResp] = await Promise.all([
             fetch('regzec_form.json'),
             fetch('regzec_enums.json')
@@ -24,63 +55,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!structureResp.ok) throw new Error('Failed to load JSON structure');
         if (!enumsResp.ok) throw new Error('Failed to load Enums');
 
-        const structure = await structureResp.json();
-        const enums = await enumsResp.json();
+        app.structure = await structureResp.json();
+        app.enums = await enumsResp.json();
 
-        // 2. Transform Data
-        const { layout, fields, values } = buildMetadata(structure, enums);
+        // 2. První sestavení formuláře
+        applyForm();
 
-        // --- Custom Logic: Default Citizenship (10067) = CZ ---
-        if (!values['10067']) {
-            values['10067'] = 'CZ';
-        }
+        // 3. Tlačítka označíme akcí, aby na ně šlo cílit nezávisle na jazyce popisku.
+        //    ts-form při každém re-renderu tlačítka vytváří znovu, proto observer.
+        tagButtons(formEl);
+        new MutationObserver(() => tagButtons(formEl)).observe(formEl, { childList: true, subtree: true });
 
-        // --- Custom Logic: Rodné číslo (10057) mandatory if Citizenship (10067) is CZ ---
-        // Initial state: User requested it to be mandatory initially.
-        if (fields['10057']) {
-            fields['10057'].required = true;
-
-            // Check initial value if present (e.g. from default or loaded data)
-            const initialCitizenship = values['10067'];
-            if (initialCitizenship && initialCitizenship !== 'CZ') {
-                fields['10057'].required = false;
-            }
-        }
-
-        // 3. Initialize Form
-        const buttonsConfig = [
-            // Old buttons moved to left
-            { "action": "import-data", "label": "Načíst rozpracovaná data", "variant": "default", "position": "left" },
-            {
-                "action": "export-data",
-                "label": "Uložit rozpracovaná data",
-                "variant": "default",
-                "position": "left",
-                "confirmation": {
-                    "title": "Upozornění",
-                    "text": "Pozor, soubor, který teď ukládáte, není určen k odevzdání. Pro odevzdání použijte nejprve tlačítko Zkontrolovat před odevzdáním.",
-                    "buttons": [
-                        { "action": "cancel", "label": "Zrušit", "variant": "neutral" },
-                        { "action": "confirm", "label": "Rozumím, uložit pracovní soubor", "variant": "warning", "confirm": true }
-                    ]
-                }
-            },
-
-            // New buttons on right
-            { "action": "check-data", "label": "Zkontrolovat data před odevzdáním", "variant": "primary", "position": "right", "disabled": false, "hidden": false },
-            { "action": "save", "label": "Uložit dotazník k odevzdání", "variant": "success", "position": "right", "hidden": true }
-        ];
-
-        formEl.setAttribute('fields', JSON.stringify(fields));
-        formEl.setAttribute('layout', JSON.stringify(layout));
-        formEl.setAttribute('buttons', JSON.stringify(buttonsConfig));
-        if (values && Object.keys(values).length > 0) {
-            formEl.setAttribute('values', JSON.stringify(values));
-        }
-
-        // 4. Listen for events
+        // 4. Události
         formEl.addEventListener('form-submit', (e) => {
-            console.log('Form Submit Event:', e.detail);
             if (e.detail.action === 'check-data') {
                 validateForm(e, formEl);
             } else if (e.detail.action === 'save') {
@@ -88,125 +75,195 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
-        formEl.addEventListener('form-changed', (e) => {
-            // When form changes, hide Save and show Check
+        formEl.addEventListener('form-changed', () => {
+            // Po jakékoli změně je předchozí kontrola neplatná: schovat Uložit, ukázat Zkontrolovat.
             updateButtonState(formEl, 'save', { hidden: true });
             updateButtonState(formEl, 'check-data', { hidden: false });
 
-
-
-            // --- Custom Logic: Rodné číslo (10057) vs Citizenship (10067) ---
-            try {
-                // We need to access current form data. 
-                // Assuming ts-form exposes .formData or we can use internal tracking.
-                // Since this is a custom script for a specific form, we rely on the component behavior.
-                // Use formEl.formData if available
-                const currentData = formEl.formData || {};
-                const citizenship = currentData['10067'];
-
-                // Logic: Mandatory if CZ. User said "Initially mandatory".
-                // If citizenship is selected and NOT CZ -> Optional.
-                // If CZ or Empty (initially) -> Mandatory.
-
-                const isRequired = (!citizenship || citizenship === 'CZ');
-
-                // We need to update the field config.
-                // Reading attribute is slow but reliable source of truth for config.
-                const currentFields = JSON.parse(formEl.getAttribute('fields') || '{}');
-
-                if (currentFields['10057']) {
-                    if (currentFields['10057'].required !== isRequired) {
-                        console.log(`Updating BNO (10057) requirement to ${isRequired} (Citizenship: ${citizenship})`);
-                        currentFields['10057'].required = isRequired;
-                        formEl.setAttribute('fields', JSON.stringify(currentFields));
-                        // Note: Changing 'fields' attribute triggers re-render in ts-form. 
-                        // This might cause loss of focus if not handled carefully in ts-form.
-                    }
-                }
-            } catch (err) {
-                console.error("Error in form-changed custom logic", err);
-            }
+            syncConditionalRequired(formEl);
         });
 
-        // Wait for custom element to upgrade then run
+        // 5. Přepnutí jazyka přepíše jen popisky. Vyplněná data zůstávají v ts-form.formData,
+        //    které se při re-renderu nepřepisuje (ts-form: { ...values, ...this.formData }).
+        window.TSI18n.onChange(() => applyForm());
+
         customElements.whenDefined('ts-form').then(() => {
             formEl.run();
         });
 
     } catch (err) {
         console.error(err);
-        document.body.innerHTML = `<div class="p-8 text-red-600">Error loading form: ${err.message}</div>`;
+        document.body.innerHTML =
+            `<div class="p-8 text-red-600">${t('error.loadForm', 'Formulář se nepodařilo načíst')}: ${err.message}</div>`;
     }
 });
+
+/**
+ * Sestaví (nebo znovu sestaví) konfiguraci formuláře z aktuálního jazyka
+ * a předá ji komponentě. Vyplněná data ani aktivní záložka se neztratí.
+ */
+function applyForm() {
+    const formEl = app.formEl;
+    const { layout, fields, values } = buildMetadata(app.structure, app.enums);
+
+    // Výchozí státní občanství, pokud uživatel zatím nic nevybral.
+    if (!values[FIELD.CITIZENSHIP]) {
+        values[FIELD.CITIZENSHIP] = 'CZ';
+    }
+
+    applyConditionalRequired(fields, currentData(formEl), values);
+
+    const activeTab = getActiveTabIndex(formEl);
+    if (activeTab !== null) {
+        formEl.setAttribute('active-tab', String(activeTab));
+    }
+
+    formEl.setAttribute('fields', JSON.stringify(fields));
+    formEl.setAttribute('layout', JSON.stringify(layout));
+    formEl.setAttribute('buttons', JSON.stringify(buildButtons()));
+    formEl.setAttribute('errors', JSON.stringify(translatedErrors()));
+
+    if (Object.keys(values).length > 0) {
+        formEl.setAttribute('values', JSON.stringify(values));
+    }
+}
+
+function currentData(formEl) {
+    return (formEl && formEl.formData) || {};
+}
+
+function getActiveTabIndex(formEl) {
+    const activeTab = formEl.querySelector('sl-tab[active]');
+    if (!activeTab) return null;
+
+    const match = /^tab-(\d+)$/.exec(activeTab.panel || '');
+    return match ? parseInt(match[1], 10) : null;
+}
+
+/** Rodné číslo je povinné jen u českého občanství (a dokud občanství není vybráno). */
+function isBirthNumberRequired(data, values) {
+    const citizenship = data[FIELD.CITIZENSHIP] !== undefined
+        ? data[FIELD.CITIZENSHIP]
+        : (values || {})[FIELD.CITIZENSHIP];
+
+    return !citizenship || citizenship === 'CZ';
+}
+
+function applyConditionalRequired(fields, data, values) {
+    if (fields[FIELD.BIRTH_NUMBER]) {
+        fields[FIELD.BIRTH_NUMBER].required = isBirthNumberRequired(data, values);
+    }
+}
+
+/** Přepočítá podmíněnou povinnost přímo nad atributem `fields` (bez plného rebuildu). */
+function syncConditionalRequired(formEl) {
+    try {
+        const data = currentData(formEl);
+        const required = isBirthNumberRequired(data);
+        const fields = JSON.parse(formEl.getAttribute('fields') || '{}');
+
+        if (fields[FIELD.BIRTH_NUMBER] && fields[FIELD.BIRTH_NUMBER].required !== required) {
+            fields[FIELD.BIRTH_NUMBER].required = required;
+            formEl.setAttribute('fields', JSON.stringify(fields));
+        }
+    } catch (err) {
+        console.error('Error in form-changed custom logic', err);
+    }
+}
+
+function buildButtons() {
+    return [
+        {
+            action: 'import-data',
+            label: t('btn.importData', 'Načíst rozpracovaná data'),
+            variant: 'default',
+            position: 'left'
+        },
+        {
+            action: 'export-data',
+            label: t('btn.exportData', 'Uložit rozpracovaná data'),
+            variant: 'default',
+            position: 'left',
+            confirmation: {
+                title: t('confirm.export.title', 'Upozornění'),
+                text: t('confirm.export.text', ''),
+                buttons: [
+                    { action: 'cancel', label: t('confirm.export.cancel', 'Zrušit'), variant: 'neutral' },
+                    { action: 'confirm', label: t('confirm.export.ok', ''), variant: 'warning', confirm: true }
+                ]
+            }
+        },
+        {
+            action: 'check-data',
+            label: t('btn.checkData', 'Zkontrolovat data před odevzdáním'),
+            variant: 'primary',
+            position: 'right',
+            hidden: app.buttonState['check-data'].hidden
+        },
+        {
+            action: 'save',
+            label: t('btn.save', 'Uložit dotazník k odevzdání'),
+            variant: 'success',
+            position: 'right',
+            hidden: app.buttonState['save'].hidden
+        }
+    ];
+}
+
+function tagButtons(formEl) {
+    const buttons = formEl.buttons || {};
+    Object.keys(buttons).forEach(action => {
+        if (buttons[action] && buttons[action].dataset.action !== action) {
+            buttons[action].dataset.action = action;
+        }
+    });
+}
+
+function translatedErrors() {
+    const errors = {};
+    Object.keys(app.errorKeys).forEach(fieldId => {
+        errors[fieldId] = t(app.errorKeys[fieldId], 'Toto pole je povinné');
+    });
+    return errors;
+}
 
 // --- Action Functions ---
 
 function validateForm(event, formEl) {
-    console.log('validateForm called');
-
-    // 1. Get current data and config
-    // Use formEl.formData or internal state if exposed. 
-    // If formData is not directly exposed as a property by ts-form properly (it might be), 
-    // we can try to get it. Previous code used event.detail.formData for submit, but here we trigger validation.
-    // If check-data is a submit action, event.detail.formData should be present.
-
-    const formData = event.detail.formData || formEl.formData || {};
+    const formData = event.detail.formData || currentData(formEl);
     const fieldsConfig = JSON.parse(formEl.getAttribute('fields') || '{}');
-    let errors = {};
 
-    // 2. Check Required Fields
+    app.errorKeys = {};
+
+    // 1. Povinná pole
     Object.keys(fieldsConfig).forEach(fieldId => {
-        const field = fieldsConfig[fieldId];
-        if (field.required) {
-            const value = formData[fieldId];
-            // Check for empty value (null, undefined, empty string, empty array)
-            if (value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0)) {
-                errors[fieldId] = "Toto pole je povinné";
-            }
+        if (!fieldsConfig[fieldId].required) return;
+
+        const value = formData[fieldId];
+        if (value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0)) {
+            app.errorKeys[fieldId] = 'validation.required';
         }
     });
 
-    // 3. Conditional Validation
-    errors = validateConditionalRules(formData, errors);
+    // 2. Podmíněná pravidla
+    validateConditionalRules(formData, app.errorKeys);
 
-    // 4. Update Errors Attribute
-    // If errors object is empty, set to null or empty object string
-    const hasErrors = Object.keys(errors).length > 0;
+    const hasErrors = Object.keys(app.errorKeys).length > 0;
+    formEl.setAttribute('errors', JSON.stringify(translatedErrors()));
 
-    if (hasErrors) {
-        console.log("Validation failed:", errors);
-        formEl.setAttribute('errors', JSON.stringify(errors));
-
-        // Show Check, Hide Save (just in case)
-        updateButtonState(formEl, 'check-data', { hidden: false });
-        updateButtonState(formEl, 'save', { hidden: true });
-
-        // Optional: Scroll to first error? ts-form might handle rendering errors.
-    } else {
-        console.log("Validation passed");
-        formEl.setAttribute('errors', '{}');
-
-        // No errors -> Show Save, Hide Check
-        updateButtonState(formEl, 'check-data', { hidden: true });
-        updateButtonState(formEl, 'save', { hidden: false });
-    }
+    updateButtonState(formEl, 'check-data', { hidden: !hasErrors });
+    updateButtonState(formEl, 'save', { hidden: hasErrors });
 }
 
-function validateConditionalRules(formData, errors) {
-    // Placeholder for future conditional logic
-    // Example:
-    // if (formData['someField'] === 'X' && !formData['otherField']) {
-    //     errors['otherField'] = "Must be filled if someField is X";
-    // }
-
-    return errors;
+function validateConditionalRules(formData, errorKeys) {
+    // Místo pro další podmíněná pravidla. Do errorKeys patří klíč hlášky
+    // ze společného slovníku (docs/i18n/common.*.json), ne hotový text.
+    return errorKeys;
 }
 
 async function saveForm(event, formEl) {
     const formData = event.detail.formData;
-    console.log('saveForm called', formData);
 
-    // Helpers for file processing (replicated from ts-form.js)
     const fileToBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -242,11 +299,11 @@ async function saveForm(event, formEl) {
     try {
         const exportData = await processData(formData);
 
-        // Construct filename: yyyy-mm-dd Osobní dotazník Příjmení Jméno.json
+        // yyyy-mm-dd Osobní dotazník Příjmení Jméno.json
         const dateStr = new Date().toISOString().slice(0, 10);
-        const surname = formData['10053'] || 'Prijmeni';
-        const name = formData['10054'] || 'Jmeno';
-        const filename = `${dateStr} Osobní dotazník ${surname} ${name}.json`;
+        const surname = formData[FIELD.SURNAME] || EXPORT_FALLBACK_SURNAME;
+        const name = formData[FIELD.NAME] || EXPORT_FALLBACK_NAME;
+        const filename = `${dateStr} ${EXPORT_FILE_PREFIX} ${surname} ${name}.json`;
 
         const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -258,43 +315,36 @@ async function saveForm(event, formEl) {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        console.log(`Saved as ${filename}`);
-
     } catch (e) {
         console.error('Save failed', e);
-        alert('Save failed: ' + e.message);
+        alert(`${t('error.save', 'Uložení selhalo')}: ${e.message}`);
     }
 }
 
 function updateButtonState(formEl, actionName, updates) {
     try {
+        if (app.buttonState[actionName]) {
+            Object.assign(app.buttonState[actionName], updates);
+        }
+
         const currentButtons = JSON.parse(formEl.getAttribute('buttons') || '[]');
         let changed = false;
 
         const newButtons = currentButtons.map(btn => {
-            if (btn.action === actionName) {
-                // Check if there's actually a change to avoid unnecessary updates
-                let needsUpdate = false;
-                for (const key in updates) {
-                    if (btn[key] !== updates[key]) {
-                        needsUpdate = true;
-                        break;
-                    }
-                }
+            if (btn.action !== actionName) return btn;
 
-                if (needsUpdate) {
-                    changed = true;
-                    return { ...btn, ...updates };
-                }
-            }
-            return btn;
+            const needsUpdate = Object.keys(updates).some(key => btn[key] !== updates[key]);
+            if (!needsUpdate) return btn;
+
+            changed = true;
+            return { ...btn, ...updates };
         });
 
         if (changed) {
             formEl.setAttribute('buttons', JSON.stringify(newButtons));
         }
     } catch (e) {
-        console.error("Failed to update button state", e);
+        console.error('Failed to update button state', e);
     }
 }
 
@@ -302,7 +352,6 @@ function updateButtonState(formEl, actionName, updates) {
 // --- Builder Functions ---
 
 function buildMetadata(structure, enums) {
-    // Assume structure is array [ { key: 'employee', children: [...] } ]
     const root = structure.find(n => n.key === 'employee');
     if (!root) throw new Error("Root 'employee' node not found");
 
@@ -310,12 +359,11 @@ function buildMetadata(structure, enums) {
     const initialValues = {};
     const tabs = [];
 
-    // Process Root Children as Tabs
     if (root.children) {
         root.children.forEach(child => {
             if (shouldSkip(child)) return;
 
-            const tab = buildTab(child, fields, enums, initialValues);
+            const tab = buildTab(child, root.key, fields, enums, initialValues);
             if (tab) tabs.push(tab);
         });
     }
@@ -327,53 +375,55 @@ function buildMetadata(structure, enums) {
     };
 }
 
+/** Klíč uzlu do překladového slovníku: `id`, jinak tečková cesta z `key`. */
+function nodePath(parentPath, node) {
+    return parentPath ? `${parentPath}.${node.key}` : node.key;
+}
+
+function translate(node, path, prop, fallback) {
+    if (!window.TSI18n) return fallback;
+    return window.TSI18n.node(window.TSI18n.nodeKey(node, path), prop, fallback);
+}
+
 function shouldSkip(node) {
     if (node.skip) return true;
-    // If Standard Mode (SHOW_NEW_ONLY_FIELDS = false), skip if node is 'new_only'
     if (!SHOW_NEW_ONLY_FIELDS && node.new_only) return true;
     return false;
 }
 
-function buildTab(node, fieldsAccumulator, enums, valuesAccumulator) {
-    // Flatten the node's subtree into a list of Items (Fields or Separators)
-    const flatItems = flattenNode(node, fieldsAccumulator, enums, valuesAccumulator); // Returns array of { type, ... }
+function buildTab(node, parentPath, fieldsAccumulator, enums, valuesAccumulator) {
+    const path = nodePath(parentPath, node);
+    const flatItems = flattenNode(node, path, fieldsAccumulator, enums, valuesAccumulator);
 
     if (flatItems.length === 0) return null;
 
-    // Pack Items into Rows
-    const rows = packRows(flatItems);
-
     return {
-        label: node.description || node.key,
-        rows: rows
+        label: translate(node, path, 'description', node.description || node.key),
+        rows: packRows(flatItems)
     };
 }
 
-function flattenNode(node, fieldsAccumulator, enums, valuesAccumulator) {
+function flattenNode(node, path, fieldsAccumulator, enums, valuesAccumulator) {
     let items = [];
 
     if (node.children && node.children.length > 0) {
-        // It's a Group/Section
         node.children.forEach(child => {
             if (shouldSkip(child)) return;
 
-            // If child is a group (has children), adds Separator + Recurse
-            // If child is a leaf, adds Field
+            const childPath = nodePath(path, child);
 
             if (child.children && child.children.length > 0) {
-                // Group
+                // Skupina: nadpis jako oddělovač, pak rekurze do potomků
                 if (child.description) {
                     items.push({
                         type: 'separator',
-                        label: child.description,
+                        label: translate(child, childPath, 'description', child.description),
                         width: 12
                     });
                 }
-                items = items.concat(flattenNode(child, fieldsAccumulator, enums, valuesAccumulator));
+                items = items.concat(flattenNode(child, childPath, fieldsAccumulator, enums, valuesAccumulator));
             } else {
-                // Leaf
-                const item = createFieldItem(child, fieldsAccumulator, enums, valuesAccumulator);
-                items.push(item);
+                items.push(createFieldItem(child, childPath, fieldsAccumulator, enums, valuesAccumulator));
             }
         });
     }
@@ -381,64 +431,58 @@ function flattenNode(node, fieldsAccumulator, enums, valuesAccumulator) {
     return items;
 }
 
-function createFieldItem(node, fieldsAccumulator, enums, valuesAccumulator) {
-    // Construct dotted path
-    // NEW: Use ID if available, otherwise fallback to path/key
+function createFieldItem(node, path, fieldsAccumulator, enums, valuesAccumulator) {
+    // Klíč pole ve formulářových datech: ID položky datové věty, jinak cesta.
     const fieldName = node.id || node.original_path || node.key;
 
-    // Default config
     const config = {
         type: node.widget || 'input',
-        label: node.description || node.key,
+        label: translate(node, path, 'description', node.description || node.key)
     };
 
-    // Handle Selection -> Combobox
     if (node.widget === 'selection') {
         config.type = 'combobox';
         config.allowCustom = false;
         config.allowEmpty = true;
-        config.placeholder = 'Vyberte...';
+        config.placeholder = t('field.selectPlaceholder', 'Vyberte...');
 
         if (node.ciselnik && enums[node.ciselnik]) {
-            config.options = enums[node.ciselnik];
+            config.options = window.TSI18n
+                ? window.TSI18n.enumOptions(node.ciselnik, enums[node.ciselnik])
+                : enums[node.ciselnik];
         } else {
-            config.options = []; // Fallback empty
+            config.options = [];
             console.warn(`Enum not found for ${fieldName} (ciselnik: ${node.ciselnik})`);
         }
     }
 
-    // Handle Markdown
     if (node.widget === 'markdown') {
         config.type = 'markdown';
         if (node.content) {
-            config.content = node.content;
+            config.content = translate(node, path, 'content', node.content);
         }
-        // Markdown fields often span full width
         config.width = '12';
     }
 
-    // Handle Separator
     if (node.widget === 'separator') {
-        // Special case: return immediately, do not add to fieldsAccumulator
+        // Oddělovač se nestává polem, vrací se rovnou do layoutu.
         return {
             type: 'separator',
-            label: node.description || node.label,
+            label: translate(node, path, 'description', node.description || node.label),
             width: 12
         };
     }
 
-    // Handle File
     if (node.widget === 'file') {
         config.type = 'file';
         if (node.multiple) {
             config.multiple = true;
         }
         if (node.label) {
-            config.innerLabel = node.label;
+            config.innerLabel = translate(node, path, 'label', node.label);
         }
     }
 
-    // Handle Textarea
     if (node.widget === 'textarea') {
         config.type = 'textarea';
         if (node.rows) {
@@ -446,28 +490,24 @@ function createFieldItem(node, fieldsAccumulator, enums, valuesAccumulator) {
         }
     }
 
-    // Handle Mandatory
     if (node.mandatory === 'P') {
         config.required = true;
     }
 
-    // Handle Default Value
     if (node.default_value !== undefined && node.default_value !== null && node.default_value !== "") {
         valuesAccumulator[fieldName] = node.default_value;
     }
 
-    // Handle Placeholder
     if (node.placeholder) {
-        config.placeholder = node.placeholder;
+        config.placeholder = translate(node, path, 'placeholder', node.placeholder);
     }
 
-    // Add to fields config
     fieldsAccumulator[fieldName] = config;
 
     return {
         type: 'field',
         field: fieldName,
-        width: parseInt(node.width || 12, 10), // Ensure number
+        width: parseInt(node.width || 12, 10)
     };
 }
 
@@ -478,12 +518,9 @@ function packRows(items) {
 
     items.forEach(item => {
         if (currentWidthSum + item.width > 12) {
-            // Finish current row
             if (currentRow.length > 0) {
-                // Pad if needed
                 if (currentWidthSum < 12) {
-                    const diff = 12 - currentWidthSum;
-                    currentRow.push({ type: 'empty', width: diff });
+                    currentRow.push({ type: 'empty', width: 12 - currentWidthSum });
                 }
                 rows.push(convertRowToFr(currentRow));
             }
@@ -497,8 +534,7 @@ function packRows(items) {
 
     if (currentRow.length > 0) {
         if (currentWidthSum < 12) {
-            const diff = 12 - currentWidthSum;
-            currentRow.push({ type: 'empty', width: diff });
+            currentRow.push({ type: 'empty', width: 12 - currentWidthSum });
         }
         rows.push(convertRowToFr(currentRow));
     }
@@ -507,18 +543,14 @@ function packRows(items) {
 }
 
 function convertRowToFr(rowItems) {
-    // rowItems: [{field, width}, ...]
-    // Output: [{field, width: '6fr'}, ...]
     return rowItems.map(item => {
         if (item.type === 'separator') {
-            return { type: 'separator', label: item.label, width: '12fr' }; // Full width
+            return { type: 'separator', label: item.label, width: '12fr' };
         }
         if (item.type === 'empty') {
             return { type: 'empty', width: `${item.width}fr` };
         }
 
-        // Destructure width out of item to strictly avoid integer overwrite
-        // or just spread first. Spread first is safer for unknown props.
         const { width, ...rest } = item;
 
         return {
