@@ -118,6 +118,11 @@ function applyForm() {
         formEl.setAttribute('active-tab', String(activeTab));
     }
 
+    // Texty, které si ts-form vykresluje sám (drop zóna, kalendář, dialogy),
+    // řídí jeho vlastní registr. Atribut se čte i při upgradu elementu, takže
+    // první vykreslení proběhne rovnou ve správném jazyce.
+    formEl.setAttribute('locale', window.TSI18n.lang);
+
     formEl.setAttribute('fields', JSON.stringify(fields));
     formEl.setAttribute('layout', JSON.stringify(layout));
     formEl.setAttribute('buttons', JSON.stringify(buildButtons()));

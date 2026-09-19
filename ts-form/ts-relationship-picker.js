@@ -1,6 +1,9 @@
+import { TSFormI18n } from './ts-form-i18n.js';
+
 export class TSRelationshipPicker extends HTMLElement {
     constructor() {
         super();
+        this.handleLocaleChange = () => this.render();
         this.selectedItems = [];
         this.availableItems = []; // Mock data source
         this.mode = 'single'; // 'single' or 'multiple'
@@ -80,6 +83,7 @@ export class TSRelationshipPicker extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        document.addEventListener(TSFormI18n.changeEvent, this.handleLocaleChange);
 
         // Add ResizeObserver with debouncing to prevent loop errors
         this.resizeObserver = new ResizeObserver(() => {
@@ -99,6 +103,7 @@ export class TSRelationshipPicker extends HTMLElement {
     }
 
     disconnectedCallback() {
+        document.removeEventListener(TSFormI18n.changeEvent, this.handleLocaleChange);
         if (this.resizeObserver) {
             this.resizeObserver.disconnect();
         }
@@ -259,7 +264,7 @@ export class TSRelationshipPicker extends HTMLElement {
 
         if (this.selectedItems.length === 0) {
             const placeholder = document.createElement('span');
-            placeholder.textContent = 'Žádné položky nevybrány';
+            placeholder.textContent = TSFormI18n.t('picker.empty');
             placeholder.style.color = 'var(--sl-input-placeholder-color)';
             this.selectedContainer.appendChild(placeholder);
             this.selectedContainer.classList.add('empty');
@@ -507,7 +512,7 @@ export class TSRelationshipPicker extends HTMLElement {
         footer.style.width = '100%';
 
         const closeBtn = document.createElement('sl-button');
-        closeBtn.textContent = 'Zavřít';
+        closeBtn.textContent = TSFormI18n.t('picker.close');
         closeBtn.addEventListener('click', () => dialog.hide());
 
         footer.appendChild(closeBtn);
@@ -541,7 +546,7 @@ export class TSRelationshipPicker extends HTMLElement {
         });
 
         if (filtered.length === 0) {
-            container.innerHTML = '<div style="text-align: center; color: var(--sl-color-neutral-500); padding: 1rem;">Žádné výsledky</div>';
+            container.innerHTML = `<div style="text-align: center; color: var(--sl-color-neutral-500); padding: 1rem;">${TSFormI18n.t('picker.noResults')}</div>`;
             return;
         }
 

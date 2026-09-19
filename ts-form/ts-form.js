@@ -1,4 +1,5 @@
 import './ts-form-field.js';
+import { TSFormI18n } from './ts-form-i18n.js';
 // CSS imported in HTML via CDN
 
 
@@ -10,6 +11,12 @@ class TSForm extends HTMLElement {
         this.lastAction = null;
         this.buttons = {};
         this.isInitialized = false;
+
+        // Component-owned strings (file upload, calendar, pickers) live in
+        // TSFormI18n; a locale switch has to repaint the already-rendered form.
+        this.handleLocaleChange = () => {
+            if (this.isInitialized) this.requestRender();
+        };
 
         // Global fix for layout shift: Force scrollbar to be always visible
         // This prevents the content from jumping when Shoelace locks the body scroll
@@ -33,12 +40,15 @@ class TSForm extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['layout', 'fields', 'errors', 'buttons', 'values', 'active-tab'];
+        return ['layout', 'fields', 'errors', 'buttons', 'values', 'active-tab', 'locale'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue !== newValue) {
-            if (name === 'active-tab') {
+            if (name === 'locale') {
+                // The re-render is driven by the locale-change event, not from here.
+                TSFormI18n.setLocale(newValue);
+            } else if (name === 'active-tab') {
                 this.switchTab(newValue);
             } else if (this.isInitialized) {
                 // Only re-render if already initialized via run()
@@ -119,6 +129,11 @@ class TSForm extends HTMLElement {
     connectedCallback() {
         this.ensureStructure();
         this.setupEventListeners();
+        document.addEventListener(TSFormI18n.changeEvent, this.handleLocaleChange);
+    }
+
+    disconnectedCallback() {
+        document.removeEventListener(TSFormI18n.changeEvent, this.handleLocaleChange);
     }
 
     ensureStructure() {
@@ -1067,13 +1082,13 @@ class TSForm extends HTMLElement {
 
     showConfirmationDialog(confirmation, onConfirm) {
         const dialog = document.createElement('sl-dialog');
-        dialog.label = confirmation.title || 'Confirm';
+        dialog.label = confirmation.title || TSFormI18n.t('dialog.confirmTitle');
         dialog.open = true;
         dialog.size = 'medium';
         dialog.style.fontFamily = 'var(--sl-font-sans)';
 
         const content = document.createElement('div');
-        content.textContent = confirmation.text || 'Are you sure?';
+        content.textContent = confirmation.text || TSFormI18n.t('dialog.confirmText');
         dialog.appendChild(content);
 
         const footer = document.createElement('div');
@@ -1122,3 +1137,5 @@ class TSForm extends HTMLElement {
 }
 
 customElements.define('ts-form', TSForm);
+
+export { TSFormI18n };

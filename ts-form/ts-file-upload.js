@@ -1,3 +1,5 @@
+import { TSFormI18n } from './ts-form-i18n.js';
+
 export class TSFileUpload extends HTMLElement {
     constructor() {
         super();
@@ -5,7 +7,17 @@ export class TSFileUpload extends HTMLElement {
         this.files = [];
         this.multiple = false;
         this.accept = '*';
-        this.label = 'Nahrát soubory';
+        this.label = TSFormI18n.t('file.label');
+        // A label supplied by the consumer is left alone when the locale changes.
+        this.hasOwnLabel = false;
+
+        this.handleLocaleChange = () => {
+            if (!this.hasOwnLabel) {
+                this.label = TSFormI18n.t('file.label');
+            }
+            this.render();
+            this.updateError();
+        };
     }
 
     static get observedAttributes() {
@@ -31,6 +43,7 @@ export class TSFileUpload extends HTMLElement {
             this.accept = newValue || '*';
         } else if (name === 'label') {
             this.label = newValue;
+            this.hasOwnLabel = newValue !== null;
         } else if (name === 'inner-label') {
             this.innerLabel = newValue;
         } else if (name === 'value') {
@@ -77,6 +90,11 @@ export class TSFileUpload extends HTMLElement {
             this.hasListeners = true;
         }
         this.updateError();
+        document.addEventListener(TSFormI18n.changeEvent, this.handleLocaleChange);
+    }
+
+    disconnectedCallback() {
+        document.removeEventListener(TSFormI18n.changeEvent, this.handleLocaleChange);
     }
 
     setupEventListeners() {
@@ -280,7 +298,7 @@ export class TSFileUpload extends HTMLElement {
             </div>
             <div>${this.innerLabel || this.label}</div>
             <div class="upload-text" style="font-size: 0.8em; color: var(--sl-color-neutral-500); margin-top: 0.25rem;">
-                ${this.multiple ? 'Přetáhněte soubory sem nebo klikněte pro nahrání' : 'Přetáhněte soubor sem nebo klikněte pro nahrání'}
+                ${TSFormI18n.t(this.multiple ? 'file.dropMultiple' : 'file.dropSingle')}
             </div>
         `;
         dropZone.addEventListener('click', () => input.click());
@@ -343,7 +361,7 @@ export class TSFileUpload extends HTMLElement {
 
             const downloadBtn = document.createElement('sl-icon-button');
             downloadBtn.name = 'cloud-download';
-            downloadBtn.label = 'Stáhnout';
+            downloadBtn.label = TSFormI18n.t('file.download');
             downloadBtn.dataset.index = index; // verified attribute
             downloadBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -352,7 +370,7 @@ export class TSFileUpload extends HTMLElement {
 
             const removeBtn = document.createElement('sl-icon-button');
             removeBtn.name = 'x';
-            removeBtn.label = 'Odstranit';
+            removeBtn.label = TSFormI18n.t('file.remove');
             removeBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.removeFile(index);
@@ -370,9 +388,7 @@ export class TSFileUpload extends HTMLElement {
     updateUploadText() {
         const textEl = this.shadowRoot.querySelector('.upload-text');
         if (textEl) {
-            textEl.textContent = this.multiple
-                ? 'Přetáhněte soubory sem nebo klikněte pro nahrání'
-                : 'Přetáhněte soubor sem nebo klikněte pro nahrání';
+            textEl.textContent = TSFormI18n.t(this.multiple ? 'file.dropMultiple' : 'file.dropSingle');
         }
         const input = this.shadowRoot.querySelector('input[type="file"]');
         if (input) {

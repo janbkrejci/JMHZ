@@ -3,8 +3,8 @@ import './ts-file-upload.js';
 import './ts-relationship-picker.js';
 import './ts-combobox.js';
 import flatpickr from 'flatpickr';
-import { Czech } from 'flatpickr/dist/l10n/cs.js';
 import flatpickrStyles from 'flatpickr/dist/flatpickr.css?inline';
+import { TSFormI18n } from './ts-form-i18n.js';
 import { marked } from 'marked';
 
 // Inject Flatpickr styles
@@ -465,7 +465,7 @@ export class TSFormField extends HTMLElement {
             case 'image':
                 field = document.createElement('ts-file-upload');
                 if (!config.hideLabel) {
-                    field.setAttribute('label', config.label || 'Upload file');
+                    field.setAttribute('label', config.label || TSFormI18n.t('file.label'));
                 }
                 if (config.multiple) {
                     field.setAttribute('multiple', 'true');
@@ -686,7 +686,7 @@ export class TSFormField extends HTMLElement {
                     const inputElement = field.shadowRoot ? field.shadowRoot.querySelector('input') : field;
                     if (inputElement) {
                         const fp = flatpickr(inputElement, {
-                            locale: Czech,
+                            locale: TSFormI18n.calendar() || flatpickr.l10ns.default,
                             defaultDate: value,
                             dateFormat: 'd. m. Y',
                             allowInput: true,
@@ -803,7 +803,7 @@ export class TSFormField extends HTMLElement {
                     const inputElement = field.shadowRoot ? field.shadowRoot.querySelector('input') : field;
                     if (inputElement) {
                         const fp = flatpickr(inputElement, {
-                            locale: Czech,
+                            locale: TSFormI18n.calendar() || flatpickr.l10ns.default,
                             defaultDate: value,
                             enableTime: true,
                             dateFormat: 'd. m. Y H:i',

@@ -326,6 +326,38 @@ test.describe('Localization', () => {
         expect(en.state).toMatch(/Czech/i);
     });
 
+    // These strings live inside ts-form itself, not in the form definition,
+    // and are driven by the `locale` attribute (TSFormI18n).
+    test('file upload text follows the language', async ({ page }) => {
+        await page.goto(FORM_URL);
+        await waitForFormReady(page);
+
+        const dropText = page.locator('ts-file-upload .upload-text').first();
+        await expect(dropText).toContainText('Přetáhněte soubory sem');
+
+        await switchLanguage(page, 'en');
+        await expect(dropText).toContainText('Drag files here');
+    });
+
+    test('calendar is localized', async ({ page }) => {
+        await page.goto(FORM_URL);
+        await waitForFormReady(page);
+
+        await page.locator('sl-tab', { hasText: 'Osobní údaje' }).click();
+        await page.waitForTimeout(800);
+
+        const openCalendar = () => page.locator('ts-form-field[field-name="10056"] sl-icon[name="calendar3"]').click();
+
+        await openCalendar();
+        await expect(page.locator('.flatpickr-calendar.open .flatpickr-weekdaycontainer')).toContainText('Po');
+
+        await page.keyboard.press('Escape');
+        await switchLanguage(page, 'en');
+
+        await openCalendar();
+        await expect(page.locator('.flatpickr-calendar.open .flatpickr-weekdaycontainer')).toContainText('Mon');
+    });
+
     test('hidden ISPV education field is not rendered', async ({ page }) => {
         await page.goto(FORM_URL);
         await waitForFormReady(page);

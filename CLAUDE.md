@@ -132,6 +132,14 @@ Volba jazyka: `?lang=` → dřívější volba v `localStorage` → **čeština*
 
 Hlášky validace se v `app.errorKeys` drží jako **klíče**, ne hotové texty — jinak by po přepnutí jazyka zůstaly v původním jazyce.
 
+### Texty uvnitř ts-form
+
+Část textů si vykresluje sama komponenta a slovníky v `docs/i18n/` na ně nedosáhnou: hláška v drop zóně nahrávacího pole, tlačítka u nahraného souboru, názvy měsíců a dnů v kalendáři (flatpickr), výchozí potvrzovací dialog. Ty řídí registr `TSFormI18n` uvnitř ts-form.
+
+`applyForm()` mu jazyk předává atributem: `formEl.setAttribute('locale', TSI18n.lang)`. Atribut se čte i při upgradu elementu, takže první vykreslení proběhne rovnou správně a není potřeba řešit, jestli už se modul bundlu stihl provést.
+
+Formát data je ve všech jazycích stejný (číselný, den první) — vstup `3.4.2026` i `03042026` se čte jako den–měsíc–rok a formát podle jazyka by to v angličtině tiše překlopil na 4. března. Lokalizuje se jen kalendář.
+
 Název ukládaného souboru zůstává vždy český (`EXPORT_FILE_PREFIX`) — soubor putuje do české mzdové účtárny bez ohledu na jazyk vyplnění.
 
 ## `docs/regzec_form.js` — aplikační vrstva
@@ -156,7 +164,9 @@ Import/export rozpracovaných dat (`import-data` / `export-data`) řeší ts-for
 
 `ts-form/` obsahuje nesbalené zdroje jen pro čtení/orientaci; runtime používá výhradně `docs/ts-form-bundle.js`.
 
-API komponenty (atributy `layout`/`fields`/`buttons`/`values`/`errors`, události `form-submit`/`form-changed`, typy polí) je popsané v `ts-form-readme.md` — ten je také kopírovaný z `../TSWebUI`.
+API komponenty (atributy `layout`/`fields`/`buttons`/`values`/`errors`/`locale`, události `form-submit`/`form-changed`, typy polí, registr `TSFormI18n`) je popsané v `ts-form-readme.md` — ten je také kopírovaný z `../TSWebUI`.
+
+Lokalizaci vlastních textů komponenty přidal [TSWebUI#2](https://github.com/janbkrejci/TSWebUI/pull/2). Dokud není sloučený, `docs/ts-form-bundle.js` je build z jeho větve `feat/component-localization` — po merge stačí `./update_ts_form.sh`.
 
 Komponenta se konfiguruje **výhradně přes HTML atributy s JSON stringy**. Změna atributu `fields` vyvolá re-render (může způsobit ztrátu fokusu — viz poznámka u logiky `10057`).
 

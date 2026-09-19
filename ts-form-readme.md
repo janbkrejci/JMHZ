@@ -255,7 +255,56 @@ Otevře dialog pro import dat z JSON souboru.
 
 ---
 
-## 5. CSS Proměnné a Stylování
+## 5. Lokalizace
+
+Popisky polí dodává aplikace v `fields` a `layout`. Zbývají texty, které si komponenty vykreslují samy — hláška v nahrávacím poli, tlačítka u nahraného souboru, prázdný stav relationship pickeru, výchozí potvrzovací dialog a názvy měsíců v kalendáři. Ty spravuje registr `TSFormI18n`.
+
+Výchozí jazyk je **čeština**, takže stávající použití se nemění.
+
+```html
+<!-- Deklarativně -->
+<ts-form locale="en" layout='{...}' fields='{...}'></ts-form>
+```
+
+```javascript
+// Imperativně (jazyk je společný pro celou stránku)
+import { TSFormI18n } from 'ts-web-ui/ts-form';
+TSFormI18n.setLocale('en');
+```
+
+Při načtení bundlu přes `<script type="module">` není import možný, proto je registr dostupný i jako `window.TSFormI18n`.
+
+Přepnutí jazyka překreslí všechny připojené komponenty. **Vyplněná data zůstávají** — `ts-form` drží hodnoty v `formData` a při překreslení je znovu použije.
+
+### Vlastní jazyk nebo úprava textů
+
+```javascript
+TSFormI18n.register('en', { 'file.dropSingle': 'Drop your CV here' });
+
+// Nový jazyk: nevyplněné klíče se doplní z češtiny
+TSFormI18n.register('de', { 'file.download': 'Herunterladen' });
+TSFormI18n.registerCalendar('de', German);   // locale objekt z flatpickr/dist/l10n/de.js
+```
+
+### Klíče
+
+| Klíč | Kde se zobrazí |
+|---|---|
+| `file.label` | výchozí popisek nahrávacího pole |
+| `file.dropSingle` / `file.dropMultiple` | text uvnitř drop zóny |
+| `file.download` / `file.remove` | tlačítka u nahraného souboru |
+| `picker.empty` / `picker.close` / `picker.noResults` | relationship picker |
+| `dialog.confirmTitle` / `dialog.confirmText` | potvrzovací dialog, pokud je tlačítko nedodá v `confirmation` |
+
+`TSFormI18n.locales` vrátí dostupné jazyky, `TSFormI18n.changeEvent` název události, kterou registr posílá na `document` při změně.
+
+### Formát data
+
+Formát data **není** součástí jazyka a zůstává ve všech jazycích číselný, den první (`d. m. Y`). Vstupní pole přijímá `3.4.2026` i `03042026` a vyhodnocuje je jako den–měsíc–rok; kdyby se formát měnil podle jazyka, stejný zápis by v anglosaském locale tiše znamenal 4. března. Lokalizuje se jen kalendář — názvy měsíců, dnů a první den týdne.
+
+---
+
+## 6. CSS Proměnné a Stylování
 Komponenta využívá Shoelace Design System proměnné. Důležité proměnné pro přizpůsobení:
 - `--sl-color-primary-*`: Barvy primárních prvků.
 - `--sl-font-sans`: Písmo.
