@@ -166,7 +166,7 @@ Import/export rozpracovaných dat (`import-data` / `export-data`) řeší ts-for
 
 API komponenty (atributy `layout`/`fields`/`buttons`/`values`/`errors`/`locale`, události `form-submit`/`form-changed`, typy polí, registr `TSFormI18n`) je popsané v `ts-form-readme.md` — ten je také kopírovaný z `../TSWebUI`.
 
-Lokalizaci vlastních textů komponenty přidal [TSWebUI#2](https://github.com/janbkrejci/TSWebUI/pull/2). Dokud není sloučený, `docs/ts-form-bundle.js` je build z jeho větve `feat/component-localization` — po merge stačí `./update_ts_form.sh`.
+Lokalizaci vlastních textů komponenty přidal [TSWebUI#2](https://github.com/janbkrejci/TSWebUI/pull/2), sloučený do `main`. Aktuální `docs/ts-form-bundle.js` je build odtud; další aktualizace už jede standardně přes `./update_ts_form.sh`.
 
 Komponenta se konfiguruje **výhradně přes HTML atributy s JSON stringy**. Změna atributu `fields` vyvolá re-render (může způsobit ztrátu fokusu — viz poznámka u logiky `10057`).
 
