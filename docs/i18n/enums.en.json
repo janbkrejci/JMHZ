@@ -1,5 +1,5 @@
 {
-    "_comment": "Anglické popisky číselníků. Klíč = název číselníku v docs/*_enums.json, uvnitř value -> label. Chybějící položka se zobrazí česky. Číselník 'state' se nepřekládá ručně — kódy ISO 3166-1 alpha-2 překládá Intl.DisplayNames v i18n.js.",
+    "_comment": "Anglické popisky číselníků. Klíč = název číselníku v docs/*_enums.json, uvnitř value -> label. Chybějící položka se zobrazí česky. Číselník 'state' se nepřekládá ručně — kódy ISO 3166-1 alpha-2 překládá Intl.DisplayNames v i18n.js. Názvy zdravotních pojišťoven zůstávají ve všech jazycích v oficiálním českém znění; překládají se jen nepojišťovací položky 300 a 999.",
 
     "bool": {
         "A": "YES",
@@ -141,13 +141,13 @@
     },
 
     "zdravotni_pojistovny": {
-        "111": "111 - General Health Insurance Company of the Czech Republic (VZP)",
-        "201": "201 - Military Health Insurance Company of the Czech Republic",
-        "205": "205 - Czech Industrial Health Insurance Company",
-        "207": "207 - Sectoral Health Insurance Company of Banking, Insurance and Construction Employees",
-        "209": "209 - ŠKODA Employee Health Insurance Company",
-        "211": "211 - Health Insurance Company of the Ministry of the Interior of the Czech Republic",
-        "213": "213 - Revírní bratrská pokladna Health Insurance Company",
+        "111": "111 - Všeobecná zdravotní pojišťovna ČR",
+        "201": "201 - Vojenská zdravotní pojišťovna ČR",
+        "205": "205 - Česká průmyslová zdravotní pojišťovna",
+        "207": "207 - Oborová zdravotní pojišťovna zaměstnanců bank, pojišťoven a stavebnictví",
+        "209": "209 - Zaměstnanecká pojišťovna ŠKODA",
+        "211": "211 - Zdravotní pojišťovna Ministerstva vnitra ČR",
+        "213": "213 - Revírní bratrská pokladna, zdravotní pojišťovna",
         "300": "300 - Self-payer",
         "999": "999 - Other"
     }

@@ -126,6 +126,8 @@ Chybějící klíč nebo prázdná hodnota = tiše se použije česká předloha
 
 Číselník `state` (249 zemí) se nepřekládá ručně — kódy ISO 3166-1 alpha-2 překládá `Intl.DisplayNames` v `i18n.js`, s českým názvem jako fallbackem.
 
+Názvy zdravotních pojišťoven (`zdravotni_pojistovny`) se naopak nepřekládají vůbec — v `enums.en.json` jsou schválně uvedené v oficiálním českém znění, aby souhlasily s průkazem pojištěnce a s tím, co zaměstnanec hlásí mzdové účtárně. Přeložené jsou jen položky `300` (Samoplátce) a `999` (Ostatní), které pojišťovny nejsou.
+
 Volba jazyka: `?lang=` → dřívější volba v `localStorage` → **čeština**. Jazyk prohlížeče se záměrně neuplatňuje.
 
 **Přepnutí jazyka nesmí ztratit data.** Funguje to proto, že `ts-form` při re-renderu dělá `this.formData = { ...valuesConfig, ...this.formData }` — živá data přebíjejí atribut `values`. `applyForm()` tedy jen přepočítá `fields`/`layout`/`buttons`/`errors` a nesahá na hodnoty; `File` objekty přežijí taky, protože se předávají jako vlastnost (`fieldElement.value = value`), ne přes JSON atribut. Aktivní záložka se zachová přes atribut `active-tab`.
